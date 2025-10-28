@@ -11,3 +11,6 @@ The program has the following functionality:
 - allows new characters/monsters to be added and removed from the xml files
 - allows characters/monsters to be modified that are within the xml files
 - allows new character/monsters xml files to be generated
+- allows new conditions to be added
+- allows different condition files to be created
+- contains a very basic dice roller
