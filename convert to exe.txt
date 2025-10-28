@@ -1,0 +1,21 @@
+Install PyInstaller:
+pip install pyinstaller
+
+Naviagte to the directory of the script
+Run pyinstaller:
+pyinstaller your_script_name.py
+
+If you want a single file, you can use:
+pyinstaller --onefile your_script_name.py
+
+To create an executable without a console window, use:
+pyinstaller --onefile --noconsole your_script_name.py
+
+Alternativly, you can use auto-py-to-exe that provides a graphical interface for PyInstaller, simplifing the process: -- make sure you include the dice folder and images to files and the folder to makr it work correctly
+pip install auto-py-to-exe
+auto-py-to-exe
+
+
+
+or run this command from the root folder for the last lot of settings ot be applied:
+pyinstaller --noconfirm --onedir --windowed --add-data "Settings/Dice;./Settings/Dice/" --add-data "Settings/Dice/d4.png;./Settings/Dice/" --add-data "Settings/Dice/d6.png;./Settings/Dice/" --add-data "Settings/Dice/d8.png;./Settings/Dice/" --add-data "Settings/Dice/d10.png;./Settings/Dice/" --add-data "Settings/Dice/d12.png;./Settings/Dice/" --add-data "Settings/Dice/d20.png;./Settings/Dice/" --add-data "Settings/Dice/d100.png;./Settings/Dice/" "main.py"

@@ -1,0 +1,1476 @@
+<?xml version='1.0' encoding='utf-8'?>
+<characters>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Ancient Galeb Duhr</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>17</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>126</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>126</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>11</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>22</strength>
+    <athletics>0</athletics>
+    <dexterity>14</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>14</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>20</constitution>
+    <charisma>11</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>bludgeoning, piercing, and
+slashing from nonmagical attacks</damage_resistance>
+    <damage_immunities>poison</damage_immunities>
+    <condition_immunities>exhaustion, paralyzed,
+petrified, poisoned</condition_immunities>
+    <languages>Common, Terran</languages>
+    <challenge_rating>8 (3,900 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses>darkvision 60 ft., tremorsense 60 ft., passive
+Perception 12</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>15</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>False Appearance</name>
+        <description>While the ancient galeb duhr remains motionless it is indistinguishable from a normal menhir.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The ancient galeb duhr makes two slam attacks.</description>
+      </action>
+      <action>
+        <name>Slam</name>
+        <description>Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 16 (3d6 + 6) bludgeoning damage.</description>
+      </action>
+      <action>
+        <name>Animate Boulders (1/Day)</name>
+        <description>The ancient galeb duhr
+magically animates up to four menhirs it can see within
+60 feet of it. The menhirs remain animated for as long
+as the ancient galeb duhr maintains concentration, up
+to 1 minute (as if concentrating on a spell)</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Animated Menhir</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>16</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>85</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>85</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>1</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>20</strength>
+    <athletics>0</athletics>
+    <dexterity>14</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>14</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>20</constitution>
+    <charisma>1</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>bludgeoning, piercing, and
+slashing from nonmagical attacks</damage_resistance>
+    <damage_immunities>poison</damage_immunities>
+    <condition_immunities>exhaustion, paralyzed,
+petrified, poisoned</condition_immunities>
+    <languages>Terran</languages>
+    <challenge_rating />
+    <equipment />
+    <special_abilities />
+    <senses>darkvision 60 ft., tremorsense 60 ft., passive
+Perception 12</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>15</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>False Appearance</name>
+        <description>While the animated menhir
+remains motionless it is indistinguishable from a normal menhir.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Slam</name>
+        <description>Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Corrupted Barbshell</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>17</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>94</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>94</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>1</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>18</strength>
+    <athletics>0</athletics>
+    <dexterity>1</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>8</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>1</perception>
+    <survival>0</survival>
+    <constitution>20</constitution>
+    <charisma>5</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>cold, fi re; bludgeoning, piercing,
+and slashing from nonmagical attacks</damage_resistance>
+    <damage_immunities />
+    <condition_immunities />
+    <languages />
+    <challenge_rating>3 (700 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses>blindsight 20 ft., passive Perception 11</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>5</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Amphibious</name>
+        <description>The corrupted barbshell can breathe air and water</description>
+      </feat>
+      <feat>
+        <name>Fleshy Harpoon</name>
+        <description>The corrupted barbshell has a
+fleshy harpoon strand that can be attacked and severed (AC 14; 15 hit points; immunity to bludgeoning and piercing damage). Destroying the fleshy harpoon deals no damage to the corrupted barbshell.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Harpoon</name>
+        <description>Ranged Weapon Attack: +6 to hit, range 20 ft., one target. Hit: 11 (2d6 + 4) piercing damage, and
+the target is grappled (escape DC 14). A grappled target is restrained. Only one target can be grappled at a time.</description>
+      </action>
+      <action>
+        <name>Reel</name>
+        <description>A grappled target can be reeled in 10 feet as a bonus action each round at the beginning of the
+corrupted barbshell’s turn. A target can prevent this
+forced movement with a successful Strength contest,
+although the corrupted barbshell gets to attempt this contest with advantage.</description>
+      </action>
+      <action>
+        <name>Crush</name>
+        <description>A grappled target that enters the corrupted barbshell’s space takes 20 (3d10 + 4) points of bludgeoning damage each round. The check to escape the grapple is now made at disadvantage.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Oceanic Chuul</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>18</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>125</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>125</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>5</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>20</strength>
+    <athletics>0</athletics>
+    <dexterity>10</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>11</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>6</perception>
+    <survival>0</survival>
+    <constitution>18</constitution>
+    <charisma>5</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance />
+    <damage_immunities>poison</damage_immunities>
+    <condition_immunities>poisoned</condition_immunities>
+    <languages>understands Deep Speech but can’t speak it</languages>
+    <challenge_rating>6 (2,300 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses>darkvision 60 ft., passive Perception 16</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Amphibious</name>
+        <description>The oceanic chuul can breathe air and water.</description>
+      </feat>
+      <feat>
+        <name>Sense Magic</name>
+        <description>The oceanic chuul senses magic within
+120 feet of it at will. This trait otherwise works like the detect magic spell, but isn’t magical itself.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The oceanic chuul makes two pincer attacks. If the oceanic chuul is grappling a creature, it
+can also use its tentacles once.</description>
+      </action>
+      <action>
+        <name>Pincer</name>
+        <description>Melee Weapon Attack: +8 to hit, reach 10 ft.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Mathias The Revenant</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>12</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>136</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>136</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>13</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>16</strength>
+    <athletics>0</athletics>
+    <dexterity>14</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>18</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>18</constitution>
+    <charisma>18</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>necrotic; psychic</damage_resistance>
+    <damage_immunities>poison</damage_immunities>
+    <condition_immunities>charmed, exhaustion,
+frightened, paralyzed, poisoned, stunned</condition_immunities>
+    <languages>Aquan, Common</languages>
+    <challenge_rating>5 (1,800 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses>darkvision 60 ft., passive Perception 14</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Regeneration</name>
+        <description>Mathias regains 10 hit points at the
+start of his turn. If he takes fi re or radiant damage, this
+trait does not function at the start of his next turn. His body is destroyed only if he starts his turn with 0 hit points and doesn’t regenerate</description>
+      </feat>
+      <feat>
+        <name>Rejuvenation</name>
+        <description>When his body is destroyed, his soul lingers. After 24 hours, his soul inhabits and animates another corpse on the same plane of existence and regains all of his hit points. While the soul is bodiless, a wish spell can be used to force the soul to go to the afterlife and not return.</description>
+      </feat>
+      <feat>
+        <name>Turn Immunity</name>
+        <description>Mathias is immune to eff ects that turn undead.</description>
+      </feat>
+      <feat>
+        <name>Vengeful Tracker</name>
+        <description>Mathias knows the distance to and direction of the creature against which he seeks revenge
+(Lord Iychthus), even if on another plane of existence.
+If Lord Iychthus dies, Mathias becomes aware of this fact.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>Mathias makes two fi st attacks.</description>
+      </action>
+      <action>
+        <name>Fist</name>
+        <description>Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 10 (2d6 + 3) bludgeoning damage. If
+the target is the creature against which Mathias has sworn vengeance, the target takes an extra 14 (4d6) bludgeoning damage. Instead of dealing damage, Mathias can grapple the target (escape DC 13) provided the target is Large or smaller.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Vampire Squid</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>11</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>16</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>16</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>1</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>12</strength>
+    <athletics>0</athletics>
+    <dexterity>13</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>10</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>2</perception>
+    <survival>0</survival>
+    <constitution>13</constitution>
+    <charisma>5</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance />
+    <damage_immunities />
+    <condition_immunities />
+    <languages />
+    <challenge_rating>1/2 (100 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses>blindsight 30 ft., passive Perception 12</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>0</walk>
+      <fly>0</fly>
+      <swim>50</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Water Breathing</name>
+        <description>The vampire squid can only breathe
+underwater.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Tentacles</name>
+        <description>Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) bludgeoning damage. If the target is a Large or smaller creature, it is grappled (escape DC 11). Until the grapple ends, the target is restrained and takes 5 (1d8 +1) piercing damage from the vampire squid’s beak each turn. The vampire squid can only grapple one target at a time.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions>
+      <reaction>
+        <name>Dazzling Display (1/Day)</name>
+        <description>If the vampire squid takes damage, it can use its reaction to emit a bioluminescent
+burst of light. All creatures with sight within 10 feet of the vampire squid must make a DC 11 Constitution saving throw, or become dazzled until the end of their next turn. A dazzled target has disadvantage on all attack rolls and Dexterity saving throws</description>
+      </reaction>
+    </reactions>
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Pirate Capain Finderhook</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>17</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>10</passive_perception>
+    <max_hp>71</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>71</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>14</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>13</strength>
+    <athletics>3</athletics>
+    <dexterity>18</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>11</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>14</constitution>
+    <charisma>14</charisma>
+    <deception>4</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance />
+    <damage_immunities />
+    <condition_immunities />
+    <languages>Common</languages>
+    <challenge_rating>3 (700 XP)</challenge_rating>
+    <equipment>Finderhook wears +1 studded
+leather armor and carries a cutlass of life stealing, a
+normal cutlass, and a light crossbow (with 20 bolts),
+plus a set of keys.</equipment>
+    <special_abilities />
+    <senses />
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Two-Weapon Fighting</name>
+        <description>When Finderhook takes the Attack action and attacks with his cutlass of life stealing, he can use a bonus action to attack with a light melee weapon that he’s holding in the other hand.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The pirate captain makes two attacks with his cutlass of life stealing.</description>
+      </action>
+      <action>
+        <name>Cutlass of Life Stealing</name>
+        <description>Melee Weapon Attack: +6 to
+hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) slashing damage. When a 20 is rolled on the attack roll, this magic weapon infl icts an additional 10 points of necrotic
+damage if the target is not undead or a construct. Also, the pirate captain gains 10 temporary hit points.</description>
+      </action>
+      <action>
+        <name>Cutlass (off -hand attack)</name>
+        <description>Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 3 (1d6) slashing damage.</description>
+      </action>
+      <action>
+        <name>Light Crossbow</name>
+        <description>Ranged Weapon Attack: +6 to hit,
+range 80/320 ft., one target. Hit: 8 (1d8 + 4) piercing damage.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions>
+      <reaction>
+        <name>Parry</name>
+        <description>The pirate captain adds 2 to his AC against one melee attack that would hit him. To do so, the pirate captain must see the attacker and be wielding a melee weapon in his off hand.</description>
+      </reaction>
+    </reactions>
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Lord Iychthus</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>16</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>17</passive_perception>
+    <max_hp>144</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>144</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>17</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>18</strength>
+    <athletics>0</athletics>
+    <dexterity>18</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>9</stealth>
+    <wisdom>15</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>7</perception>
+    <survival>0</survival>
+    <constitution>18</constitution>
+    <charisma>18</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>necrotic; bludgeoning, piercing, and slashing from nonmagical attacks</damage_resistance>
+    <damage_immunities />
+    <condition_immunities />
+    <languages>Aquan, Common</languages>
+    <challenge_rating>13 (10,000 XP)</challenge_rating>
+    <equipment>Lord Iychthus wears a fancy red cloak, a matching wide-brimmed hat, and black boots of the zephyr (see appendix A). He carries a skeleton key but no weapons.</equipment>
+    <special_abilities />
+    <senses>darkvision 120 ft.,</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>30</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>5</level_1>
+      <level_2>6</level_2>
+      <level_3>7</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Shapechanger</name>
+        <description>If Lord Iychthus isn’t in direct sunlight or standing on solid ground, he can use his action to polymorph into a Tiny carrion gull or a Medium cloud of mist, or back into his true form. While in carrion gull form, Lord Iychthus can’t speak, his walking speed is 5 feet, and he has a flying speed of 30 feet. His statistics, other than size and speed, are unchanged. Anything he is wearing transforms with him, but nothing he is carrying does. He reverts to his true form if he dies. While in mist form, Lord Iychthus can’t take any actions, speak, or manipulate objects. He is weightless, has a fl ying speed of 20 feet, can hover, and can enter a hostile creature’s space and stop there. In addition, if air can pass through a space, the mist can do so without squeezing, although it can’t pass through water. Lord Iychthus has advantage on Strength, Dexterity, and Constitution saving throws, and is immune to all nonmagical damage except the damage he takes from sunlight. </description>
+      </feat>
+      <feat>
+        <name>Legendary Resistance (3/Day)</name>
+        <description>If Lord Iychthus fails a saving throw, he can choose to succeed instead. </description>
+      </feat>
+      <feat>
+        <name>Misty Escape</name>
+        <description>When Lord Iychthus drops to 0 hit points outside of his resting place, he transforms into a cloud of mist (as in the Shapechanger trait) instead of falling unconscious, provided he isn’t sunlight or standing on solid ground. If he can’t transform, he is destroyed. While he has 0 hit points in mist form, he can’t revert to his vampire form, and must reach his resting place within 2 hours or be destroyed. Once in his resting place, he reverts to his vampire form. He is then paralyzed until he regains at least 1 hit point. After spending 1 hour in his resting place with 0 hit points, he regains 1 hit point. </description>
+      </feat>
+      <feat>
+        <name>Regeneration</name>
+        <description>Lord Iychthus regains 20 hit points at the start of his turn if he has at least 1 hit point and isn’t in sunlight or standing on solid ground. If he takes radiant damage, or damage from holy water or consecrated soil, this trait does not function at the start of his next turn. </description>
+      </feat>
+      <feat>
+        <name>Spider Climb</name>
+        <description>Lord Iychthus can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check. </description>
+      </feat>
+      <feat>
+        <name>Vampire Weaknesses</name>
+        <description>Lord Iychthus has the following flaws: Forbiddance. Lord Iychthus can’t enter a residence without an invitation from one of its occupants. Harmed by Standing on Earth. Lord Iychthus has disadvantage on all attack rolls, saving throws, and ability checks while standing on earth. Stake to the Heart. If a piercing weapon made of wood is driven into Lord Iychthus’s heart while he is incapacitated in his resting place, he is paralyzed unti the weapon is removed. Sunlight Hypersensitivity. Lord Iychthus takes 20 radiant damage when he starts his turn in sunlight. While in sunlight, he has disadvantage on attack rolls and ability checks. </description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Multiattack (Vampire Form Only)</name>
+        <description>Lord Iychthus makes two attacks, only one of which can be a bite attack. </description>
+      </action>
+      <action>
+        <name>Unarmed Strike (Vampire Form Only)</name>
+        <description>Melee Weapon Attack: +9 to hit, reach 5 ft., one creature. Hit: 8 (1d8 + 4) bludgeoning damage. Instead of dealing damage, Lord Iychthus can grapple the target (escape DC 18). </description>
+      </action>
+      <action>
+        <name>Bite (Squid or Vampire Form Only)</name>
+        <description> Melee Weapon Attack: +9 to hit, reach 5 ft., one willing creature, or a creature that is grappled by Lord Iychthus, incapacitated, or restrained. Hit: 7 (1d6 + 4) piercing damage plus 10 (3d6) necrotic damage. The target’s hit point maximum is reduced by an amount equal to the necrotic damage taken, and Lord Iychthus regains hit points equal to that amount. The reduction lasts until the target completes a long rest. The target dies if this effect reduces its hit point maximum to 0. A humanoid slain in this way and then placed in water rises the next night as a brine vampire spawn under Lord Iychthus’s control. </description>
+      </action>
+      <action>
+        <name>Charm</name>
+        <description>Lord Iychthus targets one humanoid he can see within 30 feet of him. If the target sees Lord Iychthus, the target must succeed on a DC 17 Wisdom saving throw against this magic or be charmed. The charmed target regards Lord Iychthus as a trusted friend to be heeded and protected. Although the target isn’t under Lord Iychthus’s control, it takes his requests or actions in the most favorable way it can, and is a willing target for Lord Iychthus’s bite attack. Each time Lord Iychthus does anything harmful to the target, it can repeat the saving throw, ending the effect on itself on a success. Otherwise, the eff ect lasts 24 hours or until Lord Iychthus is destroyed, is on a diff erent plane, or takes a bonus action to end the eff ect. </description>
+      </action>
+      <action>
+        <name>Children of the Dark Sea (2/Day)</name>
+        <description>Lord Iychthus magically calls 2d4 swarms of carrion gulls or bilge rats, provided the sun is not up. While outdoors, Lord Iychthus can call 3d6 vampire squid instead. The called creatures arrive in 1d4 rounds, acting as allies and obeying spoken commands. The beasts remain for 1 hour, until Lord Iychthus dies, or until he dismisses them as a bonus action. </description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions>
+      <legendary_action>
+        <name>Move</name>
+        <description>Lord Iychthus moves up to his speed without provoking opportunity attacks.</description>
+      </legendary_action>
+      <legendary_action>
+        <name>Unarmed Strike</name>
+        <description>Lord Iychthus makes one unarmed strike. </description>
+      </legendary_action>
+      <legendary_action>
+        <name>Bite (Costs 2 Actions)</name>
+        <description>Lord Iychthus makes one bite attack. </description>
+      </legendary_action>
+    </legendary_actions>
+    <spells>
+      <spell>
+        <level>0</level>
+        <name> </name>
+        <description> </description>
+        <times_per_day>0</times_per_day>
+      </spell>
+    </spells>
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Swarm of Bilge Rats</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>10</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>32</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>32</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>0</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>0</strength>
+    <athletics>0</athletics>
+    <dexterity>0</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>0</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>0</constitution>
+    <charisma>0</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>bludgeoning, piercing, slashing</damage_resistance>
+    <damage_immunities />
+    <condition_immunities>charmed, frightened, grappled,
+paralyzed, petrifi ed, prone, restrained, stunned</condition_immunities>
+    <languages />
+    <challenge_rating>1/4 (50 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses>darkvision 30 ft., passive Perception 10</senses>
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>15</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Keen Smell</name>
+        <description>The swarm has advantage on Wisdom (Perception) checks that rely on smell.</description>
+      </feat>
+      <feat>
+        <name>Swarm</name>
+        <description>The swarm can occupy another creature’s space and vice versa, and the swarm can move through
+any opening large enough for a Tiny rat. The swarm can’t regain hit points or gain temporary hit points.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Bite</name>
+        <description>Melee Weapon Attack: +2 to hit, reach 0 ft., one target in the swarm’s space. Hit: 7 (2d6) piercing damage, or 3 (1d6) piercing damage if the swarm is at half of its hit points or fewer.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Swarm of Carrion Gulls</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>12</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>36</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>36</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>3</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>10</strength>
+    <athletics>0</athletics>
+    <dexterity>14</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>10</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>10</constitution>
+    <charisma>3</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance>bludgeoning, piercing, slashing</damage_resistance>
+    <damage_immunities />
+    <condition_immunities />
+    <languages />
+    <challenge_rating>1/2 (100 XP)</challenge_rating>
+    <equipment />
+    <special_abilities />
+    <senses />
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>10</walk>
+      <fly>40</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Swarm</name>
+        <description>The swarm can occupy another creature’s
+space and vice versa, and the swarm can move through
+any opening large enough for a Tiny gull. The swarm
+can’t regain hit points or gain temporary hit points.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Beaks</name>
+        <description>Melee Weapon Attack: +4 to hit, reach 5 ft.,
+one target in the swarm’s space. Hit: 14 (4d6) piercing
+damage, or 7 (2d6) piercing damage if the swarm has
+half of its hit points or fewer. If the target is a creature,
+it must succeed on a DC 12 Constitution saving throw
+against disease or become poisoned until the disease
+is cured. Every 24 hours that elapse, the creature
+must repeat the saving throw, reducing its hit point
+maximum by 7 (2d6) on a failure. The disease is cured
+on a success. This reduction lasts until the disease is
+cured. The creature dies if the disease reduces its hit
+point maximum to 0.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Pirate Zombie</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>10</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>19</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>19</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>3</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>13</strength>
+    <athletics>0</athletics>
+    <dexterity>8</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>6</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>15</constitution>
+    <charisma>5</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance />
+    <damage_immunities />
+    <condition_immunities />
+    <languages>understands Common, but can’t speak</languages>
+    <challenge_rating>1/4 (50 XP)</challenge_rating>
+    <equipment>The pirate zombie wears rotting
+scraps of leather armor and wields a rusty cutlass.</equipment>
+    <special_abilities />
+    <senses />
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>20</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats>
+      <feat>
+        <name>Undead Fortitude</name>
+        <description>If damage reduces the pirate
+zombie to 0 hit points, it must make a Constitution
+saving throw with a DC of 5 + the damage taken,
+unless the damage is radiant or from a critical hit. On a
+success, the pirate zombie drops to 1 hit point instead.</description>
+      </feat>
+    </feats>
+    <actions>
+      <action>
+        <name>Rusty Cutlass</name>
+        <description>Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) slashing damage.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Black Orchid Pirate</character_name>
+    <background />
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>13</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>0</passive_perception>
+    <max_hp>16</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>16</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>10</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>0</religion>
+    <strength>11</strength>
+    <athletics>0</athletics>
+    <dexterity>14</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>11</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>0</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>12</constitution>
+    <charisma>10</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance />
+    <damage_immunities />
+    <condition_immunities />
+    <languages>Common</languages>
+    <challenge_rating>1/4 (50 XP)</challenge_rating>
+    <equipment>A Black Orchid pirate wears
+leather armor, and carries a cutlass and a light crossbow
+(with 20 bolts). He has a pouch with 2d6 gp and a tattoo
+on his left forearm.</equipment>
+    <special_abilities />
+    <senses />
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>0</level_1>
+      <level_2>0</level_2>
+      <level_3>0</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats />
+    <actions>
+      <action>
+        <name>Cutlass</name>
+        <description>Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage.</description>
+      </action>
+      <action>
+        <name>Light Crossbow</name>
+        <description>Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 6 (1d8 + 2) piercing damage.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells />
+  </character>
+  <character>
+    <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+    <character_name>Marek, Death Priest</character_name>
+    <background>A short squat human wearing purple robes and a black belt advances with determination. An ornate purple
+tattoo depicting a tentacled beast is prominently displayed on his forehead, wrapping around his eyes.</background>
+    <class_ />
+    <Species />
+    <Subclass />
+    <level>0</level>
+    <armor_class>14</armor_class>
+    <hit_dice />
+    <death_Saves>0</death_Saves>
+    <proficiency_bonus>0</proficiency_bonus>
+    <initiative_bonus>0</initiative_bonus>
+    <initiative>0</initiative>
+    <size />
+    <passive_perception>13</passive_perception>
+    <max_hp>45</max_hp>
+    <temporary_hit_points>0</temporary_hit_points>
+    <current_hp>45</current_hp>
+    <damage>0</damage>
+    <conditions_spell_effects />
+    <intelligence>13</intelligence>
+    <arcana>0</arcana>
+    <history>0</history>
+    <investigation>0</investigation>
+    <nature>0</nature>
+    <religion>3</religion>
+    <strength>10</strength>
+    <athletics>0</athletics>
+    <dexterity>13</dexterity>
+    <acrobatics>0</acrobatics>
+    <sleight_of_hand>0</sleight_of_hand>
+    <stealth>0</stealth>
+    <wisdom>16</wisdom>
+    <animal_handling>0</animal_handling>
+    <insight>0</insight>
+    <medicine>5</medicine>
+    <perception>0</perception>
+    <survival>0</survival>
+    <constitution>14</constitution>
+    <charisma>13</charisma>
+    <deception>0</deception>
+    <intimidation>0</intimidation>
+    <performance>0</performance>
+    <persuasion>0</persuasion>
+    <saving_throws />
+    <damage_resistance />
+    <damage_immunities />
+    <condition_immunities />
+    <languages>Common</languages>
+    <challenge_rating>3 (700 XP)</challenge_rating>
+    <equipment>Marek wears a chain shirt and
+carries a tentacle rod. He also carries an iron key which
+unlocks the door to his room on the Black Orchid (area
+4-4), and a small silver whistle (worth 22 gp).</equipment>
+    <special_abilities />
+    <senses />
+    <spell_save_dc>0</spell_save_dc>
+    <spell_attack_modifier>0</spell_attack_modifier>
+    <speed>
+      <walk>30</walk>
+      <fly>0</fly>
+      <swim>0</swim>
+      <climb>0</climb>
+      <burrow>0</burrow>
+    </speed>
+    <spell_slots>
+      <level_1>4</level_1>
+      <level_2>3</level_2>
+      <level_3>3</level_3>
+      <level_4>0</level_4>
+      <level_5>0</level_5>
+      <level_6>0</level_6>
+      <level_7>0</level_7>
+      <level_8>0</level_8>
+      <level_9>0</level_9>
+    </spell_slots>
+    <feats />
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>Marek makes three attacks, only when wielding the tentacle rod.</description>
+      </action>
+      <action>
+        <name>Tentacle Rod</name>
+        <description>Melee Weapon Attack: +9 to hit, reach 15 ft., up to three targets. Hit: 3 (1d6) bludgeoning damage. If Marek hits one target with all three attacks in one round, the target must make a DC 15 Constitution saving throw. On failure, the target’s speed is halved, it has disadvantage on all Dexterity saving throws, and it
+can’t use reactions for 1 minute. In addition, on each of the target’s turns, it can take either an action or a bonus action, but not both. At the end of each turn, the target can repeat the saving throw, ending the eff ects on itself with a success.</description>
+      </action>
+    </actions>
+    <bonus_actions />
+    <reactions />
+    <legendary_actions />
+    <spells>
+      <spell>
+        <level>0</level>
+        <name>chill touch</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>0</level>
+        <name>guidance</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>0</level>
+        <name>light</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>0</level>
+        <name>resistance</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>1</level>
+        <name>bane</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>1</level>
+        <name>command</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>1</level>
+        <name>inflict wounds</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>1</level>
+        <name>shield of faith</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>2</level>
+        <name>hold person</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>2</level>
+        <name>silence</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>2</level>
+        <name>spiritual weapon</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>3</level>
+        <name>bestow curse</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>3</level>
+        <name>speak with dead</name>
+        <description />
+        <times_per_day>0</times_per_day>
+      </spell>
+      <spell>
+        <level>0</level>
+        <name>kraken’s tentacles</name>
+        <description>Squirming brown tentacles fi ll a 20-foot-square area on
+the ground that you can see within range. At the center
+of the tentacles is a beak-like maw. For the duration, this
+area is considered diffi cult terrain.
+When a creature enters the aff ected area for the fi rst time
+on a turn, or starts its turn there, the creature must succeed
+on Dexterity saving throw or take 1d6 bludgeoning
+damage and become restrained by the tentacles until the
+spell ends. Up to two creatures that start their turn in the
+area and are already restrained by the tentacles take 2d8
+piercing damage from the beak.
+A creature restrained by the tentacles can use an action to
+make a Strength or Dexterity check (its choice) against
+the caster’s spell save DC. On a success, it frees itself, but
+still must move out of the area of eff ect, or risk re-capture
+by the tentacles.
+At Higher Levels. When you cast this spell using a spell
+slot 5th level or higher, the tentacle damage increases by
+1d6 and the bite damage increases by 1d8 for each slot
+above 4th.</description>
+        <times_per_day>0</times_per_day>
+      </spell>
+    </spells>
+  </character>
+</characters>
