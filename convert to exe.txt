@@ -17,5 +17,4 @@ auto-py-to-exe
 
 
 
-or run this command from the root folder for the last lot of settings ot be applied:
-pyinstaller --noconfirm --onedir --windowed --add-data "Settings/Dice;./Settings/Dice/" --add-data "Settings/Dice/d4.png;./Settings/Dice/" --add-data "Settings/Dice/d6.png;./Settings/Dice/" --add-data "Settings/Dice/d8.png;./Settings/Dice/" --add-data "Settings/Dice/d10.png;./Settings/Dice/" --add-data "Settings/Dice/d12.png;./Settings/Dice/" --add-data "Settings/Dice/d20.png;./Settings/Dice/" --add-data "Settings/Dice/d100.png;./Settings/Dice/" "main.py"
+You cna load "exe generation/auto_py_settings.json" to get the last build settings for the project when using auto-py-to-exe

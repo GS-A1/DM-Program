@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit  # Import QMessageBox for dialog boxes
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont, QColor, QBrush, QKeySequence, QShortcut, QPalette, QLinearGradient, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
+from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QPalette, QLinearGradient, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
 import sys
 import os  # Import os for file path handling
 import xml.etree.ElementTree as ET  # Import the XML parsing module
@@ -1703,11 +1703,14 @@ class MainWindow(QMainWindow):
         @brief Update the Character Sheet window if it exists
         @param character_row The CharacterRow object to display in the character sheet.
         """
-        if character_row.is_button == "":
-            #if there is a character sheet object
-            if hasattr(self, 'character_sheet_window'):
-                if self.character_sheet_window.isVisible():
-                    self.character_sheet_window.update_sheet(character_row)  #update to a new character
+        #if the object exisits
+        if character_row is not None:
+            # if the objct is not a button
+            if character_row.is_button == "":
+                #if there is a character sheet object
+                if hasattr(self, 'character_sheet_window'):
+                    if self.character_sheet_window.isVisible():
+                        self.character_sheet_window.update_sheet(character_row)  #update to a new character
 
 #******************************Menu Functions***********************************
     
@@ -2328,8 +2331,9 @@ class MainWindow(QMainWindow):
         """
         about_text = (
             "<h2>DM Assistant</h2>"
-            "<p>Version: 0.9.5</p>"
-            "<p>Developed by: Benjamin Champion</p>"
+            "<p>Version: 0.9.6</p>"
+            "<p>Developed by: GS-A1</p>"
+            "<p>git repository: https://github.com/GS-A1/DM-Program</p>"
             "<p>This application is designed to assist Dungeon Masters in managing combat encounters, "
             "tracking character stats, and rolling dice for tabletop role-playing games, such as DnD 2024.</p>"
         )
@@ -2357,7 +2361,9 @@ class MainWindow(QMainWindow):
 #**************************Main Function***********************************
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-
+    icon_path = os.path.join(os.path.dirname(__file__), "Settings", "dnd_dm_icons.ico")
+    app.setWindowIcon(QIcon(icon_path))
+    
     window = MainWindow()
     window.show()
 

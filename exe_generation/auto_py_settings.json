@@ -1,0 +1,141 @@
+{
+ "version": "auto-py-to-exe-configuration_v1",
+ "pyinstallerOptions": [
+  {
+   "optionDest": "noconfirm",
+   "value": true
+  },
+  {
+   "optionDest": "filenames",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/main.py"
+  },
+  {
+   "optionDest": "onefile",
+   "value": false
+  },
+  {
+   "optionDest": "console",
+   "value": false
+  },
+  {
+   "optionDest": "name",
+   "value": "DM Assistant"
+  },
+  {
+   "optionDest": "clean_build",
+   "value": false
+  },
+  {
+   "optionDest": "strip",
+   "value": false
+  },
+  {
+   "optionDest": "noupx",
+   "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "uac_admin",
+   "value": false
+  },
+  {
+   "optionDest": "uac_uiaccess",
+   "value": false
+  },
+  {
+   "optionDest": "argv_emulation",
+   "value": false
+  },
+  {
+   "optionDest": "bootloader_ignore_signals",
+   "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d4.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d4-green.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d4-red.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d6.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d6-green.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d6-red.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d8.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d8-green.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d8-red.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d10.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d10-green.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d10-red.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d12.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d12-green.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d12-red.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d20.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d20-green.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d20-red.png;Dice/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/dnd_dm_icons.ico;."
+  }
+ ],
+ "nonPyinstallerOptions": {
+  "increaseRecursionLimit": true,
+  "manualArguments": ""
+ }
+}

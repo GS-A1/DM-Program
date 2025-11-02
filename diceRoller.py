@@ -48,6 +48,7 @@ class DiceRollerWindow(QDialog):
 
         # Scrollable dice display area
         self.scroll_area = QScrollArea()
+        self.scroll_area.setStyleSheet("QScrollArea { border: 1px solid black; }")
         self.scroll_area.setWidgetResizable(True)
         self.scroll_area.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.dice_display_widget = QWidget()
@@ -229,8 +230,22 @@ class DiceRollerWindow(QDialog):
                         self.dice_display_layout.addWidget(empty_label, row, col)
                         col += 1
 
-                # Load the dice image
-                dice_image_path = os.path.join(self.dice_images_path, f"{dice_type}.png")
+                # Load the dice image. Use the d10 images for the d100 dice to save space
+                if highlight_max and roll == int(dice_type[1:]):
+                    if dice_type == "d100":
+                        dice_image_path = os.path.join(self.dice_images_path, f"d10-green.png")
+                    else:
+                        dice_image_path = os.path.join(self.dice_images_path, f"{dice_type}-green.png")
+                elif highlight_min and roll == 1:
+                    if dice_type == "d100":
+                        dice_image_path = os.path.join(self.dice_images_path, f"d10-red.png")
+                    else:
+                        dice_image_path = os.path.join(self.dice_images_path, f"{dice_type}-red.png")
+                else:
+                    if dice_type == "d100":
+                        dice_image_path = os.path.join(self.dice_images_path, f"d10.png")
+                    else:
+                        dice_image_path = os.path.join(self.dice_images_path, f"{dice_type}.png")
                 if not os.path.exists(dice_image_path):
                     continue
 
@@ -239,11 +254,11 @@ class DiceRollerWindow(QDialog):
                 base_pixmap.fill(Qt.GlobalColor.transparent)
                 painter = QPainter(base_pixmap)
 
-                # Highlight max or min rolls
-                if highlight_max and roll == int(dice_type[1:]):
-                    painter.fillRect(base_pixmap.rect(), QColor("green"))
-                elif highlight_min and roll == 1:
-                    painter.fillRect(base_pixmap.rect(), QColor("red"))
+                # # Highlight max or min rolls
+                # if highlight_max and roll == int(dice_type[1:]):
+                #     painter.fillRect(base_pixmap.rect(), QColor("green"))
+                # elif highlight_min and roll == 1:
+                #     painter.fillRect(base_pixmap.rect(), QColor("red"))
 
                 # Draw the dice image centered on the background
                 dice_pixmap = QPixmap(dice_image_path)
