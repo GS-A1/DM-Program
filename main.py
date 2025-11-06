@@ -21,6 +21,8 @@ import rowDataFileIO as CFIO  # Import the file I/O functions for character data
 
 from styleInfo import StyleInfo  # Import the function to set the custom style sheet information
 
+
+
 class MainWindow(QMainWindow):
     """
     @class MainWindow
@@ -2365,6 +2367,7 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon(icon_path))
     
     window = MainWindow()
+    
     window.show()
 
     app.exec()

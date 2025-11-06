@@ -18,12 +18,16 @@
    "value": false
   },
   {
+   "optionDest": "icon_file",
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/exe_generation/dnd_dm_icons.ico"
+  },
+  {
    "optionDest": "name",
    "value": "DM Assistant"
   },
   {
    "optionDest": "clean_build",
-   "value": false
+   "value": true
   },
   {
    "optionDest": "strip",
@@ -131,7 +135,7 @@
   },
   {
    "optionDest": "datas",
-   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/dnd_dm_icons.ico;."
+   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/dnd_dm_icons.ico;Settings/"
   }
  ],
  "nonPyinstallerOptions": {

@@ -17,4 +17,4 @@ auto-py-to-exe
 
 
 
-You cna load "exe generation/auto_py_settings.json" to get the last build settings for the project when using auto-py-to-exe
+You can load "exe generation/auto_py_settings.json" to get the last build settings for the project when using auto-py-to-exe.
