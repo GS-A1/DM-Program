@@ -3,8 +3,7 @@ class StyleInfo:
     @class StyleInfo
     @brief Data class used to hold styling information for UI elements.
     """
-    
-    #Fonst information
+    #Font information
     font_general_size = 0
     font_general_style = ""
     font_button_size = 0
@@ -103,3 +102,23 @@ class StyleInfo:
         else:
             return f"#{r:02x}{g:02x}{b:02x}"
 
+class Settings:
+    """
+    @class StyleInfo
+    @brief Data class used to hold settings information.
+    """
+    
+    roll_pc_initiative = True
+    
+    def __init__(self, parent=None):
+        """
+        @brief Constructor for Settings class.
+        Initializes settings information to default values.
+        """
+        self.resetSettings()
+    
+    def resetSettings(self):
+        """
+        @brief Resets all settings information to default values.
+        """
+        self.roll_pc_initiative = True

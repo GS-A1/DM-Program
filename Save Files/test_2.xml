@@ -1,0 +1,663 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Saved_file>
+  <settings>
+    <general_settings>
+      <roll_pc_init>True</roll_pc_init>
+    </general_settings>
+    <text_settings>
+      <general_text_size>9</general_text_size>
+      <general_text_style>Bookman Old Style</general_text_style>
+      <button_text_size>9</button_text_size>
+      <button_text_style>Bookman Old Style</button_text_style>
+      <table_text_size>9</table_text_size>
+      <table_text_style>Bookman Old Style</table_text_style>
+      <general_text_colour>#ff2a1a0b</general_text_colour>
+      <button_text_colour>#ffffffff</button_text_colour>
+      <table_text_colour>#ff2a1a0b</table_text_colour>
+      <button_color>#ffa02b2b</button_color>
+      <general_color>#fffaf2dc</general_color>
+      <minor_color>#fffdfbf4</minor_color>
+    </text_settings>
+    <selected_colours>
+      <currentTurn_highlightColour>#ffffff00</currentTurn_highlightColour>
+      <fullHP_highlightColour>#ff00ff00</fullHP_highlightColour>
+      <criticalHP_highlightColour>#ffffaa00</criticalHP_highlightColour>
+      <noHP_highlightColour>#ffff0000</noHP_highlightColour>
+    </selected_colours>
+    <visible_columns>
+      <column>X</column>
+      <column>Player Name</column>
+      <column>Character Name</column>
+      <column>Armor Class</column>
+      <column>Initiative</column>
+      <column>Speed</column>
+      <column>Max HP</column>
+      <column>Temp. HP</column>
+      <column>Current HP</column>
+      <column>Damage</column>
+      <column>Conditions/Spell Effects</column>
+      <column>Select</column>
+    </visible_columns>
+    <highlighted_row>0</highlighted_row>
+    <row_order>
+      <character_id>6</character_id>
+      <character_id>12</character_id>
+      <character_id>13</character_id>
+      <character_id>7</character_id>
+      <character_id>14</character_id>
+      <character_id>8</character_id>
+    </row_order>
+  </settings>
+  <characters>
+    <character>
+      <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+      <character_name>Mathias The Revenant</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>0</level>
+      <armor_class>12</armor_class>
+      <hit_dice />
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>4</initiative>
+      <size />
+      <passive_perception>0</passive_perception>
+      <max_hp>136</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>129</current_hp>
+      <damage>2</damage>
+      <conditions_spell_effects />
+      <intelligence>13</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>16</strength>
+      <athletics>0</athletics>
+      <dexterity>14</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>18</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>18</constitution>
+      <charisma>18</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance>necrotic; psychic</damage_resistance>
+      <damage_immunities>poison</damage_immunities>
+      <condition_immunities>charmed, exhaustion,
+frightened, paralyzed, poisoned, stunned</condition_immunities>
+      <languages>Aquan, Common</languages>
+      <challenge_rating>5 (1,800 XP)</challenge_rating>
+      <equipment />
+      <special_abilities />
+      <senses>darkvision 60 ft., passive Perception 14</senses>
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats>
+        <feat>
+          <name>Regeneration</name>
+          <description>Mathias regains 10 hit points at the
+start of his turn. If he takes fi re or radiant damage, this
+trait does not function at the start of his next turn. His body is destroyed only if he starts his turn with 0 hit points and doesn’t regenerate</description>
+        </feat>
+        <feat>
+          <name>Rejuvenation</name>
+          <description>When his body is destroyed, his soul lingers. After 24 hours, his soul inhabits and animates another corpse on the same plane of existence and regains all of his hit points. While the soul is bodiless, a wish spell can be used to force the soul to go to the afterlife and not return.</description>
+        </feat>
+        <feat>
+          <name>Turn Immunity</name>
+          <description>Mathias is immune to eff ects that turn undead.</description>
+        </feat>
+        <feat>
+          <name>Vengeful Tracker</name>
+          <description>Mathias knows the distance to and direction of the creature against which he seeks revenge
+(Lord Iychthus), even if on another plane of existence.
+If Lord Iychthus dies, Mathias becomes aware of this fact.</description>
+        </feat>
+      </feats>
+      <actions>
+        <action>
+          <name>Multiattack</name>
+          <description>Mathias makes two fi st attacks.</description>
+        </action>
+        <action>
+          <name>Fist</name>
+          <description>Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 10 (2d6 + 3) bludgeoning damage. If
+the target is the creature against which Mathias has sworn vengeance, the target takes an extra 14 (4d6) bludgeoning damage. Instead of dealing damage, Mathias can grapple the target (escape DC 13) provided the target is Large or smaller.</description>
+        </action>
+      </actions>
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>14</character_ID>
+      <player_name>NPC</player_name>
+    </character>
+    <character>
+      <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+      <character_name>Lord Iychthus</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>0</level>
+      <armor_class>16</armor_class>
+      <hit_dice />
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>12</initiative>
+      <size />
+      <passive_perception>17</passive_perception>
+      <max_hp>144</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>137</current_hp>
+      <damage>2</damage>
+      <conditions_spell_effects />
+      <intelligence>17</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>18</strength>
+      <athletics>0</athletics>
+      <dexterity>18</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>9</stealth>
+      <wisdom>15</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>7</perception>
+      <survival>0</survival>
+      <constitution>18</constitution>
+      <charisma>18</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance>necrotic; bludgeoning, piercing, and slashing from nonmagical attacks</damage_resistance>
+      <damage_immunities />
+      <condition_immunities />
+      <languages>Aquan, Common</languages>
+      <challenge_rating>13 (10,000 XP)</challenge_rating>
+      <equipment>Lord Iychthus wears a fancy red cloak, a matching wide-brimmed hat, and black boots of the zephyr (see appendix A). He carries a skeleton key but no weapons.</equipment>
+      <special_abilities />
+      <senses>darkvision 120 ft.,</senses>
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>30</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>5</level_1>
+        <level_2>6</level_2>
+        <level_3>7</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats>
+        <feat>
+          <name>Shapechanger</name>
+          <description>If Lord Iychthus isn’t in direct sunlight or standing on solid ground, he can use his action to polymorph into a Tiny carrion gull or a Medium cloud of mist, or back into his true form. While in carrion gull form, Lord Iychthus can’t speak, his walking speed is 5 feet, and he has a flying speed of 30 feet. His statistics, other than size and speed, are unchanged. Anything he is wearing transforms with him, but nothing he is carrying does. He reverts to his true form if he dies. While in mist form, Lord Iychthus can’t take any actions, speak, or manipulate objects. He is weightless, has a fl ying speed of 20 feet, can hover, and can enter a hostile creature’s space and stop there. In addition, if air can pass through a space, the mist can do so without squeezing, although it can’t pass through water. Lord Iychthus has advantage on Strength, Dexterity, and Constitution saving throws, and is immune to all nonmagical damage except the damage he takes from sunlight. </description>
+        </feat>
+        <feat>
+          <name>Legendary Resistance (3/Day)</name>
+          <description>If Lord Iychthus fails a saving throw, he can choose to succeed instead. </description>
+        </feat>
+        <feat>
+          <name>Misty Escape</name>
+          <description>When Lord Iychthus drops to 0 hit points outside of his resting place, he transforms into a cloud of mist (as in the Shapechanger trait) instead of falling unconscious, provided he isn’t sunlight or standing on solid ground. If he can’t transform, he is destroyed. While he has 0 hit points in mist form, he can’t revert to his vampire form, and must reach his resting place within 2 hours or be destroyed. Once in his resting place, he reverts to his vampire form. He is then paralyzed until he regains at least 1 hit point. After spending 1 hour in his resting place with 0 hit points, he regains 1 hit point. </description>
+        </feat>
+        <feat>
+          <name>Regeneration</name>
+          <description>Lord Iychthus regains 20 hit points at the start of his turn if he has at least 1 hit point and isn’t in sunlight or standing on solid ground. If he takes radiant damage, or damage from holy water or consecrated soil, this trait does not function at the start of his next turn. </description>
+        </feat>
+        <feat>
+          <name>Spider Climb</name>
+          <description>Lord Iychthus can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check. </description>
+        </feat>
+        <feat>
+          <name>Vampire Weaknesses</name>
+          <description>Lord Iychthus has the following flaws: Forbiddance. Lord Iychthus can’t enter a residence without an invitation from one of its occupants. Harmed by Standing on Earth. Lord Iychthus has disadvantage on all attack rolls, saving throws, and ability checks while standing on earth. Stake to the Heart. If a piercing weapon made of wood is driven into Lord Iychthus’s heart while he is incapacitated in his resting place, he is paralyzed unti the weapon is removed. Sunlight Hypersensitivity. Lord Iychthus takes 20 radiant damage when he starts his turn in sunlight. While in sunlight, he has disadvantage on attack rolls and ability checks. </description>
+        </feat>
+      </feats>
+      <actions>
+        <action>
+          <name>Multiattack (Vampire Form Only)</name>
+          <description>Lord Iychthus makes two attacks, only one of which can be a bite attack. </description>
+        </action>
+        <action>
+          <name>Unarmed Strike (Vampire Form Only)</name>
+          <description>Melee Weapon Attack: +9 to hit, reach 5 ft., one creature. Hit: 8 (1d8 + 4) bludgeoning damage. Instead of dealing damage, Lord Iychthus can grapple the target (escape DC 18). </description>
+        </action>
+        <action>
+          <name>Bite (Squid or Vampire Form Only)</name>
+          <description> Melee Weapon Attack: +9 to hit, reach 5 ft., one willing creature, or a creature that is grappled by Lord Iychthus, incapacitated, or restrained. Hit: 7 (1d6 + 4) piercing damage plus 10 (3d6) necrotic damage. The target’s hit point maximum is reduced by an amount equal to the necrotic damage taken, and Lord Iychthus regains hit points equal to that amount. The reduction lasts until the target completes a long rest. The target dies if this effect reduces its hit point maximum to 0. A humanoid slain in this way and then placed in water rises the next night as a brine vampire spawn under Lord Iychthus’s control. </description>
+        </action>
+        <action>
+          <name>Charm</name>
+          <description>Lord Iychthus targets one humanoid he can see within 30 feet of him. If the target sees Lord Iychthus, the target must succeed on a DC 17 Wisdom saving throw against this magic or be charmed. The charmed target regards Lord Iychthus as a trusted friend to be heeded and protected. Although the target isn’t under Lord Iychthus’s control, it takes his requests or actions in the most favorable way it can, and is a willing target for Lord Iychthus’s bite attack. Each time Lord Iychthus does anything harmful to the target, it can repeat the saving throw, ending the effect on itself on a success. Otherwise, the eff ect lasts 24 hours or until Lord Iychthus is destroyed, is on a diff erent plane, or takes a bonus action to end the eff ect. </description>
+        </action>
+        <action>
+          <name>Children of the Dark Sea (2/Day)</name>
+          <description>Lord Iychthus magically calls 2d4 swarms of carrion gulls or bilge rats, provided the sun is not up. While outdoors, Lord Iychthus can call 3d6 vampire squid instead. The called creatures arrive in 1d4 rounds, acting as allies and obeying spoken commands. The beasts remain for 1 hour, until Lord Iychthus dies, or until he dismisses them as a bonus action. </description>
+        </action>
+      </actions>
+      <bonus_actions />
+      <reactions />
+      <legendary_actions>
+        <legendary_action>
+          <name>Move</name>
+          <description>Lord Iychthus moves up to his speed without provoking opportunity attacks.</description>
+        </legendary_action>
+        <legendary_action>
+          <name>Unarmed Strike</name>
+          <description>Lord Iychthus makes one unarmed strike. </description>
+        </legendary_action>
+        <legendary_action>
+          <name>Bite (Costs 2 Actions)</name>
+          <description>Lord Iychthus makes one bite attack. </description>
+        </legendary_action>
+      </legendary_actions>
+      <spells>
+        <spell>
+          <level>0</level>
+          <name> </name>
+          <description> </description>
+          <times_per_day>0</times_per_day>
+        </spell>
+      </spells>
+      <character_ID>12</character_ID>
+      <player_name>NPC</player_name>
+    </character>
+    <character>
+      <character_url>fiftheditionfantasy_issue8_eyeoftheleviathan - Level 8.pdf</character_url>
+      <character_name>Animated Menhir</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>0</level>
+      <armor_class>16</armor_class>
+      <hit_dice />
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>10</initiative>
+      <size />
+      <passive_perception>0</passive_perception>
+      <max_hp>85</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>77</current_hp>
+      <damage>3</damage>
+      <conditions_spell_effects />
+      <intelligence>1</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>20</strength>
+      <athletics>0</athletics>
+      <dexterity>14</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>14</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>20</constitution>
+      <charisma>1</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance>bludgeoning, piercing, and
+slashing from nonmagical attacks</damage_resistance>
+      <damage_immunities>poison</damage_immunities>
+      <condition_immunities>exhaustion, paralyzed,
+petrified, poisoned</condition_immunities>
+      <languages>Terran</languages>
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses>darkvision 60 ft., tremorsense 60 ft., passive
+Perception 12</senses>
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>15</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats>
+        <feat>
+          <name>False Appearance</name>
+          <description>While the animated menhir
+remains motionless it is indistinguishable from a normal menhir.</description>
+        </feat>
+      </feats>
+      <actions>
+        <action>
+          <name>Slam</name>
+          <description>Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage</description>
+        </action>
+      </actions>
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>13</character_ID>
+      <player_name>NPC</player_name>
+    </character>
+    <character>
+      <character_url />
+      <character_name>Storm Char</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>1</level>
+      <armor_class>12</armor_class>
+      <hit_dice>1d6</hit_dice>
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>7</initiative>
+      <size>Medium</size>
+      <passive_perception>0</passive_perception>
+      <max_hp>12</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>9</current_hp>
+      <damage>0</damage>
+      <conditions_spell_effects />
+      <intelligence>10</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>10</strength>
+      <athletics>0</athletics>
+      <dexterity>10</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>10</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>10</constitution>
+      <charisma>10</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance />
+      <damage_immunities />
+      <condition_immunities />
+      <languages />
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses />
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats />
+      <actions />
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>7</character_ID>
+      <player_name>Storm</player_name>
+    </character>
+    <character>
+      <character_url />
+      <character_name>Aston Char</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>1</level>
+      <armor_class>13</armor_class>
+      <hit_dice>1d6</hit_dice>
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>4</initiative>
+      <size>Medium</size>
+      <passive_perception>0</passive_perception>
+      <max_hp>13</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>9</current_hp>
+      <damage>4</damage>
+      <conditions_spell_effects />
+      <intelligence>10</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>10</strength>
+      <athletics>0</athletics>
+      <dexterity>10</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>10</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>10</constitution>
+      <charisma>10</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance />
+      <damage_immunities />
+      <condition_immunities />
+      <languages />
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses />
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats />
+      <actions />
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>8</character_ID>
+      <player_name>Aston</player_name>
+    </character>
+    <character>
+      <character_url />
+      <character_name>Dean Char</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>1</level>
+      <armor_class>11</armor_class>
+      <hit_dice>1d6</hit_dice>
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>17</initiative>
+      <size>Medium</size>
+      <passive_perception>0</passive_perception>
+      <max_hp>11</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>3</current_hp>
+      <damage>8</damage>
+      <conditions_spell_effects />
+      <intelligence>10</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>10</strength>
+      <athletics>0</athletics>
+      <dexterity>10</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>10</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>10</constitution>
+      <charisma>10</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance />
+      <damage_immunities />
+      <condition_immunities />
+      <languages />
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses />
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats />
+      <actions />
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>6</character_ID>
+      <player_name>Dean</player_name>
+    </character>
+  </characters>
+</Saved_file>

@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QHBoxLayout,
+    QComboBox, QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QLineEdit, QTextEdit, QGroupBox, QGridLayout, QFormLayout, QScrollArea, QSizePolicy
 )
 from PyQt6.QtCore import Qt
@@ -10,10 +10,17 @@ import rowDataFileIO as CFIO
 
 
 class CharacterSheetWindow(QMainWindow):
-    def __init__(self, character: CharacterRow):
+    next_turn_ID = 0   #ID of the character being displayed
+    hold_character = False
+    character_combo_box_options = []  #list of character names for the combo box
+    current_combobox_value = ""  #store the current value of the combo box to prevent unnecessary updates
+    
+    def __init__(self, characters: list[CharacterRow], rowID=0):
         super().__init__()
         
-        self.update_sheet(character)            #update the character data to the default character
+        self.characters = characters          #store the list of characters
+        
+        self.update_sheet(rowID)            #update the character data to the default character
         self.setGeometry(100, 100, 650, 850)    #draw the window in the default place with default size
 
     def scrollable(self, widget):
@@ -36,6 +43,10 @@ class CharacterSheetWindow(QMainWindow):
         header.setContentsMargins(0, 0, 0, 0)
         header.addWidget(self.labeled_field("Player Name", self.character.Player_Name, True), 0, 0)
         header.addWidget(self.labeled_field("Character Name", self.character.Character_Name, True), 0, 1)
+        self.character_combo_box_options = []    #clear the list
+        for char in self.characters:
+            self.character_combo_box_options.append(char.Character_Name)
+        header.addWidget(self.labeled_ComboBox("Select Character", self.character_combo_box_options, True, self.current_combobox_value), 0, 2)
         layout.addLayout(header)
 
         defense_box = QGroupBox("Defense")
@@ -218,14 +229,6 @@ class CharacterSheetWindow(QMainWindow):
         h3.addWidget(self.labeled_field("Spell Save DC", self.character.Spell_Save_DC, True))
         h3.addWidget(self.labeled_field("Spell Att. Mod.", self.character.Spell_Attack_Modifier, True))
         layout.addLayout(h3)
-        
-        # h3.addWidget(self.labeled_field("Senses", self.character.Senses, True))
-        # h3.addWidget(self.labeled_field("CR", self.character.Challenge_Rating, True))
-        
-        # h4 = QHBoxLayout()        
-        # 
-        # h4.addWidget(self.labeled_field("Spell Att. Mod.", self.character.Spell_Attack_Modifier, True))
-        # layout.addWidget(h4)
    
         layout.addStretch()
         return page
@@ -247,6 +250,44 @@ class CharacterSheetWindow(QMainWindow):
         field.setReadOnly(True)
         vbox.addWidget(lbl)
         vbox.addWidget(field)
+        return box
+    
+    def labeled_ComboBox(self, label, values=[], centered=False, current_value =""):
+                
+        box = QWidget()
+        vbox = QVBoxLayout(box)
+        lbl = QLabel(label)
+        lbl.setStyleSheet("font-weight: bold; color: #a02b2b;")
+        field = QComboBox()
+        
+        field.addItem("Follow Turn Order")  #add an option to follow when next turn is pressed
+        #add all the character names to the combo box
+        for name in values:
+            #if the character name is not blank, add it to the list
+            if name != "":
+                field.addItem(name)
+        
+        lbl.setAlignment(Qt.AlignmentFlag.AlignCenter if centered else Qt.AlignmentFlag.AlignLeft)
+        #field.setAlignment(Qt.AlignmentFlag.AlignCenter if centered else Qt.AlignmentFlag.AlignLeft)
+        if centered:
+            field.setStyleSheet("QComboBox { text-align: center; }")
+        else:
+            field.setStyleSheet("QComboBox { text-align: left; }")
+        # field.setReadOnly(True)
+        vbox.addWidget(lbl)
+        vbox.addWidget(field)
+        
+        #set the combo box to the current value if it exists and its not blank
+        if current_value != "":
+            for name in values:
+                if name == current_value and field.currentText() != current_value:
+                    index = field.findText(current_value)
+                    if index != -1:
+                        field.setCurrentIndex(index)
+                        self.current_combobox_value = current_value  #update the stored current value
+                        break        
+        
+        field.currentTextChanged.connect(self.character_selected_ComboBox_changed)
         return box
 
     def ability_box(self, name, score):
@@ -368,13 +409,52 @@ class CharacterSheetWindow(QMainWindow):
         
         return box
     
-    def update_sheet(self, character: CharacterRow):
+    def character_selected_ComboBox_changed(self, name):
+        #if it is Follow Turn Order, go back to following the next turn stuff
+        if (name == "Follow Turn Order"):
+            self.current_combobox_value = ""
+            self.hold_character = False
+            self.update_sheet(self.next_turn_ID)
+            return
+        else:
+            #find the character with the given name
+            character = None
+            for char in self.characters:
+                if char.Character_Name == name:
+                    character = char
+                    break
+            #if we could find the character:
+            if character is not None:
+                #hold the character on the screen
+                self.current_combobox_value = name  #store the current value to prevent unnecessary updates
+                self.hold_character = True
+                self.update_sheet(character.Character_ID, next_turn=False)
+                
+    
+    def update_sheet(self, rowID = 0, next_turn = True):
         """
         @breif Update the character data in the sheet.
-        @param character: CharacterRow object containing the character data.
+        @param character: ID of the character to currently display
+        @param next_turn: If True, this function is being called from a "Next Turn" action.
         """
+        
+        #find the referenced character
+        character = None
+        for char in self.characters:
+            if char.Character_ID == rowID:
+                character = char
+                break
+        
+        #store the ID if its the next turn ID. If we go back to following turn order, we need this ID
+        if next_turn == True:
+            self.next_turn_ID = character.Character_ID  #store the ID of the character being displayed
+        
+        # are we holding onto the old character for display?
+        if self.hold_character == True and next_turn == True and self.character.Character_ID != self.next_turn_ID:
+            return  #do not change the character if we are holding the current character
+ 
         self.character = character
-        self.setWindowTitle(character.Character_Name or "D&D Character Sheet")
+        self.setWindowTitle(self.character.Character_Name or "D&D Character Sheet")
 
         # remember currently selected tab (if tabs exist)
         current_index = 0
@@ -403,3 +483,12 @@ class CharacterSheetWindow(QMainWindow):
             old_cw.deleteLater()
         
         self.setCentralWidget(tabs)
+        
+    def update_sheet_object(self, character: CharacterRow):
+        """
+        @breif Update the character sheet if it is displaying the given character.
+        @param character The CharacterRow object that was updated.
+        """
+        if self.character is not None and character is not None:
+            if self.character.Character_ID == character.Character_ID:
+                self.update_sheet(character.Character_ID)

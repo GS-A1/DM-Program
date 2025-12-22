@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit  # Import QMessageBox for dialog boxes
+from PyQt6.QtWidgets import QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QPalette, QLinearGradient, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
 import sys
@@ -19,7 +19,7 @@ from rowdata import CharacterRow, ColumnNames  # Import the CharacterRow class f
 
 import rowDataFileIO as CFIO  # Import the file I/O functions for character data
 
-from styleInfo import StyleInfo  # Import the function to set the custom style sheet information
+from settingsAndStyle import StyleInfo, Settings # Import the function to set the custom style sheet information
 
 
 
@@ -42,11 +42,13 @@ class MainWindow(QMainWindow):
         self.file_path = ""  # Initialize file_path to an empty string. Used to store where the file is saved if the save button is used         
         self.rows: list[CharacterRow] = []      #create a list of objects to store all row data
         self.character_sheet_row_ID = 4  # store the index we are going to use for the character sheet
-
+        self.character_sheet_window = None
+        
         self.setWindowTitle("DM Assistant")  # Set the window title
         self.setGeometry(100, 100, 1000, 400)  # Set window size
         
         self.style_sheet = StyleInfo()      #object for storing and recalling the style sheet information
+        self.settings = Settings()          #object for storing and recalling the general settings
         
         # Create a menu bar
         menu_bar = self.menuBar()
@@ -100,15 +102,27 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central_widget)
 
         # Use QSplitter for vertical alignment of the table and buttons
-        splitter = QSplitter(Qt.Orientation.Vertical, central_widget)
+        splitter = QSplitter(Qt.Orientation.Vertical)
+        splitter.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         # Create a QTableWidget for the table
         self.table = QTableWidget()
         self.table.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        splitter.addWidget(self.table)
+        self.table.setMinimumHeight(200)
+        self.table.setMinimumWidth(750)
+        
+        # Wrap the table in a scroll area to enable scrolling when needed
+        table_scroll_area = QScrollArea()
+        table_scroll_area.setWidget(self.table)
+        table_scroll_area.setWidgetResizable(True)
+        table_scroll_area.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        
+        splitter.addWidget(table_scroll_area)
 
         # Create a QWidget for the buttons
         button_widget = QWidget()
+        button_widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        button_widget.setMinimumHeight(100)
         button_layout = QGridLayout(button_widget)
 
         # Add the "Next Turn" button to the button layout
@@ -155,15 +169,18 @@ class MainWindow(QMainWindow):
         # Set the stretch factors: 4 for the table (80%) and 1 for the buttons (20%)
         splitter.setStretchFactor(0, 4)  # Index 0 corresponds to the table
         splitter.setStretchFactor(1, 1)  # Index 1 corresponds to the buttons
+        splitter.setChildrenCollapsible(False)
 
         # Set the initial sizes: 80% for the table and 20% for the buttons
-        splitter.setSizes([800, 200])  # Adjust these values as needed for your window size
+        #splitter.setSizes([800, 200])  # Adjust these values as needed for your window size
 
         # Prevent the buttons from expanding when the table shrinks
-        splitter.setChildrenCollapsible(False)
+        #splitter.setChildrenCollapsible(False)
 
         # Set the splitter as the layout for the central widget
         layout = QVBoxLayout(central_widget)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
         layout.addWidget(splitter)
 
         # Set the number of columns and their headers
@@ -182,8 +199,16 @@ class MainWindow(QMainWindow):
                 # Center the text
                 header_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
 
+        # Make columns stretch to fill available horizontal space
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        
+        # Make rows stretch to fill available vertical space
+        self.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+
         # Create 7 rows as default (5 + 2 for the "Add Row" and "Add Character" button)
         self.table.setRowCount(7)
+        
+        self.table.verticalHeader().setMinimumSectionSize(30)  # Set minimum row height
 
         # Populate the first 5 rows with default data
         for row in range(5):
@@ -290,9 +315,11 @@ class MainWindow(QMainWindow):
             self.previous_values[(row, col)] = item.text()
             return False
 
-    def add_row(self, character_data: CharacterRow):
+    def add_row(self, character_data: CharacterRow, add_to_rows = True):
         """
         @brief Add a new row to the table above the 'Add Row' button.
+        @param character_data The CharacterRow data to populate the new row.
+        @param add_to_rows Flag to indicate if the character should be added to the rows list.
         """
         #exit if no character data is provided
         if character_data is None:
@@ -301,21 +328,129 @@ class MainWindow(QMainWindow):
         #Remove the signals to check valid data as we are entering it
         self.table.cellChanged.disconnect(self.cell_content_signal)
         
-        last_data_row = 0
-        
-        #find the last row that is not a button row so we add the new row to the end
-        for check_row in self.rows:  # cycle through all of the row data
-            if check_row.is_button == "":
-                last_data_row += 1
-            else:
-                break  
+        #the last two rows are button rows. So add the row just above the button row
+        last_data_row = self.table.rowCount() - 2 
         
         self.table.insertRow(last_data_row)  # Insert a new row before the "Add Row" button
-        self.generate_row(last_data_row, character_data)  # Generate the new row
+        self.generate_row(last_data_row, character_data, add_to_rows)  # Generate the new row
         self.update_condition_tooltip(last_data_row)      # Update the tooltip for the conditions/spell effects column
         
         self.table.cellChanged.connect(self.cell_content_signal)
 
+    def delete_row(self, row_index, delete_character = True):
+        """
+        @brief Delete a specific row form the table
+        @param index of the row to be deleated
+        @param delete_character Flag to indicate if the character should be deleted from the rows list.
+        """
+        # Explicitly set focus back to the table widget. This removes the view randomly shifting as a row is deleated
+        self.table.setFocus(Qt.FocusReason.OtherFocusReason)
+        
+        #if row_index == self.table.rowCount() - 2:  # Prevent deleting the "Add Row" and "Add Character" button row
+        #    return
+        
+        row_char_id = int(self.table.item(row_index, self.columns["Character ID"]).text()) #get the character ID for this row
+        #cycle through all the row objects
+        for row in self.rows:
+            if row.Character_ID == row_char_id:
+                #if the row is not a button
+                if row.is_button == "":
+                    #do we want to remove the character from the list of row objects as well?
+                    if delete_character:
+                        self.rows.remove(row)  # Remove the corresponding CharacterRow instance
+                    self.table.removeRow(row_index) #remove the row from the table
+                break
+    
+    def delete_row_character(self, character = CharacterRow(), delete_character = True):
+        """
+        @brief Delete a specific row form the table by character ID
+        @param character_id The ID of the character to be deleted.
+        @param delete_character Flag to indicate if the character should be deleted from the rows list.
+        """
+        #return if a button is sent
+        if character.is_button != "":
+            return
+        
+        #cycle through all the rows in the table
+        for row_index in range(self.table.rowCount()):
+            char_id_item = self.table.item(row_index, self.columns["Character ID"]) #get the character ID for this row
+            #if we could get a character ID
+            if char_id_item is not None:
+                #if this row matches the given character ID
+                if character.Character_ID == int(char_id_item.text()):
+                    self.delete_row(row_index, delete_character) #delete this row
+                    break
+    
+    def update_entire_table_column(self, column_name = ""):
+        """
+        @breif Update a specific column in the table for all characters
+        @param column_name The name of the column to update.
+        """
+        if column_name not in self.columns:
+            return  # Invalid column name
+        else:
+            #for every row object
+            for row_obj in self.rows:
+                # if the row is not a button row
+                if row_obj.is_button == "":
+                    self.update_single_table_column(column_name, row_obj) #update the specific column for this row object
+                    
+    def update_single_table_column(self, column_name = "", char = CharacterRow()):
+        """
+        @breif Update a specific column in the table for one characters 
+        @param column_name The name of the column to update.
+        @param char The character qho is being updated
+        """
+        for row_index in range(self.table.rowCount() - 2):
+                char_id_item = self.table.item(row_index, self.columns["Character ID"]) #get the character ID for this row
+                #if this row matches the object's character ID
+                if char.Character_ID == int(char_id_item.text()):
+                    #for the initiative column, update it from the object
+                    if column_name == "Initiative":
+                        item = self.table.item(row_index, self.columns["Initiative"])
+                        if item:
+                            item.setText(str(char.Initiative))
+                    #for the initiative column, update it from the object
+                    if column_name == "Damage":
+                        item = self.table.item(row_index, self.columns["Damage"])
+                        if item:
+                            item.setText(str(char.Damage))
+                    #for the initiative column, update it from the object
+                    if column_name == "Current HP":
+                        item = self.table.item(row_index, self.columns["Current HP"])
+                        if item:
+                            item.setText(str(char.Current_HP))
+                    #for the initiative column, update it from the object
+                    if column_name == "Temp. HP":
+                        item = self.table.item(row_index, self.columns["Temp. HP"])
+                        if item:
+                            item.setText(str(char.Temporary_Hit_Points))
+                    #for the initiative column, update it from the object
+                    if column_name == "Max HP":
+                        item = self.table.item(row_index, self.columns["Max HP"])
+                        if item:
+                            item.setText(str(char.Max_HP))
+                    #for the initiative column, update it from the object
+                    if column_name == "Armor Class":
+                        item = self.table.item(row_index, self.columns["Armor Class"])
+                        if item:
+                            item.setText(str(char.Armor_Class))
+                    #for the initiative column, update it from the object
+                    if column_name == "Character Name":
+                        item = self.table.item(row_index, self.columns["Character Name"])
+                        if item:
+                            item.setText(str(char.Character_Name))
+                    #for the initiative column, update it from the object
+                    if column_name == "Player Name":
+                        item = self.table.item(row_index, self.columns["Player Name"])
+                        if item:
+                            item.setText(str(char.Player_Name))
+                    if column_name == "Conditions/Spell Effects":
+                        item = self.table.item(row_index, self.columns["Conditions/Spell Effects"])
+                        if item:
+                            item.setText(str(char.Conditions_Spell_Effects))
+                    break
+        
     def highlight_row(self, row_index):
         """
         @brief Highlight a specific row with the current turn highlight color.
@@ -387,7 +522,7 @@ class MainWindow(QMainWindow):
         delete_button.setStyleSheet(
             "color: red; font-weight: bold; border: none; padding: 0;"
         )  # Make the "X" red, remove borders, and remove padding
-        delete_button.clicked.connect(lambda: self.delete_row(delete_button))
+        delete_button.clicked.connect(lambda: self.delete_row_button(delete_button))
 
         # Set the button to fill the entire cell
         delete_button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -401,7 +536,7 @@ class MainWindow(QMainWindow):
         transparent_item.setBackground(Qt.GlobalColor.transparent)  # Set transparent background
         self.table.setItem(row, self.columns["X"], transparent_item)
 
-    def delete_row(self, button):
+    def delete_row_button(self, button):
         """
         @brief Delete the row containing the specified button.
         @param button The QPushButton instance that was clicked.
@@ -411,10 +546,7 @@ class MainWindow(QMainWindow):
         
         for row in range(self.table.rowCount()):
             if self.table.cellWidget(row, self.columns["X"]) == button:
-                if row == self.table.rowCount() - 2:  # Prevent deleting the "Add Row" and "Add Character" button row
-                    return
-                self.table.removeRow(row)
-                self.rows.pop(row)  # Remove the corresponding CharacterRow instance
+                self.delete_row(row)
                 break
             
     def add_dropdown(self, row_index):
@@ -503,7 +635,7 @@ class MainWindow(QMainWindow):
             tooltip += "<br/>"  # Add extra space between conditions
         condition_item.setToolTip(tooltip.strip())
 
-    def generate_row(self, row_index, character_data: CharacterRow):
+    def generate_row(self, row_index, character_data: CharacterRow, add_to_Rows = True):
         """
         @brief Generate a new row with default data and an 'X' button.
         @param row_index The index at which to generate the new row.
@@ -522,7 +654,9 @@ class MainWindow(QMainWindow):
             else:
                 break
         
-        self.rows.insert(lastRow, character_data)  #add this row to the row index
+        if add_to_Rows:
+            self.rows.insert(lastRow, character_data)  #add this row to the row index
+        #self.rows.insert(lastRow, character_data)
         
         for col, col_name in enumerate(ColumnNames):
             item = self.table.item(row_index, col)
@@ -613,6 +747,10 @@ class MainWindow(QMainWindow):
             else:
                 # If damage is negative (healing), add the healing effect (minus as the damge is negative)
                 current_hp -= damage
+                #make sure we do not go above max HP
+                max_hp = target_row_obj.Max_HP
+                if current_hp > max_hp:
+                    current_hp = max_hp
 
             # Update the Temporary HP and Current HP cells
             if temp_hp_item:
@@ -620,7 +758,7 @@ class MainWindow(QMainWindow):
                 target_row_obj.Temporary_Hit_Points = temp_hp  # Update the Temporary HP in the CharacterRow object
             if current_hp_item:
                 current_hp_item.setText(str(current_hp))    #update the cell
-                target_row_obj.Current_HP = current_hp  # Update the Current HP in the CharacterRow object
+                target_row_obj.Current_HP = current_hp      # Update the Current HP in the CharacterRow object
             
             self.HP_Highlighting(row)  # Highlight the HP cell based on the updated values
         
@@ -668,7 +806,6 @@ class MainWindow(QMainWindow):
         
         #create a new file with the correct root elements 
         root = ET.Element("Saved_file")
-        character_elem = ET.SubElement(root, "characters")  #to store the character data - placholder
         settings_elem = ET.SubElement(root, "settings")     #to store the settings - placholder
         tree = ET.ElementTree(root)
         tree.write(self.file_path, encoding="utf-8", xml_declaration=True)
@@ -687,8 +824,16 @@ class MainWindow(QMainWindow):
         if settings_elem is None:
             settings_elem = ET.SubElement(root, "settings")
         
-        #save text size and information
+        
+        #save text size and other information
+        general_elm = ET.SubElement(settings_elem, "general_settings")
+        #general settings
+        ET.SubElement(general_elm, "roll_pc_init").text = str(self.settings.roll_pc_initiative)
+        
+        
+        #save text size and other information
         text_elm = ET.SubElement(settings_elem, "text_settings")
+        #text and UI settings
         ET.SubElement(text_elm, "general_text_size").text = str(self.style_sheet.font_general_size)
         ET.SubElement(text_elm, "general_text_style").text = str(self.style_sheet.font_general_style)
         ET.SubElement(text_elm, "button_text_size").text = str(self.style_sheet.font_button_size)
@@ -742,6 +887,11 @@ class MainWindow(QMainWindow):
         """
         self.process_damage_flag = False #Reset flag so damage is not calculated
         
+        #close the character sheet if it is open and reset it
+        if self.character_sheet_window is not None:
+            self.character_sheet_window.close()
+            self.character_sheet_window = None
+        
         # Prompt user for file
         default_path = os.path.dirname(self.file_path) if self.file_path else "./Save Files"
         file_path, _ = QFileDialog.getOpenFileName(self, "Open XML File", default_path, "XML Files (*.xml)")
@@ -765,7 +915,20 @@ class MainWindow(QMainWindow):
             self.table.setRowCount(0)
             self.rows.clear()
             self.previous_values.clear()
+            
+            #reset the settings and style sheet to default values
+            self.settings.resetSettings()
+            self.style_sheet.resetLayout()
+            
+            #load general settings
+            general_elem = settings_elem.find("general_settings")
+            if (general_elem is not None):
+                #find the settings
+                roll_pc_init = general_elem.findtext("roll_pc_init", str(self.settings.roll_pc_initiative))
 
+                #set the settings
+                self.settings.roll_pc_initiative = (roll_pc_init.lower() == 'true')
+            
             #load text
             text_elem = settings_elem.find("text_settings")
             if (text_elem is not None):
@@ -832,10 +995,10 @@ class MainWindow(QMainWindow):
             # sort the list bassed on the order saved in the xml file
             temp_rows.sort(key=lambda x: ordered_ids.index(x.Character_ID) if x and x.Character_ID in ordered_ids else len(ordered_ids))
             
-            #write the rows to the table in the desired order
-            for row in temp_rows:
-                if row is not None:
-                    self.add_row(row)
+            # Update the ID counter to prevent collisions with loaded characters when new ones are added
+            max_loaded_id = max((row.Character_ID for row in temp_rows if row is not None), default=-1)
+            if max_loaded_id >= 0:
+                CharacterRow._id_counter = max_loaded_id + 1
             
             # Add button rows at the end
             self.rows.append(CharacterRow(is_button="Add Default Row"))
@@ -851,6 +1014,11 @@ class MainWindow(QMainWindow):
             self.table.setCellWidget(self.table.rowCount()-1, 0, self.add_character_button)
             self.table.setSpan(self.table.rowCount()-1, 0, 1, self.total_columns)
             self.add_character_button.clicked.connect(self.add_character)
+            
+            #write the rows to the table in the desired order
+            for row in temp_rows:
+                if row is not None:
+                    self.add_row(row)
 
             self.resize_columns_to_content()
             # Re-highlight rows
@@ -864,7 +1032,29 @@ class MainWindow(QMainWindow):
                 self.highlight_row(highlighted_row)
             else:
                 self.highlight_row(0)
+                highlighted_row = 0
             
+            found_char_sheet_row = False   #did we find a matching row?
+            #retrive the character ID for the highlighted row
+            if 0 <= highlighted_row < self.table.rowCount() - 2:           
+                item = self.table.item(highlighted_row, self.columns["Character ID"])
+                temp_char_ID = int(item.text())
+                #check to see if the character ID is valid for this row
+                if temp_char_ID is not None:
+                    #find the matching row object and make sure it is not a button row
+                    for obj in self.rows:
+                        if obj.Character_ID == temp_char_ID and getattr(obj, "is_button", "") == "":
+                            self.character_sheet_row_ID = temp_char_ID
+                            found_char_sheet_row = True    #we found a matching row
+                            break
+                
+            #if we didnt find a matching row, reset the character sheet row ID to the first valid element is rows
+            if not found_char_sheet_row:
+                    for obj in self.rows:
+                        if getattr(obj, "is_button", "") == "":
+                            self.character_sheet_row_ID = obj.Character_ID
+                            break
+                            
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to open XML file: {e}")
             
@@ -1125,11 +1315,12 @@ class MainWindow(QMainWindow):
             if col == self.columns["Conditions/Spell Effects"]:
                 self.update_condition_tooltip(row)
         
-        if self.process_damage_flag == True:
-            #are we looking at the character displayed by the character sheet?
-            if self.character_sheet_row_ID == target_row_obj.Character_ID:
-                self.update_character_sheet(target_row_obj) #update the sheet we with the new information
-                
+            if self.process_damage_flag == True:
+                if self.character_sheet_window is not None:
+                    #are we looking at the character displayed by the character sheet?
+                    #self.update_character_sheet(target_row_obj) #update the sheet we with the new information
+                    self.character_sheet_window.update_sheet_object(target_row_obj)
+                    
         self.table.cellChanged.connect(self.cell_content_signal)
     
     def next_turn(self):
@@ -1205,27 +1396,22 @@ class MainWindow(QMainWindow):
         
         self.clear_highlighted_row(self.style_sheet.colour_current_turn)
         
-        # Extract all rows except the last two (the "Add Row" button and "Add Character" button)
-        rows = []
-        for row in range(self.table.rowCount() - 2):
-            initiative_item = self.table.item(row, self.columns["Initiative"])  # Use variable
-            initiative = int(initiative_item.text()) if initiative_item and initiative_item.text().isdigit() else 0
-            row_data = [self.table.item(row, col).text() if self.table.item(row, col) else "" for col in range(self.total_columns)]
-            rows.append((initiative, row_data))
+            
+        # Create a sorted list of rows based on Initiative in descending order
+        sorted_rows = sorted(
+            [row for row in self.rows if getattr(row, "is_button", "") == ""],
+            key=lambda x: x.Initiative,
+            reverse=True
+        )
         
-        # Sort rows by Initiative in descending order
-        rows.sort(key=lambda x: x[0], reverse=True)
-
-        # Reinsert sorted rows into the table
-        for row_index, (_, row_data) in enumerate(rows):
-            for col_index, value in enumerate(row_data):
-                item = self.table.item(row_index, col_index)
-                if not item:
-                    item = QTableWidgetItem(value)
-                    self.table.setItem(row_index, col_index, item)
-                else:
-                    item.setText(value)
-
+        #delete all rows except (button rows are handled in delete_row)
+        for row_obj in sorted_rows:
+            self.delete_row_character(row_obj, False)   #False so we dont remove from self.rows
+        
+        #re-add all rows from the ordered list
+        for row_obj in sorted_rows:
+            self.add_row(row_obj, False)  #False so we dont add to self.rows again
+        
         # Highlight the next valid row after sorting
         self.next_turn()
         
@@ -1270,57 +1456,28 @@ class MainWindow(QMainWindow):
         """reset the damage column to 0 so it does not affect the sorting."""
         self.reset_all_damage()
         
-        """Set all initiatives to 0 and sort rows so non-NPC rows are on top, sorted alphabetically."""
-        # Set all initiatives and damage to 0
-        for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button row
-            item = self.table.item(row, self.columns["Initiative"])
-            if item:
-                item.setText("0")
-            item = self.table.item(row, self.columns["Damage"])
-            if item:
-                item.setText("0")
-
-        # Separate rows into NPC and non-NPC groups
-        non_npc_rows = []
-        npc_rows = []
-        for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button row
-            player_name_item = self.table.item(row, self.columns["Player Name"])
-            row_data = [self.table.item(row, col).text() if self.table.item(row, col) else "" for col in range(self.total_columns)]
-            if player_name_item and player_name_item.text() != "NPC":
-                non_npc_rows.append(row_data)
-            else:
-                npc_rows.append(row_data)
-
-        # Sort non-NPC rows alphabetically by the Player Name column
-        non_npc_rows.sort(key=lambda x: x[self.columns["Player Name"]])
-
-        # Combine sorted non-NPC rows with NPC rows
-        sorted_rows = non_npc_rows + npc_rows
-
-        # Reinsert sorted rows into the table
-        for row_index, row_data in enumerate(sorted_rows):
-            for col_index, value in enumerate(row_data):
-                item = self.table.item(row_index, col_index)
-                if not item:
-                    item = QTableWidgetItem(value)
-                    self.table.setItem(row_index, col_index, item)
-                else:
-                    item.setText(value)
-
-        # Ensure the "Add Row" button remains at the bottom
-        self.table.setRowCount(len(sorted_rows) + 1)
-        self.add_row_button = QPushButton("Add Default Row")
-        self.table.setCellWidget(len(sorted_rows), 0, self.add_row_button)
-        self.table.setSpan(len(sorted_rows), 0, 1, self.total_columns)
-        self.add_row_button.clicked.connect(self.add_row_blank)
+        #Set all initiatives to 0
+        for char in self.rows:
+            if getattr(char, "is_button", "") == "":
+                char.Initiative = 0
         
-        # Add the "Add Character" button to the second row
-        row_index = self.table.rowCount()
-        self.table.insertRow(row_index)
-        self.add_character_button = QPushButton("Add Character(s)")
-        self.table.setCellWidget(row_index, 0, self.add_character_button)  # Place the button in the first column of the last row
-        self.table.setSpan(row_index, 0, 1, self.total_columns)  # Span the button across all data columns
-        self.add_character_button.clicked.connect(self.add_character)
+        #re-order so the player characters are at the top, sorted alphabetically
+        non_npc_rows = [row for row in self.rows if getattr(row, "is_button", "") == "" and row.Player_Name != "NPC"]
+        npc_rows = [row for row in self.rows if getattr(row, "is_button", "") == "" and row.Player_Name == "NPC"]
+
+        #delete all rows except (button rows are handled in delete_row)
+        for row_obj in non_npc_rows:
+            self.delete_row_character(row_obj, False)   #False so we dont remove from self.rows
+        for row_obj in npc_rows:
+            self.delete_row_character(row_obj, False)   #False so we dont remove from self.rows
+        
+        #add the rows back, non-npc first sorted alphabetically
+        npc_rows.sort(key=lambda x: x.Player_Name)
+        non_npc_rows.sort(key=lambda x: x.Player_Name)
+        for row_obj in non_npc_rows:
+            self.add_row(row_obj, False)  #False so we dont add to self.rows again
+        for row_obj in npc_rows:
+            self.add_row(row_obj, False)  #False so we dont add to self.rows again
 
     def add_character(self):
         """
@@ -1354,26 +1511,28 @@ class MainWindow(QMainWindow):
         Sets initiative to a random value between 0 and 20 for each applicable CharacterRow.
         Updates the table to reflect the new initiative values.
         """
+        self.process_damage_flag = False #Reset flag so damage is not calculated
         import random
-        for row_idx, row_obj in enumerate(self.rows):
-            if getattr(row_obj, "is_button", "") == "" and getattr(row_obj, "Current_HP", 0) > 0:
-                initiative = random.randint(1, 20)
-                #if they have a custom initiative bonus, add it to the rolled value
-                if row_obj.Initiative_Bonus != 0:
-                    initiative += row_obj.Initiative_Bonus  # Add any existing initiative value
-                else:
-                    #add the dex modifier to the initiative
-                    initiative += (row_obj.Dexterity - 10) // 2  # Calculate the Dexterity modifier
-                    
-                row_obj.Initiative = initiative
-                # Update the table if this is a data row (not a button row)
-                if row_idx < self.table.rowCount() - 2:
-                    item = self.table.item(row_idx, self.columns["Initiative"])
-                    if not item:
-                        item = QTableWidgetItem(str(initiative))
-                        self.table.setItem(row_idx, self.columns["Initiative"], item)
-                    else:
-                        item.setText(str(initiative))
+        for row in self.rows:
+            if row.is_button == "":
+                if row.Current_HP > 0:
+                    if self.settings.roll_pc_initiative == True or row.Player_Name == "NPC":
+                        initiative = random.randint(1, 20)
+                        #if they have a custom initiative bonus, add it to the rolled value
+                        if row.Initiative_Bonus != 0:
+                            initiative += row.Initiative_Bonus  # Add any existing initiative value
+                        else:
+                            #add the dex modifier to the initiative
+                            initiative += (row.Dexterity - 10) // 2  # Calculate the Dexterity modifier
+                        #make sure the initiative is set to atleast 1
+                        if initiative < 1:
+                            initiative = 1
+                        
+                        row.Initiative = initiative #set the initiative value for this object
+        
+        self.update_entire_table_column("Initiative")  # Update the table to reflect changes
+        
+        self.process_damage_flag = True #Reset flag so damage is calculated
 
     def update_conditions_Dropboxes(self):
         # --- Update all dropdowns in the Select column ---
@@ -1693,26 +1852,26 @@ class MainWindow(QMainWindow):
                 #if the rows match
                 if row.Character_ID == self.character_sheet_row_ID:
                     #if it the character sheet does not exist, create it
-                    if not hasattr(self, 'character_sheet_window'):
-                        self.character_sheet_window = CharacterSheetWindow(row)
+                    if self.character_sheet_window is None:
+                        #self.character_sheet_window = CharacterSheetWindow(row)
+                        self.character_sheet_window = CharacterSheetWindow(self.rows, row.Character_ID)
                     #if the window is not visable, show it
                     if not self.character_sheet_window.isVisible():
                         self.character_sheet_window.show()
                     break
     
-    def update_character_sheet(self, character_row):
+    def update_character_sheet(self, character_row = CharacterRow()):
         """
         @brief Update the Character Sheet window if it exists
         @param character_row The CharacterRow object to display in the character sheet.
-        """
+        """        
         #if the object exisits
-        if character_row is not None:
+        if character_row is not None and self.character_sheet_window is not None:
             # if the objct is not a button
             if character_row.is_button == "":
-                #if there is a character sheet object
-                if hasattr(self, 'character_sheet_window'):
-                    if self.character_sheet_window.isVisible():
-                        self.character_sheet_window.update_sheet(character_row)  #update to a new character
+                #if there is a character sheet object send the ID
+                if self.character_sheet_window.isVisible():
+                    self.character_sheet_window.update_sheet(character_row.Character_ID)  #update to a new character
 
 #******************************Menu Functions***********************************
     
@@ -1993,18 +2152,46 @@ class MainWindow(QMainWindow):
         # Create a dialog window
         dialog = QDialog(self)
         dialog.setWindowTitle("Options")
-        dialog.setGeometry(300, 300, 400, 200)
+        dialog.setGeometry(300, 300, 600, 600)
 
+        scroll_area = QScrollArea(dialog)
+        scroll_area.setWidgetResizable(True)
+        
+        content_widget = QWidget()
+        
         # Create a layout for the dialog
-        layout = QVBoxLayout(dialog)
+        layout = QVBoxLayout(content_widget)
+        
+        scroll_area.setWidget(content_widget)
+        dialog_layout = QVBoxLayout(dialog)
+        dialog_layout.addWidget(scroll_area)
+        
+        layout_general = QVBoxLayout()  #layout for general settings
         
         layout_text = QHBoxLayout()  #layout for text input
         
         layout_text_size = QVBoxLayout()  #layout for text size input
         layout_text_font = QVBoxLayout()  #layout for text size input
         
+        #title for the General Settings:
+        text_font_title = QLabel("General Settings:")
+        text_font_title.setStyleSheet("font-weight: bold;")
+        layout_general.addWidget(text_font_title)
+   
+        
+        #initive for player characters checkbox
+        pc_initiative_layout = QHBoxLayout()
+        pc_initiative_label = QLabel("Roll Player Characters Initiative:")
+        pc_initiative_checkbox = QCheckBox()
+        pc_initiative_checkbox.setChecked(self.settings.roll_pc_initiative)
+        pc_initiative_layout.addWidget(pc_initiative_label)
+        pc_initiative_layout.addWidget(pc_initiative_checkbox)
+        layout_general.addLayout(pc_initiative_layout)
+        
+        layout.addLayout(layout_general)
+        
         #title for the text font:
-        text_font_title = QLabel("Text Font:");
+        text_font_title = QLabel("Text Font:")
         text_font_title.setStyleSheet("font-weight: bold;")
         layout_text_font.addWidget(text_font_title)
         
@@ -2243,7 +2430,7 @@ class MainWindow(QMainWindow):
         cancel_button = QPushButton("Cancel")
         button_layout.addWidget(save_button)
         button_layout.addWidget(cancel_button)
-        layout.addLayout(button_layout)
+        dialog_layout.addLayout(button_layout)
         
         # Function to save the text sizes
         def save_preferences_sizes():
@@ -2255,6 +2442,9 @@ class MainWindow(QMainWindow):
             If invalid input is provided, a warning message is shown.
             """
             try:
+                #general settings
+                self.settings.roll_pc_initiative = pc_initiative_checkbox.isChecked()    #store if you should roll init for players or not
+                
                 #TEXT FONTS
                 general_text_font = general_font_combo.currentText()
                 if (general_text_font == ""):
@@ -2333,7 +2523,7 @@ class MainWindow(QMainWindow):
         """
         about_text = (
             "<h2>DM Assistant</h2>"
-            "<p>Version: 0.9.6</p>"
+            "<p>Version: 0.9.8.1</p>"
             "<p>Developed by: GS-A1</p>"
             "<p>git repository: https://github.com/GS-A1/DM-Program</p>"
             "<p>This application is designed to assist Dungeon Masters in managing combat encounters, "
@@ -2355,7 +2545,7 @@ class MainWindow(QMainWindow):
             event.ignore()  # Cancel the close event
         
         #close the character sheet window if it is open
-        if hasattr(self, 'character_sheet_window'):
+        if self.character_sheet_window is not None:
             self.character_sheet_window.close()
 
 #**************************End of Class***************************************
