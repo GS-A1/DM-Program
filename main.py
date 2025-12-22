@@ -1641,8 +1641,10 @@ class MainWindow(QMainWindow):
         button_layout = QHBoxLayout()
         add_button = QPushButton("Add New Condition")
         save_button = QPushButton("Save Changes")
+        remove_button = QPushButton("Remove Condition")
         button_layout.addWidget(add_button)
         button_layout.addWidget(save_button)
+        button_layout.addWidget(remove_button)
         main_layout.addLayout(button_layout)
 
         # Track last selected index
@@ -1787,18 +1789,8 @@ class MainWindow(QMainWindow):
             last_selected[0] = new_idx
 
         list_widget.currentRowChanged.connect(on_selection_changed)
-
-        def add_new_condition():
-            # Save edits to the currently selected item
-            if last_selected[0] is not None and 0 <= last_selected[0] < len(conditions):
-                save_current_edits()
-            # Add new blank condition
-            conditions.append({"name": "New Condition", "description": ""})
-            list_widget.addItem("New Condition")
-            list_widget.setCurrentRow(len(conditions) - 1)  # This will trigger loading the new blank fields
-
-        add_button.clicked.connect(add_new_condition)
-
+        
+        #main save condition function
         def save_to_xml(showDialogMessage=True):
             # Save edits to the currently selected item
             if last_selected[0] is not None and 0 <= last_selected[0] < len(conditions):
@@ -1830,6 +1822,38 @@ class MainWindow(QMainWindow):
             save_to_xml(showDialogMessage=True)
         
         save_button.clicked.connect(save_to_xml_loud)
+        
+        #Add new condition function
+        def add_new_condition():
+            # Save edits to the currently selected item
+            if last_selected[0] is not None and 0 <= last_selected[0] < len(conditions):
+                save_current_edits()
+            # Add new blank condition
+            conditions.append({"name": "New Condition", "description": ""})
+            list_widget.addItem("New Condition")
+            list_widget.setCurrentRow(len(conditions) - 1)  # This will trigger loading the new blank fields
+
+        add_button.clicked.connect(add_new_condition)
+        
+        #Remove condition function
+        def remove_condition():
+            idx = list_widget.currentRow()
+            if 0 <= idx < len(conditions):
+                # Confirm deletion
+                reply = QMessageBox.question(dialog, "Confirm Deletion", f"Are you sure you want to delete the condition '{conditions[idx]['name']}'?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                if reply == QMessageBox.StandardButton.Yes:
+                    # Remove from data and UI
+                    conditions.pop(idx)
+                    list_widget.takeItem(idx)
+                    # Clear fields
+                    name_input.clear()
+                    desc_input.clear()
+                    last_selected[0] = None
+                    save_to_xml_silent()  # Save changes immediately
+    
+        remove_button.clicked.connect(remove_condition)
+        
+        
         # Add keyboard shortcuts for formatting
         QShortcut(QKeySequence("Ctrl+S"), desc_input, save_to_xml_silent)
 
