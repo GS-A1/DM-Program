@@ -1065,6 +1065,8 @@ class MainWindow(QMainWindow):
         @brief Resize each column in the table to fit the longest cell.
         """
         self.table.resizeColumnsToContents()
+        # Force columns to stretch to fill available space
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
     def save_on_exit(self):
         """
@@ -1852,7 +1854,6 @@ class MainWindow(QMainWindow):
                     save_to_xml_silent()  # Save changes immediately
     
         remove_button.clicked.connect(remove_condition)
-        
         
         # Add keyboard shortcuts for formatting
         QShortcut(QKeySequence("Ctrl+S"), desc_input, save_to_xml_silent)
