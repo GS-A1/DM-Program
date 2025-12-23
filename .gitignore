@@ -2,5 +2,6 @@ dist/
 output/
 __pycache__/
 build/
+.vscode/
 
 *.spec

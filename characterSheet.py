@@ -224,12 +224,48 @@ class CharacterSheetWindow(QMainWindow):
         h1.addWidget(self.labeled_field("Passive Perception", self.character.Passive_Perception, True), 1, 2)
         layout.addLayout(h1)
         
-        h3 = QVBoxLayout()
-        h3.addWidget(self.labeled_field("Languages", self.character.Languages, True))
-        h3.addWidget(self.labeled_field("Spell Save DC", self.character.Spell_Save_DC, True))
-        h3.addWidget(self.labeled_field("Spell Att. Mod.", self.character.Spell_Attack_Modifier, True))
+        h2 = QVBoxLayout()
+        h2.addWidget(self.labeled_field("Languages", self.character.Languages, True))
+        h2.addWidget(self.labeled_field("Spell Save DC", self.character.Spell_Save_DC, True))
+        h2.addWidget(self.labeled_field("Spell Att. Mod.", self.character.Spell_Attack_Modifier, True))
+        layout.addLayout(h2)
+        
+        #select the next position. wrap row and col if needed
+        def wrapRowCol(row, col):
+            col += 1
+            if col > 1:
+                col = 0
+                row += 1
+            return row, col
+        
+        #add anythign else you might want at the bottom
+        h3 = QGridLayout()
+        row = 0
+        col = 0
+        if self.character.Damage_Resistance != "":
+            box = QWidget()
+            temp = QVBoxLayout(box)
+            temp.addWidget(self.labeled_label("Damage Resistance", True))
+            temp.addWidget(self.create_QTextEdit(self.character.Damage_Resistance))
+            h3.addWidget(box, row, col)
+            row, col = wrapRowCol(row, col) #select the next grid position
+        if self.character.Damage_Immunities != "":
+            box = QWidget()
+            temp = QVBoxLayout(box)
+            temp.addWidget(self.labeled_label("Damage Immunities", True))
+            temp.addWidget(self.create_QTextEdit(self.character.Damage_Immunities))
+            h3.addWidget(box, row, col)
+            row, col = wrapRowCol(row, col) #select the next grid position
+        if self.character.Condition_Immunities != "":
+            box = QWidget()
+            temp = QVBoxLayout(box)
+            temp.addWidget(self.labeled_label("Condition Immunities", True))
+            temp.addWidget(self.create_QTextEdit(self.character.Condition_Immunities))
+            h3.addWidget(box, row, col)
+            row, col = wrapRowCol(row, col) #select the next grid position
+        
         layout.addLayout(h3)
-   
+        
         layout.addStretch()
         return page
     
@@ -242,15 +278,19 @@ class CharacterSheetWindow(QMainWindow):
         
         box = QWidget()
         vbox = QVBoxLayout(box)
-        lbl = QLabel(label)
-        lbl.setStyleSheet("font-weight: bold; color: #a02b2b;")
+        lbl = self.labeled_label(label, centered)
         field = QLineEdit(value+additional_string)
-        lbl.setAlignment(Qt.AlignmentFlag.AlignCenter if centered else Qt.AlignmentFlag.AlignLeft)
         field.setAlignment(Qt.AlignmentFlag.AlignCenter if centered else Qt.AlignmentFlag.AlignLeft)
         field.setReadOnly(True)
         vbox.addWidget(lbl)
         vbox.addWidget(field)
         return box
+
+    def labeled_label(self, label, centered=False):
+        lbl = QLabel(label)
+        lbl.setStyleSheet("font-weight: bold; color: #a02b2b;")
+        lbl.setAlignment(Qt.AlignmentFlag.AlignCenter if centered else Qt.AlignmentFlag.AlignLeft)
+        return lbl
     
     def labeled_ComboBox(self, label, values=[], centered=False, current_value =""):
                 

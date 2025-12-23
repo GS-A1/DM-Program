@@ -208,6 +208,7 @@ class MainWindow(QMainWindow):
         self.table.setRowCount(7)
         
         self.table.verticalHeader().setMinimumSectionSize(30)  # Set minimum row height
+        self.table.horizontalHeader().setMinimumSectionSize(80)  # Set minimum row width
 
         # Populate the first 5 rows with default data
         for row in range(5):
