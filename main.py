@@ -1513,25 +1513,34 @@ class MainWindow(QMainWindow):
         Updates the table to reflect the new initiative values.
         """
         self.process_damage_flag = False #Reset flag so damage is not calculated
-        import random
-        for row in self.rows:
-            if row.is_button == "":
-                if row.Current_HP > 0:
-                    if self.settings.roll_pc_initiative == True or row.Player_Name == "NPC":
-                        initiative = random.randint(1, 20)
-                        #if they have a custom initiative bonus, add it to the rolled value
-                        if row.Initiative_Bonus != 0:
-                            initiative += row.Initiative_Bonus  # Add any existing initiative value
-                        else:
-                            #add the dex modifier to the initiative
-                            initiative += (row.Dexterity - 10) // 2  # Calculate the Dexterity modifier
-                        #make sure the initiative is set to atleast 1
-                        if initiative < 1:
-                            initiative = 1
-                        
-                        row.Initiative = initiative #set the initiative value for this object
         
-        self.update_entire_table_column("Initiative")  # Update the table to reflect changes
+        #Confirm with the user before rolling initiative. Stops problems if they click it by mistake
+        message = "Do you want to roll initiative for "
+        if self.settings.roll_pc_initiative == True:
+            message += "all characters?"
+        else:
+            message += "only NPCs?"
+        reply = QMessageBox.question(None, "Confirm Roll", message, QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if reply == QMessageBox.StandardButton.Yes:
+            import random
+            for row in self.rows:
+                if row.is_button == "":
+                    if row.Current_HP > 0:
+                        if self.settings.roll_pc_initiative == True or row.Player_Name == "NPC":
+                            initiative = random.randint(1, 20)
+                            #if they have a custom initiative bonus, add it to the rolled value
+                            if row.Initiative_Bonus != 0:
+                                initiative += row.Initiative_Bonus  # Add any existing initiative value
+                            else:
+                                #add the dex modifier to the initiative
+                                initiative += (row.Dexterity - 10) // 2  # Calculate the Dexterity modifier
+                            #make sure the initiative is set to atleast 1
+                            if initiative < 1:
+                                initiative = 1
+                            
+                            row.Initiative = initiative #set the initiative value for this object
+            
+            self.update_entire_table_column("Initiative")  # Update the table to reflect changes
         
         self.process_damage_flag = True #Reset flag so damage is calculated
 

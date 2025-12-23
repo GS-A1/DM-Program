@@ -108,7 +108,7 @@ class Settings:
     @brief Data class used to hold settings information.
     """
     
-    roll_pc_initiative = True
+    roll_pc_initiative = False
     
     def __init__(self, parent=None):
         """
@@ -121,4 +121,4 @@ class Settings:
         """
         @brief Resets all settings information to default values.
         """
-        self.roll_pc_initiative = True
+        self.roll_pc_initiative = False
