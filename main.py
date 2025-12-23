@@ -169,13 +169,12 @@ class MainWindow(QMainWindow):
         # Set the stretch factors: 4 for the table (80%) and 1 for the buttons (20%)
         splitter.setStretchFactor(0, 4)  # Index 0 corresponds to the table
         splitter.setStretchFactor(1, 1)  # Index 1 corresponds to the buttons
-        splitter.setChildrenCollapsible(False)
 
         # Set the initial sizes: 80% for the table and 20% for the buttons
-        #splitter.setSizes([800, 200])  # Adjust these values as needed for your window size
+        splitter.setSizes([800, 200])  # Adjust these values as needed for your window size
 
         # Prevent the buttons from expanding when the table shrinks
-        #splitter.setChildrenCollapsible(False)
+        splitter.setChildrenCollapsible(False)
 
         # Set the splitter as the layout for the central widget
         layout = QVBoxLayout(central_widget)
@@ -308,7 +307,7 @@ class MainWindow(QMainWindow):
 
             # Revert to the previous value if the text is not a valid integer
             previous_value = self.previous_values.get((row, col), "")
-            item.setText(previous_value)
+            item.setText(str(previous_value))
             return True
         else:
             # Update the previous value if the text is valid
