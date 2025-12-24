@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
+from PyQt6.QtWidgets import QProgressDialog, QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QPalette, QLinearGradient, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
 import sys
@@ -6,6 +6,8 @@ import os  # Import os for file path handling
 import xml.etree.ElementTree as ET  # Import the XML parsing module
 import html
 from bs4 import BeautifulSoup
+import shutil  # Import shutil for file operations
+import urllib.request  # Import urllib for downloading files from GitHub
 
 from PyQt6.QtWidgets import QFileDialog  # Import QFileDialog for file selection
 import csv  # Import CSV module for reading and writing CSV files
@@ -20,6 +22,7 @@ from rowdata import CharacterRow, ColumnNames  # Import the CharacterRow class f
 import rowDataFileIO as CFIO  # Import the file I/O functions for character data
 
 from settingsAndStyle import StyleInfo, Settings # Import the function to set the custom style sheet information
+from githubDownload import GitHubDownloader  # Import the GitHub downloader class
 
 
 
@@ -37,8 +40,13 @@ class MainWindow(QMainWindow):
         
         # In your __init__ method
         
+        #github variables
+        self.github_downloader = GitHubDownloader()  # Create an instance of the GitHubDownloader class
+
         self.process_damage_flag = True # Flag to control if damage applied
-        self.condtions_spellEffect_file_path = "Settings/Condition_Spell_Effects/DnD_2024.xml"  # Path to the XML file for conditions and spell effects
+        self.default_condit_file_name = "DnD_2024.xml"
+        self.condtions_spellEffect_file_path = f"Settings/Condition_Spell_Effects/{self.default_condit_file_name}"  # Path to the XML file for conditions and spell effects
+        self.conditions_file_error = False  # Flag to track if there was an error loading the conditions file so we only try to download once per session it once
         self.file_path = ""  # Initialize file_path to an empty string. Used to store where the file is saved if the save button is used         
         self.rows: list[CharacterRow] = []      #create a list of objects to store all row data
         self.character_sheet_row_ID = 4  # store the index we are going to use for the character sheet
@@ -79,6 +87,7 @@ class MainWindow(QMainWindow):
         # Add actions to the submenu
         conditions_menu.addAction("Select File", self.select_conditions_file)
         conditions_menu.addAction("Modify Conditions/Spell Effects", self.modify_conditions_spell_effects)
+        conditions_menu.addAction("Pull files from github", self.github_downloader.git_download_repo)
         
         self.columns = {name: idx for idx, name in enumerate(ColumnNames)}
         
@@ -555,22 +564,34 @@ class MainWindow(QMainWindow):
         @param row_index The index of the row to add the dropdown to.
         """
         dropdown = QComboBox()
-
         dropdown.addItem("")  # add a blank iteam
-        
-        # Load items and descriptions from the XML file
-        try:
-            tree = ET.parse(self.condtions_spellEffect_file_path)  # Parse the XML file
-            root = tree.getroot()
 
-            for condition in root.findall("condition"):
-                name = condition.find("name").text  # Get the <name> tag
-                description = condition.find("description").text  # Get the <description> tag
-                dropdown.addItem(name)  # Add the name to the dropdown
-                dropdown.setItemData(dropdown.count() - 1, description, Qt.ItemDataRole.ToolTipRole)  # Set the tooltip
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to load dropdown items: {e}")
-            return
+        if not self.conditions_file_error:
+            #check to see if the file exists before we continue
+            if not os.path.isfile(self.condtions_spellEffect_file_path):
+                message = f"Failed to load default conditions and spell effects file {self.default_condit_file_name}. Do you want to download the file from GitHub?"
+                reply = QMessageBox.question(None, "File Not Found", message, QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                if reply == QMessageBox.StandardButton.Yes:
+                    error = self.github_downloader.githiub_download_file(self.condtions_spellEffect_file_path) #try to download the file from github
+                    #if there was an error downloading the file
+                    if error == True:
+                        self.conditions_file_error = True
+                else:
+                    self.conditions_file_error = True
+            
+            # Load items and descriptions from the XML file if there was no error
+            if self.conditions_file_error != True:
+                try:
+                    tree = ET.parse(self.condtions_spellEffect_file_path)  # Parse the XML file
+                    root = tree.getroot()
+
+                    for condition in root.findall("condition"):
+                        name = condition.find("name").text  # Get the <name> tag
+                        description = condition.find("description").text  # Get the <description> tag
+                        dropdown.addItem(name)  # Add the name to the dropdown
+                        dropdown.setItemData(dropdown.count() - 1, description, Qt.ItemDataRole.ToolTipRole)  # Set the tooltip
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Failed to load dropdown items: {e}")
 
         # Connect the dropdown selection to update the "Condition/Spell Effects" column
         dropdown.currentTextChanged.connect(lambda text, row=row_index: self.update_condition_spell_effects(row, text))
@@ -2574,6 +2595,11 @@ class MainWindow(QMainWindow):
         reply = self.save_on_exit()
         
         if reply == True:
+            #delete the temp folder and all its contents if it exists
+            temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+            if os.path.exists(temp_dir):
+                shutil.rmtree(temp_dir)
+            
             event.accept()  # Allow the window to close
         else:
             event.ignore()  # Cancel the close event

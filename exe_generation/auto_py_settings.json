@@ -132,10 +132,6 @@
   {
    "optionDest": "datas",
    "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/Dice/d20-red.png;Settings/Dice/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/Benjamin/Documents/Python/Python 3.12/DM-Program/Settings/dnd_dm_icons.ico;Settings/"
   }
  ],
  "nonPyinstallerOptions": {
