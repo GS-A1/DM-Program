@@ -87,7 +87,6 @@ class MainWindow(QMainWindow):
         # Add actions to the submenu
         conditions_menu.addAction("Select File", self.select_conditions_file)
         conditions_menu.addAction("Modify Conditions/Spell Effects", self.modify_conditions_spell_effects)
-        conditions_menu.addAction("Pull files from github", self.github_downloader.git_download_repo)
         
         self.columns = {name: idx for idx, name in enumerate(ColumnNames)}
         
@@ -1957,6 +1956,9 @@ class MainWindow(QMainWindow):
         @brief Save the table data to a CSV file, prompting the user for a file path.
         @return True if the file was saved, False otherwise.
         """
+        #make the save directory if it does not exist
+        if not os.path.exists("./Save Files"):
+            os.makedirs("./Save Files")
         
         #if we have saved or loaded a file preiously, use that file path as the default location
         if self.file_path != "":
@@ -2578,7 +2580,7 @@ class MainWindow(QMainWindow):
         """
         about_text = (
             "<h2>DM Assistant</h2>"
-            "<p>Version: 0.9.8.1</p>"
+            "<p>Version: 0.9.8.3</p>"
             "<p>Developed by: GS-A1</p>"
             "<p>git repository: https://github.com/GS-A1/DM-Program</p>"
             "<p>This application is designed to assist Dungeon Masters in managing combat encounters, "
