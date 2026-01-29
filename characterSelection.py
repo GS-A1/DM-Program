@@ -865,14 +865,17 @@ class CharacterSelectionWindow(QDialog):
                 return
             else:
                 #copy the character files from the downloaded repo to the character folder
-                source_folder = os.path.join(git_hub_downloader.downloaded_repo_path, "Settings/Characters")
-                dest_folder = self.character_folder
+                # source_folder = os.path.join(git_hub_downloader.downloaded_repo_path, "Settings/Characters")
+                # dest_folder = self.character_folder
+                #git_hub_downloader.git_download_files(silent=True, folder_path="Settings/Characters", dest_folder=dest_folder)
+                
                 try:
-                    for file_name in os.listdir(source_folder):
-                        if file_name.endswith(".xml"):
-                            full_file_name = os.path.join(source_folder, file_name)
-                            if os.path.isfile(full_file_name):
-                                shutil.copy(full_file_name, dest_folder)
+                #     for file_name in os.listdir(source_folder):
+                #         if file_name.endswith(".xml"):
+                #             full_file_name = os.path.join(source_folder, file_name)
+                #             if os.path.isfile(full_file_name):
+                #                 shutil.copy(full_file_name, dest_folder)
+                
                     QMessageBox.information(None, "Success", "Character files updated successfully from GitHub.")
                     #reload the xml files
                     # Prevent currentTextChanged signals firing while we reset the combo box

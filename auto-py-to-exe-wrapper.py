@@ -20,7 +20,7 @@ def main():
     #Folders
     last_build_folder = "last_build"
     dm_assistant_folder = "output/DM Assistant"
-    settings_folders = ["Settings/Characters", "Settings/Condition_Spell_effects"]
+    settings_folders = ["Settings/Characters", "Settings/Condition_Spell_Effects"]
     
     ##########################################Increment Version Number###########################################
     # --- Command 1 ---

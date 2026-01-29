@@ -124,68 +124,76 @@ class MainWindow(QMainWindow):
         #characters
         if self.checkbox_characters.isChecked():
             self.log_output("Extracting Characters...")
-           
-            succ = True #set to true incase we dont need to download it
-            #if the files dont already exist in the temp folder, download the settings zip
-            if not os.path.exists(os.path.join(download_path, "Settings.zip")):
-                succ = self.gitHubDownload.git_download_file(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
-            if not succ:
-                self.log_output("Failed to download Settings.zip.")
-                return
-            
-            succ = self.gitHubDownload.git_extract_folder(silent=True, zip_folder_path = os.path.join(download_path, "Settings.zip"), desired_folder_path="Characters")
-            
-            #moving the characters to the correct folder
-            self.log_output(f"Moving Character Files to {installPath}/DM Assistant/Settings/Characters ...")
-            source_char_folder = os.path.join(download_path, "Characters")
-            dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Characters")
-            try:
-                if os.path.exists(dest_char_folder):
-                    reply = QMessageBox.question(None, "Confirm Installation", "A Characters folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-                    if reply == QMessageBox.StandardButton.Yes:
-                        # Remove only the executable and internal folder to preserve user data
-                        shutil.rmtree(dest_char_folder)  # Remove existing characters folder
-                        shutil.move(source_char_folder, dest_char_folder)
-                    else:
-                        self.log_output("Failed to install Character files: Installation cancelled.")
-                else:
-                    shutil.move(source_char_folder, dest_char_folder)
+            suc = downloadAndExtractSettingsFolder(installPath=installPath, folderName="Characters")
+            if suc:
                 self.log_output("Character files installed successfully.")
-            except Exception as e:
-                self.log_output(f"Failed to move character files: {e}")
-                return
+            else:
+                self.log_output("Failed to install Character files.")
+            # succ = True #set to true incase we dont need to download it
+            # #if the files dont already exist in the temp folder, download the settings zip
+            # if not os.path.exists(os.path.join(download_path, "Settings.zip")):
+            #     succ = self.gitHubDownload.git_download_file(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
+            # if not succ:
+            #     self.log_output("Failed to download Settings.zip.")
+            #     return
+            
+            # succ = self.gitHubDownload.git_extract_folder(silent=True, zip_folder_path = os.path.join(download_path, "Settings.zip"), desired_folder_path="Characters")
+            
+            # #moving the characters to the correct folder
+            # self.log_output(f"Moving Character Files to {installPath}/DM Assistant/Settings/Characters ...")
+            # source_char_folder = os.path.join(download_path, "Characters")
+            # dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Characters")
+            # try:
+            #     if os.path.exists(dest_char_folder):
+            #         reply = QMessageBox.question(None, "Confirm Installation", "A Characters folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            #         if reply == QMessageBox.StandardButton.Yes:
+            #             # Remove only the executable and internal folder to preserve user data
+            #             shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+            #             shutil.move(source_char_folder, dest_char_folder)
+            #         else:
+            #             self.log_output("Failed to install Character files: Installation cancelled.")
+            #     else:
+            #         shutil.move(source_char_folder, dest_char_folder)
+            #     self.log_output("Character files installed successfully.")
+            # except Exception as e:
+            #     self.log_output(f"Failed to move character files: {e}")
+            #     return
         #####################################################Download and install Conditions and Spell Effects###################################################    
         if self.checkbox_conditions.isChecked():
             self.log_output("Extracting Conditions and Spell Effects...")
-           
-            succ = True #set to true incase we dont need to download it
-            #if the files dont already exist in the temp folder, download the settings zip
-            if not os.path.exists(os.path.join(download_path, "Settings.zip")):
-                succ = self.gitHubDownload.git_download_file(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
-            if not succ:
-                self.log_output("Failed to download Settings.zip.")
-                return
+            suc = downloadAndExtractSettingsFolder(installPath=installPath, folderName="Condition_Spell_Effects")
+            if suc:
+                self.log_output("Conditions and Spell Effects installed successfully.")
+            else:
+                self.log_output("Failed to install Conditions and Spell Effects.")
+            # succ = True #set to true incase we dont need to download it
+            # #if the files dont already exist in the temp folder, download the settings zip
+            # if not os.path.exists(os.path.join(download_path, "Settings.zip")):
+            #     succ = self.gitHubDownload.git_download_file(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
+            # if not succ:
+            #     self.log_output("Failed to download Settings.zip.")
+            #     return
             
-            succ = self.gitHubDownload.git_extract_folder(silent=True, zip_folder_path = os.path.join(download_path, "Settings.zip"), desired_folder_path="Condition_Spell_effects")
+            # succ = self.gitHubDownload.git_extract_folder(silent=True, zip_folder_path = os.path.join(download_path, "Settings.zip"), desired_folder_path="Condition_Spell_effects")
             
-            #moving the conditions and spell effects to the correct folder
-            self.log_output(f"Moving Condition and Spell Effect Files to {installPath}/DM Assistant/Settings/Condition_Spell_Effects ...")
-            source_char_folder = os.path.join(download_path, "Condition_Spell_Effects")
-            dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Condition_Spell_Effects")
-            try:
-                if os.path.exists(dest_char_folder):
-                    reply = QMessageBox.question(None, "Confirm Installation", "A Condition_Spell_Effects folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-                    if reply == QMessageBox.StandardButton.Yes:
-                        # Remove only the executable and internal folder to preserve user data
-                        shutil.rmtree(dest_char_folder)  # Remove existing characters folder
-                        shutil.move(source_char_folder, dest_char_folder)
-                    else:
-                        self.log_output("Failed to install Condition_Spell_Effects files: Installation cancelled.")
-                else:
-                    shutil.move(source_char_folder, dest_char_folder)
-            except Exception as e:
-                self.log_output(f"Failed to move Condition_Spell_Effects files: {e}")
-                return
+            # #moving the conditions and spell effects to the correct folder
+            # self.log_output(f"Moving Condition and Spell Effect Files to {installPath}/DM Assistant/Settings/Condition_Spell_Effects ...")
+            # source_char_folder = os.path.join(download_path, "Condition_Spell_Effects")
+            # dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Condition_Spell_Effects")
+            # try:
+            #     if os.path.exists(dest_char_folder):
+            #         reply = QMessageBox.question(None, "Confirm Installation", "A Condition_Spell_Effects folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            #         if reply == QMessageBox.StandardButton.Yes:
+            #             # Remove only the executable and internal folder to preserve user data
+            #             shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+            #             shutil.move(source_char_folder, dest_char_folder)
+            #         else:
+            #             self.log_output("Failed to install Condition_Spell_Effects files: Installation cancelled.")
+            #     else:
+            #         shutil.move(source_char_folder, dest_char_folder)
+            # except Exception as e:
+            #     self.log_output(f"Failed to move Condition_Spell_Effects files: {e}")
+            #     return
         
         #create the save files folder
         save_files_folder = os.path.join(installPath, "DM Assistant", "Save Files")
@@ -359,6 +367,47 @@ class MainWindow(QMainWindow):
         event.accept()  # Allow the window to close
         
 #**************************End of Class***************************************
+
+
+#**************************Public Functions***************************************
+def downloadAndExtractSettingsFolder(installPath = "", folderName = ""):
+    """
+    @breif Download the settigns folder to temp and extract a folder from it to the install path
+    @param installPath The path to install the extracted folder to
+    """
+    gitHubDownload = GitHubDownloader()
+    download_path = os.path.join(tempfile.gettempdir(), "DM-Program") 
+    succ = True #set to true incase we dont need to download it
+    #if the files dont already exist in the temp folder, download the settings zip
+    if not os.path.exists(os.path.join(download_path, "Settings.zip")):
+        succ = gitHubDownload.git_download_file(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
+    if not succ:
+        #self.log_output("Failed to download Settings.zip.")
+        return False
+    
+    succ = gitHubDownload.git_extract_folder(silent=True, zip_folder_path = os.path.join(download_path, "Settings.zip"), desired_folder_path=folderName)
+    
+    #moving folderName to the correct folder
+    #self.log_output(f"Moving Character Files to {installPath}/DM Assistant/Settings/Characters ...")
+    source_char_folder = os.path.join(download_path, folderName)
+    dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", folderName)
+    try:
+        if os.path.exists(dest_char_folder):
+            reply = QMessageBox.question(None, "Confirm Installation", f"A {folderName} folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            if reply == QMessageBox.StandardButton.Yes:
+                # Remove only the executable and internal folder to preserve user data
+                shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+                shutil.move(source_char_folder, dest_char_folder)
+            else:
+                #self.log_output("Failed to install Character files: Installation cancelled.")
+                return False
+        else:
+            shutil.move(source_char_folder, dest_char_folder)
+        #self.log_output("Character files installed successfully.")
+        return True
+    except Exception as e:
+        #self.log_output(f"Failed to move character files: {e}")
+        return False
 
 #**************************Main Function***********************************
 if __name__ == "__main__":

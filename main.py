@@ -264,7 +264,7 @@ class MainWindow(QMainWindow):
         #download the version file from github
         temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program") #use the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
         os.makedirs(temp_dir, exist_ok=True)        #make sure the temp folder exists
-        github_version_err = self.github_downloader.githiub_download_file(file="Settings/version.txt", outputPath=os.path.join(temp_dir, "version.txt"), silent=True)  # Download the version.txt file to a temporary location
+        github_version_err = self.github_downloader.git_download_file(file="Settings/version.txt", outputPath=os.path.join(temp_dir, "version.txt"), silent=True)  # Download the version.txt file to a temporary location
         #if there was not error
         if not github_version_err:
             # Read the version number from the downloaded file
@@ -610,12 +610,13 @@ class MainWindow(QMainWindow):
         if not self.conditions_file_error:
             #check to see if the file exists before we continue
             if not os.path.isfile(self.condtions_spellEffect_file_path):
-                message = f"Failed to load default conditions and spell effects file {self.default_condit_file_name}. Do you want to download the file from GitHub?"
+                message = f"Failed to load default conditions and spell effects file {self.default_condit_file_name}. Do you want to download the file?"
                 reply = QMessageBox.question(None, "File Not Found", message, QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
                 if reply == QMessageBox.StandardButton.Yes:
-                    error = self.github_downloader.githiub_download_file(self.condtions_spellEffect_file_path) #try to download the file from github
+                    file_path, separator, file_name = self.condtions_spellEffect_file_path.rpartition('/')   #find just the file name from the string
+                    NoError = self.github_downloader.git_download_file(outputPath=file_path, file = self.condtions_spellEffect_file_path) #try to download the file from github
                     #if there was an error downloading the file
-                    if error == True:
+                    if NoError == False:
                         self.conditions_file_error = True
                 else:
                     self.conditions_file_error = True
