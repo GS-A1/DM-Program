@@ -857,14 +857,15 @@ class CharacterSelectionWindow(QDialog):
         reply = QMessageBox.question(None, "Update Characters", "Do you want to update all character files from GitHub? This will overide anyfiles that have the same name as those on github", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         if reply == QMessageBox.StandardButton.Yes:
             git_hub_downloader = GitHubDownloader()
-            error = git_hub_downloader.git_download_repo(silent=True)   #download the repo silently
-            if error == True:
+            #error = git_hub_downloader.git_extract_folder(silent=True, folder_path=os.path.join(os.path.dirname(__file__), "Settings", "Characters"))
+            succ = git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Characters")
+            if succ == False:
                 #show an error message
                 QMessageBox.critical(None, "Error", "Failed to download character files from GitHub.")
                 return
             else:
                 #copy the character files from the downloaded repo to the character folder
-                source_folder = os.path.join(git_hub_downloader.downloaded_repo_path, "Characters")
+                source_folder = os.path.join(git_hub_downloader.downloaded_repo_path, "Settings/Characters")
                 dest_folder = self.character_folder
                 try:
                     for file_name in os.listdir(source_folder):

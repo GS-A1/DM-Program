@@ -24,6 +24,8 @@ import rowDataFileIO as CFIO  # Import the file I/O functions for character data
 from settingsAndStyle import StyleInfo, Settings # Import the function to set the custom style sheet information
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
 
+from updateVersionNum import readVersionNumber  # Import the function to read the version number
+
 
 
 class MainWindow(QMainWindow):
@@ -39,6 +41,14 @@ class MainWindow(QMainWindow):
         super().__init__()
         
         # In your __init__ method
+        
+        #create the folder structure if it does not already exist
+        os.makedirs("Settings/Condition_Spell_Effects", exist_ok=True)
+        os.makedirs("Settings/Characters", exist_ok=True)
+        os.makedirs("Save Files", exist_ok=True)
+
+        #version number of the application
+        self.version = self.readversionnumber() #read the version number from the version.txt file
         
         #github variables
         self.github_downloader = GitHubDownloader()  # Create an instance of the GitHubDownloader class
@@ -70,6 +80,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction("Save", self.save_action)  # Save action calls the save_table_data method
         file_menu.addAction("Save As", self.save_as_action)  # Save action calls the save_table_data method
         file_menu.addAction("Exit", self.exit_action)  # Exit action closes the application
+        file_menu.addAction("Download Repo", self.download_repo_action)  # Exit action closes the application
         
         # Add "View" menu
         view_menu = menu_bar.addMenu("View")
@@ -251,6 +262,18 @@ class MainWindow(QMainWindow):
         self.reset_layout()
 
 #**************************Functions***********************************
+    def readversionnumber(self):
+            """Read the version number from the version.txt file."""
+            version_file_path = readVersionNumber() #read the version number from the version.txt file
+            if version_file_path == "Unknown Version":
+                QMessageBox.warning(
+                self,
+                "Invalid Input",
+                f"Could not find version file at {version_file_path}"
+                )
+            else:
+                return version_file_path
+
     def validate_cell_content(self, row, col):
         """
         @brief Validate the content of a cell and process it if valid.
@@ -2580,14 +2603,20 @@ class MainWindow(QMainWindow):
         """
         about_text = (
             "<h2>DM Assistant</h2>"
-            "<p>Version: 0.9.8.3</p>"
+            f"<p>Version: {self.version}</p>"
             "<p>Developed by: GS-A1</p>"
             "<p>git repository: https://github.com/GS-A1/DM-Program</p>"
-            "<p>This application is designed to assist Dungeon Masters in managing combat encounters, "
+            "<p>This application is designed to assist Game Masters in managing combat encounters, "
             "tracking character stats, and rolling dice for tabletop role-playing games, such as DnD 2024.</p>"
         )
         QMessageBox.about(self, "About DM Assistant", about_text)
     
+    def download_repo_action(self):
+        git_hub_downloader = GitHubDownloader()
+        git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Condition_Spell_Effects")
+        git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Characters")
+        
+        
 #**************************Events**********************************************
     def closeEvent(self, event):
         """
@@ -2609,7 +2638,7 @@ class MainWindow(QMainWindow):
         #close the character sheet window if it is open
         if self.character_sheet_window is not None:
             self.character_sheet_window.close()
-
+        
 #**************************End of Class***************************************
 
 #**************************Main Function***********************************

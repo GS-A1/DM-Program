@@ -1,0 +1,664 @@
+<?xml version="1.0" ?>
+<characters>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/aberrant-spirit</character_url>
+    <character_name>Aberrant Spirit</character_name>
+    <size>Medium</size>
+    <background>See Summon Aberration</background>
+    <armor_class>11</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly>30</fly>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>40</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>16</strength>
+    <dexterity>10</dexterity>
+    <constitution>15</constitution>
+    <intelligence>16</intelligence>
+    <wisdom>10</wisdom>
+    <charisma>6</charisma>
+    <condition_immunities>Psychic</condition_immunities>
+    <damage_resistance/>
+    <languages>Deep Speech, understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 10</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Claw (Slaad Only)</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d10 + 3 + the spell's level Slashing damage, and the target can't regain Hit Points until the start of the spirit's next turn.</description>
+      </action>
+      <action>
+        <name>Eye Ray (Beholderkin Only)</name>
+        <description>Ranged Attack Roll : Bonus equals your spell attack modifier, range 150 ft. Hit : 1d8 + 3 + the spell's level Psychic damage.</description>
+      </action>
+      <action>
+        <name>Psychic Slam (Mind Flayer Only)</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d8 + 3 + the spell's level Psychic damage.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Regeneration (Slaad Only)</name>
+        <description>The spirit regains 5 Hit Points at the start of its turn if it has at least 1 Hit Point.</description>
+      </feat>
+      <feat>
+        <name>Whispering Aura (Mind Flayer Only)</name>
+        <description>At the start of each of the spirit's turns, the spirit emits psionic energy if it doesn't have the Incapacitated condition. Wisdom Saving Throw : DC equals your spell save DC, each creature (other than you) within 5 feet of the spirit. Failure : 2d6 Psychic damage.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/animated-object</character_url>
+    <character_name>Animated Object</character_name>
+    <size>Huge</size>
+    <background>See Animate Objects</background>
+    <armor_class>15</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly/>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>10</max_hp>
+    <hit_dice>Medium or smaller, 20 (Large, 40 (Huge</hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>16</strength>
+    <dexterity>10</dexterity>
+    <constitution>10</constitution>
+    <intelligence>3</intelligence>
+    <wisdom>3</wisdom>
+    <charisma>1</charisma>
+    <condition_immunities>Poison, Psychic; Charmed, Exhaustion, Frightened, Paralyzed, Poisoned</condition_immunities>
+    <damage_resistance/>
+    <languages>Understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Blindsight 30 ft., Passive Perception 6</senses>
+    <actions>
+      <action>
+        <name>Slam</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : Force damage equal to 1d4 + 3 (Medium or smaller), 2d6 + 3 + your spellcasting ability modifier (Large), or 2d12 + 3 + your spellcasting ability modifier (Huge).</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats/>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/bestial-spirit</character_url>
+    <character_name>Bestial Spirit</character_name>
+    <size>Small</size>
+    <background>See Summon Beast</background>
+    <armor_class>11</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly>30</fly>
+      <swim>30</swim>
+      <climb>30</climb>
+      <burrow/>
+    </speed>
+    <max_hp>20</max_hp>
+    <hit_dice>Air only or 30 (Land and Water only + 5 for each spell level above 2</hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>18</strength>
+    <dexterity>11</dexterity>
+    <constitution>16</constitution>
+    <intelligence>4</intelligence>
+    <wisdom>14</wisdom>
+    <charisma>5</charisma>
+    <condition_immunities/>
+    <damage_resistance/>
+    <languages>understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 12</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of Rend attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Rend</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d8 + 4 + the spell's level Piercing damage.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Flyby (Air Only)</name>
+        <description>The spirit doesn't provoke Opportunity Attacks when it flies out of an enemy's reach.</description>
+      </feat>
+      <feat>
+        <name>Pack Tactics (Land and Water Only)</name>
+        <description>The spirit has Advantage on an attack roll against a creature if at least one of the spirit's allies is within 5 feet of the creature and the ally doesn't have the Incapacitated condition.</description>
+      </feat>
+      <feat>
+        <name>Water Breathing (Water Only)</name>
+        <description>The spirit can breathe only underwater.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/celestial-spirit</character_url>
+    <character_name>Celestial Spirit</character_name>
+    <size>Large</size>
+    <background>See Summon Celestial</background>
+    <armor_class>11</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly>40</fly>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>40</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>16</strength>
+    <dexterity>14</dexterity>
+    <constitution>16</constitution>
+    <intelligence>10</intelligence>
+    <wisdom>14</wisdom>
+    <charisma>16</charisma>
+    <condition_immunities>Charmed, Frightened</condition_immunities>
+    <damage_resistance>Radiant</damage_resistance>
+    <languages>Celestial, understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 12</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Radiant Bow (Avenger Only)</name>
+        <description>Ranged Attack Roll : Bonus equals your spell attack modifier, range 600 ft. Hit : 2d6 + 2 + the spell's level Radiant damage.</description>
+      </action>
+      <action>
+        <name>Radiant Mace (Defender Only)</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d10 + 3 + the spell's level Radiant damage, and the spirit can choose itself or another creature it can see within 10 feet of the target. The chosen creature gains 1d10 Temporary Hit Points.</description>
+      </action>
+      <action>
+        <name>Healing Touch (1/Day)</name>
+        <description>The spirit touches another creature. The target regains Hit Points equal to 2d8 + the spell's level.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats/>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/construct-spirit</character_url>
+    <character_name>Construct Spirit</character_name>
+    <size>Medium</size>
+    <background>See Summon Construc</background>
+    <armor_class>13</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly/>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>40</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>18</strength>
+    <dexterity>10</dexterity>
+    <constitution>18</constitution>
+    <intelligence>14</intelligence>
+    <wisdom>11</wisdom>
+    <charisma>5</charisma>
+    <condition_immunities>Charmed, Exhaustion, Frightened, Paralyzed, Poisoned</condition_immunities>
+    <damage_resistance>Poison</damage_resistance>
+    <languages>Understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 10</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of Slam attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Slam</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d8+4+ the spell's level Bludgeoning damage.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions>
+      <reaction>
+        <name>Berserk Lashing (Clay Only)</name>
+        <description>Trigger : The spirit takes damage from a creature. Response : The spirit makes a Slam attack against that creature if possible, or the spirit moves up to half its Speed toward that creature without provoking Opportunity Attacks.</description>
+      </reaction>
+    </reactions>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Heated Body (Metal Only)</name>
+        <description>A creature that hits the spirit with a melee attack or that starts its turn in a grapple with the spirit takes 1d10 Fire damage.</description>
+      </feat>
+      <feat>
+        <name>Stony Lethargy (Stone Only)</name>
+        <description>When a creature starts its turn within 10 feet of the spirit, the spirit can target it with magical energy if the spirit can see it. Wisdom Saving Throw : DC equals your spell save DC, the target. Failure : Until the start of its next turn, the target can't make Opportunity Attacks, and its Speed is halved.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/draconic-spirit</character_url>
+    <character_name>Draconic Spirit</character_name>
+    <size>Large</size>
+    <background>See Summon Dragon</background>
+    <armor_class>14</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly>60</fly>
+      <swim>30</swim>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>50</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>19</strength>
+    <dexterity>14</dexterity>
+    <constitution>17</constitution>
+    <intelligence>10</intelligence>
+    <wisdom>14</wisdom>
+    <charisma>14</charisma>
+    <condition_immunities>Charmed, Frightened, Poisoned</condition_immunities>
+    <damage_resistance>Acid, Cold, Fire, Lightning, Poison</damage_resistance>
+    <languages>Draconic, understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Blindsight 30 ft., Darkvision 60 ft., Passive Perception 12</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of Rend attacks equal to half the spell's level (round down), and it uses Breath Weapon.</description>
+      </action>
+      <action>
+        <name>Rend</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 10 feet. Hit :1d6 + 4 + the spell's level Piercing damage.</description>
+      </action>
+      <action>
+        <name>Breath Weapon</name>
+        <description>Dexterity Saving Throw : DC equals your spell save DC, each creature in a 30-foot Cone. Failure : 2d6 damage of a type this spirit has Resistance to (your choice when you cast the spell). Success : Half damage.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Shared Resistances</name>
+        <description>When you summon the spirit, choose one of its Resistances. You have Resistance to the chosen damage type until the spell ends.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/elemental-spirit</character_url>
+    <character_name>Elemental Spirit</character_name>
+    <size>Medium</size>
+    <background>See Summon Elemental</background>
+    <armor_class>11</armor_class>
+    <speed>
+      <walk>40</walk>
+      <fly>40</fly>
+      <swim>40</swim>
+      <climb/>
+      <burrow>40</burrow>
+    </speed>
+    <max_hp>50</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>18</strength>
+    <dexterity>15</dexterity>
+    <constitution>17</constitution>
+    <intelligence>4</intelligence>
+    <wisdom>10</wisdom>
+    <charisma>16</charisma>
+    <condition_immunities>Fire (Fire only), Poison; Exhaustion, Paralyzed, Petrified, Poisoned</condition_immunities>
+    <damage_resistance>Acid (Water only), Lightning and Thunder (Air only), Piercing and Slashing (Earth only)</damage_resistance>
+    <languages>Primordial, understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 10</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of Slam attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Slam</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d10 + 4 + the spell's level Bludgeoning (Earth only), Cold (Water only), Lightning (Air only), or Fire (Fire only) damage.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Amorphous Form (Air, Fire, and Water Only)</name>
+        <description>The spirit can move through a space as narrow as 1 inch wide without it counting as Difficult Terrain.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/fey-spirit</character_url>
+    <character_name>Fey Spirit</character_name>
+    <size>Small</size>
+    <background>See Summon Fey</background>
+    <armor_class>12</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly>30</fly>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>30</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>13</strength>
+    <dexterity>16</dexterity>
+    <constitution>14</constitution>
+    <intelligence>14</intelligence>
+    <wisdom>11</wisdom>
+    <charisma>16</charisma>
+    <condition_immunities>Charmed</condition_immunities>
+    <damage_resistance/>
+    <languages>Sylvan, understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 10</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of Fey Blade attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Fey Blade</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 2d6 + 3 + the spell's level Force damage.</description>
+      </action>
+    </actions>
+    <bonus_actions>
+      <bonus_action>
+        <name>Fey Step</name>
+        <description>The spirit magically teleports up to 30 feet to an unoccupied space it can see. Then one of the following effects occurs, based on the spirit's chosen mood:</description>
+      </bonus_action>
+      <bonus_action>
+        <name>Fuming</name>
+        <description>The spirit has Advantage on the next attack roll it makes before the end of this turn.</description>
+      </bonus_action>
+      <bonus_action>
+        <name>Mirthful</name>
+        <description>Wisdom Saving Throw : DC equals your spell save DC, one creature the spirit can see within 10 feet of itself. Failure : The target is Charmed by you and the spirit for 1 minute or until the target takes any damage.</description>
+      </bonus_action>
+      <bonus_action>
+        <name>Tricksy</name>
+        <description>The spirit fills a 10-foot Cube within 5 feet of it with magical Darkness, which lasts until the end of its next turn.</description>
+      </bonus_action>
+    </bonus_actions>
+    <reactions/>
+    <legendary_actions/>
+    <feats/>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/fiendish-spirit</character_url>
+    <character_name>Fiendish Spirit</character_name>
+    <size>Large</size>
+    <background>See Summon Fiend</background>
+    <armor_class>12</armor_class>
+    <speed>
+      <walk>40</walk>
+      <fly>40</fly>
+      <swim/>
+      <climb>40</climb>
+      <burrow/>
+    </speed>
+    <max_hp>50</max_hp>
+    <hit_dice>Demon only or 40 (Devil only or 60 (Yugoloth only + 15 for each spell level above 6</hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>13</strength>
+    <dexterity>16</dexterity>
+    <constitution>15</constitution>
+    <intelligence>10</intelligence>
+    <wisdom>10</wisdom>
+    <charisma>16</charisma>
+    <condition_immunities>Poison; Poisoned</condition_immunities>
+    <damage_resistance>Fire</damage_resistance>
+    <languages>Abyssal, Infernal, Telepathy 60 ft.</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 10</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Bite (Demon Only)</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d12 + 3 + the spell's level Necrotic damage.</description>
+      </action>
+      <action>
+        <name>Claws (Yugoloth Only)</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d8 + 3 + the spell's level Slashing damage. Immediately after the attack hits or misses, the spirit can teleport up to 30 feet to an unoccupied space it can see.</description>
+      </action>
+      <action>
+        <name>Fiery Strike (Devil Only)</name>
+        <description>Melee or Ranged Attack Roll : Bonus equals your spell attack modifier, reach. 5 ft. or range 150 ft. Hit : 2d6 + 3 + the spell's level Fire damage.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Death Throes (Demon Only)</name>
+        <description>When the spirit drops to 0 Hit Points or the spell ends, the spirit explodes. Dexterity Saving Throw : DC equals your spell save DC, each creature in a 10-foot Emanation originating from the spirit. Failure : 2d10 plus this spell's level Fire damage. Success : Half damage.</description>
+      </feat>
+      <feat>
+        <name>Devil's Sight (Devil Only)</name>
+        <description>Magical Darkness doesn't impede the spirit's Darkvision.</description>
+      </feat>
+      <feat>
+        <name>Magic Resistance</name>
+        <description>The spirit has Advantage on saving throws against spells and other magical effects.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/giant-insect</character_url>
+    <character_name>Giant Insect</character_name>
+    <size>Large</size>
+    <background>See Giant Insect</background>
+    <armor_class>11</armor_class>
+    <speed>
+      <walk>40</walk>
+      <fly>40</fly>
+      <swim/>
+      <climb>40</climb>
+      <burrow/>
+    </speed>
+    <max_hp>30</max_hp>
+    <hit_dice> </hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>17</strength>
+    <dexterity>13</dexterity>
+    <constitution>15</constitution>
+    <intelligence>4</intelligence>
+    <wisdom>14</wisdom>
+    <charisma>3</charisma>
+    <condition_immunities/>
+    <damage_resistance/>
+    <languages>Understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 12</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The insect makes a number of attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Poison Jab</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 10 ft. Hit : 1d6 + 3 plus the spell's level Piercing damage plus 1d4 Poison damage.</description>
+      </action>
+      <action>
+        <name>Web Bolt (Spider Only)</name>
+        <description>Ranged Attack Roll : Bonus equals your spell attack modifier, range 60 ft. Hit : 1d10 + 3 plus the spell's level Bludgeoning damage, and the target's Speed is reduced to 0 until the start of the insect's next turn.</description>
+      </action>
+    </actions>
+    <bonus_actions>
+      <bonus_action>
+        <name>Venomous Spew (Centipede Only)</name>
+        <description>Constitution Saving Throw : DC equals your spell save DC, one creature the insect can see within 10 feet. Failure : The target has the Poisoned condition until the start of the insect's next turn.</description>
+      </bonus_action>
+    </bonus_actions>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Spider Climb</name>
+        <description>The insect can climb difficult surfaces, including along ceilings, without needing to make an ability check.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/otherworldly-steed</character_url>
+    <character_name>Otherworldly Steed</character_name>
+    <size>Large</size>
+    <background>See Find Steed</background>
+    <armor_class>10</armor_class>
+    <speed>
+      <walk>60</walk>
+      <fly>60</fly>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>5</max_hp>
+    <hit_dice>the steed has a number of Hit Dice [d10s] equal to the spell's level</hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>18</strength>
+    <dexterity>12</dexterity>
+    <constitution>14</constitution>
+    <intelligence>6</intelligence>
+    <wisdom>12</wisdom>
+    <charisma>8</charisma>
+    <condition_immunities/>
+    <damage_resistance/>
+    <languages>Telepathy 1 mile (works only with you)</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Passive Perception 11</senses>
+    <actions>
+      <action>
+        <name>Otherworldly Slam</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d8 plus the spell's level of Radiant (Celestial), Psychic (Fey), or Necrotic (Fiend) damage.</description>
+      </action>
+    </actions>
+    <bonus_actions>
+      <bonus_action>
+        <name>Fell Glare (Fiend Only; Recharges after a Long Rest)</name>
+        <description>Wisdom Saving Throw : DC equals your spell save DC, one creature within 60 feet the steed can see. Failure : The target has the Frightened condition until the end of your next turn.</description>
+      </bonus_action>
+      <bonus_action>
+        <name>Fey Step (Fey Only; Recharges after a Long Rest)</name>
+        <description>The steed teleports, along with its rider, to an unoccupied space of your choice up to 60 feet away from itself.</description>
+      </bonus_action>
+      <bonus_action>
+        <name>Healing Touch (Celestial Only; Recharges after a Long Rest)</name>
+        <description>One creature within 5 feet of the steed regains a number of Hit Points equal to 2d8 plus the spell's level.</description>
+      </bonus_action>
+    </bonus_actions>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Life Bond</name>
+        <description>When you regain Hit Points from a level 1+ spell, the steed regains the same number of Hit Points if you're within 5 feet of it.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+  <character>
+    <character_url>https://www.aidedd.org/public/monster/undead-spirit</character_url>
+    <character_name>Undead Spirit</character_name>
+    <size>Medium</size>
+    <background>See Summon Undead</background>
+    <armor_class>11</armor_class>
+    <speed>
+      <walk>30</walk>
+      <fly>40</fly>
+      <swim/>
+      <climb/>
+      <burrow/>
+    </speed>
+    <max_hp>30</max_hp>
+    <hit_dice>Ghostly and Putrid only or 20 (Skeletal only + 10 for each spell level above 3</hit_dice>
+    <initiative_bonus>0</initiative_bonus>
+    <strength>12</strength>
+    <dexterity>16</dexterity>
+    <constitution>15</constitution>
+    <intelligence>4</intelligence>
+    <wisdom>10</wisdom>
+    <charisma>9</charisma>
+    <condition_immunities>Necrotic, Poison; Exhaustion, Frightened, Paralyzed, Poisoned</condition_immunities>
+    <damage_resistance/>
+    <languages>Understands the languages you know</languages>
+    <challenge_rating>None (XP 0; PB equals your Proficiency Bonus)</challenge_rating>
+    <senses>Darkvision 60 ft., Passive Perception 10</senses>
+    <actions>
+      <action>
+        <name>Multiattack</name>
+        <description>The spirit makes a number of attacks equal to half this spell's level (round down).</description>
+      </action>
+      <action>
+        <name>Deathly Touch (Ghostly Only)</name>
+        <description>Melee Attack Roll : Bo- nus equals your spell attack modifier, reach 5 ft. Hit : 1d8 + 3 + the spell's level Necrotic damage, and the target has the Frightened condition until the end of its next turn.</description>
+      </action>
+      <action>
+        <name>Grave Bolt (Skeletal Only)</name>
+        <description>Ranged Attack Roll : Bonus equals your spell attack modifier, range 150 ft. Hit : 2d4 + 3 + the spell's level Necrotic damage.</description>
+      </action>
+      <action>
+        <name>Rotting Claw (Putrid Only)</name>
+        <description>Melee Attack Roll : Bonus equals your spell attack modifier, reach 5 ft. Hit : 1d6 + 3 + the spell's level Slashing damage. If the target has the Poisoned condition, it has the Paralyzed condition until the end of its next turn.</description>
+      </action>
+    </actions>
+    <bonus_actions/>
+    <reactions/>
+    <legendary_actions/>
+    <feats>
+      <feat>
+        <name>Festering Aura (Putrid Only)</name>
+        <description>Constitution Saving Throw : DC equals your spell save DC, any creature (other than you) that starts its turn within a 5-foot Emanation originating from the spirit. Failure : The creature has the Poisoned condition until the start of its next turn.</description>
+      </feat>
+      <feat>
+        <name>Incorporeal Passage (Ghostly Only)</name>
+        <description>The spirit can move through other creatures and objects as if they were Difficult Terrain. If it ends its turn inside an object, it is shunted to the nearest unoccupied space and takes 1d10 Force damage for every 5 feet traveled.</description>
+      </feat>
+    </feats>
+    <spells/>
+  </character>
+</characters>
