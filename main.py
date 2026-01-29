@@ -80,8 +80,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction("Save", self.save_action)  # Save action calls the save_table_data method
         file_menu.addAction("Save As", self.save_as_action)  # Save action calls the save_table_data method
         file_menu.addAction("Exit", self.exit_action)  # Exit action closes the application
-        file_menu.addAction("Download Repo", self.download_repo_action)  # Exit action closes the application
-        
+
         # Add "View" menu
         view_menu = menu_bar.addMenu("View")
 
@@ -2610,12 +2609,6 @@ class MainWindow(QMainWindow):
             "tracking character stats, and rolling dice for tabletop role-playing games, such as DnD 2024.</p>"
         )
         QMessageBox.about(self, "About DM Assistant", about_text)
-    
-    def download_repo_action(self):
-        git_hub_downloader = GitHubDownloader()
-        git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Condition_Spell_Effects")
-        git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Characters")
-        
         
 #**************************Events**********************************************
     def closeEvent(self, event):
@@ -2627,7 +2620,8 @@ class MainWindow(QMainWindow):
         
         if reply == True:
             #delete the temp folder and all its contents if it exists
-            temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+            #temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+            temp_dir = self.github_downloader.downloaded_repo_path
             if os.path.exists(temp_dir):
                 shutil.rmtree(temp_dir)
             

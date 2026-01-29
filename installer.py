@@ -3,33 +3,17 @@ Installer script for the DM Assistant application.
 This script is used to generate a simple installer.
 The installer downloads the output folder from GitHub and places it in the specified installation directory.
 """
-from PyQt6.QtWidgets import QProgressDialog, QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QPalette, QLinearGradient, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget, QMessageBox, QCheckBox, QTextEdit  # Import QMessageBox for dialog boxes
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QFileDialog  # Import QFileDialog for file selection
+from PyQt6.QtWidgets import QVBoxLayout, QPushButton
+
 import sys
 import os  # Import os for file path handling
-import xml.etree.ElementTree as ET  # Import the XML parsing module
-import html
-from bs4 import BeautifulSoup
 import shutil  # Import shutil for file operations
-import urllib.request  # Import urllib for downloading files from GitHub
 
-from PyQt6.QtWidgets import QFileDialog  # Import QFileDialog for file selection
-import csv  # Import CSV module for reading and writing CSV files
-from PyQt6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QComboBox, QPushButton, QColorDialog, QLineEdit
-
-from characterSelection import CharacterSelectionWindow  # Import the character selection window
-from diceRoller import DiceRollerWindow  # Import the dice roller window
-from characterSheet import CharacterSheetWindow  # Import the character sheet window
-
-from rowdata import CharacterRow, ColumnNames  # Import the CharacterRow class for handling character data
-
-import rowDataFileIO as CFIO  # Import the file I/O functions for character data
-
-from settingsAndStyle import StyleInfo, Settings # Import the function to set the custom style sheet information
+from settingsAndStyle import StyleInfo # Import the function to set the custom style sheet information
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
-
-from updateVersionNum import readVersionNumber  # Import the function to read the version number
 
 
 class MainWindow(QMainWindow):
@@ -43,6 +27,8 @@ class MainWindow(QMainWindow):
         @brief Constructor for MainWindow. Initializes the UI and sets up the table and buttons.
         """
         super().__init__()
+        
+        self.gitHubDownload = GitHubDownloader()
         
         # In your __init__ method
         self.setWindowTitle("DM Assistant Installer")  # Set the window title
@@ -58,11 +44,11 @@ class MainWindow(QMainWindow):
         main_layout = QVBoxLayout(central_widget)
         
         # Create checkboxes for downloads
-        self.checkbox_characters = QCheckBox("Download Characters")
+        self.checkbox_characters = QCheckBox("Download Characters Files")
         self.checkbox_characters.setChecked(True)
         #self.checkbox_characters.stateChanged.connect(self.on_characters_checkbox_changed)
         
-        self.checkbox_conditions = QCheckBox("Download Condition Spell Effects")
+        self.checkbox_conditions = QCheckBox("Download Condition Spell Effects Files")
         self.checkbox_conditions.setChecked(True)
         
         # Add checkboxes to layout
@@ -84,25 +70,110 @@ class MainWindow(QMainWindow):
         """
         @brief Handle the install button click event.
         """
-        gitHubDownload = GitHubDownloader()
         
         self.log_output("Starting Installation...")
+        self.log_output("Selecting installation directory...")
+        
+        # Set the starting directory to Documents
+        documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
+        installPath = QFileDialog.getExistingDirectory(self, "Select Installation Directory", documents_dir)
+        
+        if not installPath:
+            self.log_output("Installation cancelled.")
+            return
+        
+        
         self.log_output("Downloading files from GitHub...")
-        succ = gitHubDownload.git_download_repo() #download the repo from github 
+        succ = self.gitHubDownload.git_download_repo() #download the repo from github 
         if not succ:
             self.log_output("Failed to download files from GitHub. Installation aborted.")
             return
-        else:
-            self.log_output("Files downloaded successfully.")
+        self.log_output("Files downloaded successfully.")
+            
+        self.log_output("Extracting executable file...")
+        #extract the last_build folder to get the lastest version of the program
+        succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="last_build")
+        if not succ:
+            self.log_output("Failed to extract last_build folder. Installation aborted.")
+            return
         
-        # if self.checkbox_characters.isChecked():
-        #     self.log_output("Downloading characters...")
-        #     # TODO: Add download characters logic here
+        self.log_output(f"Moving executable to installation directory {installPath}")
+        #move the last_build folder to the selected installation directory
+        source_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "last_build")
+        try:
+            if os.path.exists(os.path.join(installPath, "DM Assistant", "DM Assistant.exe")) or os.path.exists(os.path.join(installPath, "DM Assistant", "_internal")):
+                reply = QMessageBox.question(None, "Confirm Installation", "An installation already exists in this folder. Do you wish to overide it? Other data such as save files will be preserved", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                if reply == QMessageBox.StandardButton.Yes:
+                    # Remove only the executable and internal folder to preserve user data
+                    self.remove_from_directory(os.path.join(installPath, "DM Assistant"), ["DM Assistant.exe", "_internal"])
+                else:
+                    self.log_output("Installation cancelled.")
+                    return
+            shutil.move(os.path.join(source_folder, "DM Assistant.zip"), installPath)
+        except Exception as e:
+            self.log_output(f"Failed to install files: {e}")
+            return
         
-        # if self.checkbox_conditions.isChecked():
-        #     self.log_output("Downloading condition/spell effects...")
-        #     # TODO: Add download condition/spell effects logic here
+        output_zip_path = os.path.join(installPath, "DM Assistant.zip")
+        print(f"Extracting executable file: {output_zip_path}")
+        #extract the .zip file in the installation directory
+        shutil.unpack_archive(output_zip_path, installPath)
+        os.remove(output_zip_path)  # Remove the zip file after extraction
         
+        #if needed, extract the settings folders
+        #characters
+        if self.checkbox_characters.isChecked():
+            self.log_output("Extracting Characters...")
+            succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="Settings/Characters")
+            if not succ:
+                self.log_output("Failed to extract the characters folder. Installation aborted.")
+                return
+            #moving the characters to the correct folder
+            self.log_output(f"Moving Character Files to {installPath}/Settings/Characters ...")
+            source_char_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "Settings", "Characters")
+            dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Characters")
+            try:
+                if os.path.exists(dest_char_folder):
+                    reply = QMessageBox.question(None, "Confirm Installation", "A Characters folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                    if reply == QMessageBox.StandardButton.Yes:
+                        # Remove only the executable and internal folder to preserve user data
+                        shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+                        shutil.move(source_char_folder, dest_char_folder)
+                    else:
+                        self.log_output("Failed to install Character files: Installation cancelled.")
+                else:
+                    shutil.move(source_char_folder, dest_char_folder)
+            except Exception as e:
+                self.log_output(f"Failed to move character files: {e}")
+                return
+        if self.checkbox_conditions.isChecked():
+            self.log_output("Extracting Condition Spell Effects...")
+            succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="Settings/Condition_Spell_Effects")
+            if not succ:
+                self.log_output("Failed to extract the condition/spell effects folder. Installation aborted.")
+                return
+            #moving the spell conditions to the correct folder
+            self.log_output(f"Moving Condition Spell Effects to {installPath}/Settings/Condition_Spell_Effects ...")
+            source_char_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "Settings", "Condition_Spell_Effects")
+            dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Condition_Spell_Effects")
+            try:
+                if os.path.exists(dest_char_folder):
+                    reply = QMessageBox.question(None, "Confirm Installation", "A Conditions and Spell Effects folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                    if reply == QMessageBox.StandardButton.Yes:
+                        # Remove only the executable and internal folder to preserve user data
+                        shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+                        shutil.move(source_char_folder, dest_char_folder)
+                    else:
+                        self.log_output("Failed to install Character files: Installation cancelled.")
+                else:
+                    shutil.move(source_char_folder, dest_char_folder)
+            except Exception as e:
+                self.log_output(f"Failed to move conditions and spell effects files: {e}")
+                return
+        
+        #create the save files folder
+        save_files_folder = os.path.join(installPath, "DM Assistant", "Save Files")
+        os.makedirs(save_files_folder, exist_ok=True)    
         self.log_output("Installation complete!")
     
     def log_output(self, message):
@@ -114,6 +185,28 @@ class MainWindow(QMainWindow):
         
 
 #**************************Functions********************************************
+    def remove_from_directory(self, directory, items_to_remove):
+        """
+        @brief Remove only specific files and folders from a directory.
+        @param directory The directory to clean.
+        @param exclude_items List of folder/file names to remove (e.g., ["DM Assistant.exe", "_internal"]).
+        """
+        if not os.path.exists(directory):
+            return
+        
+        for item in items_to_remove:
+            item_path = os.path.join(directory, item)
+            if os.path.exists(item_path):
+                try:
+                    if os.path.isdir(item_path):
+                        shutil.rmtree(item_path)
+                        self.log_output(f"Removed folder: {item}")
+                    else:
+                        os.remove(item_path)
+                        self.log_output(f"Removed file: {item}")
+                except Exception as e:
+                    self.log_output(f"Warning: Could not remove {item}: {e}")
+    
     def set_Custom_Style_Sheet(self):
             style = f"""
                 /*General Styles applied to most things in the app*/
@@ -243,7 +336,7 @@ class MainWindow(QMainWindow):
         @param event The close event.
         """
         #delete the temp folder and all its contents if it exists
-        temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+        temp_dir = self.gitHubDownload.downloaded_repo_path
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
             

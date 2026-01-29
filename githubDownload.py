@@ -1,8 +1,11 @@
 from PyQt6.QtWidgets import QProgressDialog, QMessageBox, QApplication
+from PyQt6.QtCore import QThread, pyqtSignal
 import os
 import urllib.request
 import shutil  # Import shutil for file operations
 import zipfile
+import threading
+import tempfile
 
             
 class GitHubDownloader:
@@ -94,7 +97,8 @@ class GitHubDownloader:
         
         try:            
             # Create temp folder
-            temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+            #temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+            temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program")
             self.downloaded_repo_path = temp_dir    #store the path where the repo was downloaded
             
             # Check if temp folder already exists
@@ -120,8 +124,7 @@ class GitHubDownloader:
             
             if (not silent): 
                 messageBox.show()
-                #need to call process events to show the dialog. If this fails, add a small delay between calls
-                QApplication.processEvents()
+                messageBox.setLabelText("Downloading repository...")
                 QApplication.processEvents()
 
             # Download repo zip with progress updates
@@ -129,16 +132,35 @@ class GitHubDownloader:
             zip_url = "https://github.com/GS-A1/DM-Program/archive/refs/heads/main.zip"
             self.zip_path = os.path.join(temp_dir, "repo.zip")
             
-            def download_progress(blocknum, blocksize, totalsize):
-                """Update progress dialog during download"""
-                if totalsize > 0:
-                    downloaded = blocknum * blocksize
-                    percent = min(int((downloaded / totalsize) * 100), 100)
-                    if (not silent):
-                        messageBox.setValue(percent)
-                        QApplication.processEvents()  # Keep UI responsive
+            download_error = [False]  # Use list to capture error in thread
             
-            urllib.request.urlretrieve(zip_url, self.zip_path, reporthook=download_progress)
+            def download_with_progress():
+                """Download function to run in thread"""
+                try:
+                    def download_progress(blocknum, blocksize, totalsize):
+                        """Update progress dialog during download"""
+                        if totalsize > 0:
+                            downloaded = blocknum * blocksize
+                            percent = min(int((downloaded / totalsize) * 100), 100)
+                            messageBox.setValue(percent)
+                            messageBox.setLabelText(f"Downloading: {percent}%")
+                    
+                    urllib.request.urlretrieve(zip_url, self.zip_path, reporthook=download_progress)
+                except Exception as e:
+                    download_error[0] = str(e)
+            
+            # Run download in a separate thread
+            download_thread = threading.Thread(target=download_with_progress, daemon=False)
+            download_thread.start()
+            
+            # Keep UI responsive while download is happening
+            while download_thread.is_alive():
+                QApplication.processEvents()
+                download_thread.join(timeout=0.1)
+            
+            # Check if there was an error
+            if download_error[0]:
+                raise Exception(download_error[0])
             
             #if we are not in silent mode, show a confirmation message
             if not silent:
@@ -168,7 +190,8 @@ class GitHubDownloader:
         
         try:
             # Create output directories
-            dir = os.path.join(os.path.dirname(__file__), "temp", f"{folder_path}")
+            #dir = os.path.join(os.path.dirname(__file__), "temp", f"{folder_path}")
+            dir = os.path.join(tempfile.gettempdir(), "DM-Program", f"{folder_path}")
             os.makedirs(dir, exist_ok=True)
             
             messageBox = QProgressDialog("Downloading files...", None, 0, 100)

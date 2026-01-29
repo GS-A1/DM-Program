@@ -22,3 +22,7 @@ You can load "exe generation/auto_py_settings.json" to get the last build settin
 Dont forget to increase the version number. A script has been generated that will update the version number and open auto-py-to-exe in a single command.
 I have called it: auto-py-to-exe-wrapper.py. It can be executed by:
 python auto-py-to-exe-wrapper.py
+
+#################################Installer######################################
+To run the insaller you can also use auto-py-to-exe. This time use the auto_py_settings_installed.json file as the settings file. Make sure one file is selected
+auto-py-to-exe

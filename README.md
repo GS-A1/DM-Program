@@ -1,6 +1,11 @@
 # DM-Program
 This is a python program to help when running table-top games such as DnD 2024.
 
+# Installation
+Download the installer from:
+`installer/installer.exe`
+Run the installer and follow the prompts. This has been tested on a Windows PC.
+
 # Functionality
 The program has the following functionality:
 - open and save files
@@ -11,6 +16,6 @@ The program has the following functionality:
 - allows new characters/monsters to be added and removed from the xml files
 - allows characters/monsters to be modified that are within the xml files
 - allows new character/monsters xml files to be generated
-- allows new conditions to be added
-- allows different condition files to be created
-- contains a very basic dice roller
+- allows new conditions/spell effects to be added or new conditions files to be created
+- allows different conditions/spell effects files to be created
+- contains a very basic dice roller (can select number of dice, type of dice, can highlight max and min rolls)
