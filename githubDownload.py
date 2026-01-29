@@ -18,7 +18,7 @@ class GitHubDownloader:
     zip_path = ""
     downloaded_repo = False  # Flag to indicate if the repo has been downloaded this session
     
-    def githiub_download_file(self, file = ""):
+    def githiub_download_file(self, file = "", outputPath = "", silent=False):
         """
         @brief Update the the conditions/spell effects file from github
         @param file The specific file to dowload. Must include the whole path from the repo root
@@ -42,13 +42,19 @@ class GitHubDownloader:
                     os.makedirs(file_path, exist_ok=True)
                 
                 repo_raw_url = f"{self.repo_url}/{file}"
-                local_path = file
+                
+                #if they have not specified an output path, use the file name
+                if outputPath == "":
+                    local_path = file
+                else:
+                    local_path = outputPath #otherwise use the specified output path
 
                 # Download and save the file
                 #urllib.request.urlretrieve(repo_raw_url, local_path)
 
                 #create a message box to show download progress
-                messageBox.show()
+                if not silent:
+                    messageBox.show()
                 #need to call process events to show the dialog. If this fails, add a small delay between calls
                 QApplication.processEvents()
                 QApplication.processEvents()
@@ -59,21 +65,25 @@ class GitHubDownloader:
                     if totalsize > 0:
                         downloaded = blocknum * blocksize
                         percent = min(int((downloaded / totalsize) * 100), 100)
-                        messageBox.setValue(percent)
-                    QApplication.processEvents()  # Keep UI responsive
+                        if not silent:
+                            messageBox.setValue(percent)
+                    if not silent:
+                        QApplication.processEvents()  # Keep UI responsive
                 
                 urllib.request.urlretrieve(repo_raw_url, local_path, reporthook=download_progress) #download the file and calla  callback when chunks are downloaded
                 
                 self.conditions_file_error = False  # Reset the error flag
-                messageBox.close()
-                QApplication.processEvents()  # Process the close event
+                if not silent:
+                    messageBox.close()
+                    QApplication.processEvents()  # Process the close event
                 
                 return False
             else:
                 QMessageBox.critical(None, "File Error", "File name cannot be blank")
                 return True
         except Exception as e:
-            messageBox.close()  #close the message box on error
+            if not silent:
+                messageBox.close()  #close the message box on error
             QMessageBox.critical(None, "Download Error", f"Failed to download {file_name} file: {e}")
             return True
     
@@ -98,7 +108,7 @@ class GitHubDownloader:
         try:            
             # Create temp folder
             #temp_dir = os.path.join(os.path.dirname(__file__), "temp")
-            temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program")
+            temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program") #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
             self.downloaded_repo_path = temp_dir    #store the path where the repo was downloaded
             
             # Check if temp folder already exists

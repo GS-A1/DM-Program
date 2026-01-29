@@ -23,7 +23,7 @@ from settingsAndStyle import StyleInfo, Settings # Import the function to set th
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
 
 from updateVersionNum import readVersionNumber  # Import the function to read the version number
-
+import tempfile
 
 class MainWindow(QMainWindow):
     """
@@ -44,11 +44,12 @@ class MainWindow(QMainWindow):
         os.makedirs("Settings/Characters", exist_ok=True)
         os.makedirs("Save Files", exist_ok=True)
 
-        #version number of the application
-        self.version = self.readversionnumber() #read the version number from the version.txt file
-        
         #github variables
         self.github_downloader = GitHubDownloader()  # Create an instance of the GitHubDownloader class
+        
+        #version number of the application
+        self.version = self.readversionnumber() #read the version number from the version.txt file
+        self.checkForUpdates()
 
         self.process_damage_flag = True # Flag to control if damage applied
         self.default_condit_file_name = "DnD_2024.xml"
@@ -258,6 +259,28 @@ class MainWindow(QMainWindow):
         self.reset_layout()
 
 #**************************Functions***********************************
+    def checkForUpdates(self):
+        """@breif Check the giuthub repository for updates."""
+        #download the version file from github
+        temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program") #use the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
+        os.makedirs(temp_dir, exist_ok=True)        #make sure the temp folder exists
+        github_version_err = self.github_downloader.githiub_download_file(file="Settings/version.txt", outputPath=os.path.join(temp_dir, "version.txt"), silent=True)  # Download the version.txt file to a temporary location
+        #if there was not error
+        if not github_version_err:
+            # Read the version number from the downloaded file
+            with open(os.path.join(temp_dir, "version.txt"), "r") as f:
+                github_version = f.read().strip()
+
+            # Compare with the current version
+            if github_version != self.version:
+                QMessageBox.information(
+                    self,
+                    "Update Available",
+                    "A new version is available:\n"
+                    f"Current Version: {self.version}\n"
+                    f"New version: {github_version}\n"
+                )
+
     def readversionnumber(self):
             """Read the version number from the version.txt file."""
             version_file_path = readVersionNumber() #read the version number from the version.txt file
@@ -2615,17 +2638,22 @@ class MainWindow(QMainWindow):
         """
         reply = self.save_on_exit()
         
-        if reply == True:
-            #delete the temp folder and all its contents if it exists
-            #temp_dir = os.path.join(os.path.dirname(__file__), "temp")
-            temp_dir = self.github_downloader.downloaded_repo_path
-            if os.path.exists(temp_dir):
-                shutil.rmtree(temp_dir)
-            
+        if reply == True:            
             event.accept()  # Allow the window to close
         else:
             event.ignore()  # Cancel the close event
         
+        #delete the temp folder and all its contents if it exists that was used to download github repos
+        #temp_dir = os.path.join(os.path.dirname(__file__), "temp")
+        temp_dir = self.github_downloader.downloaded_repo_path
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+        
+        #delete the temp folder used for other temp files
+        temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program")
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+
         #close the character sheet window if it is open
         if self.character_sheet_window is not None:
             self.character_sheet_window.close()
