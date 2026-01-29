@@ -6,4 +6,5 @@ build/
 *.spec
 Settings/Characters/test*.xml
 Settings/Condition_Spell_Effects/test*.xml
+output/
 tmp/
