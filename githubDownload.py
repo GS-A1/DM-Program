@@ -18,7 +18,7 @@ class GitHubDownloader:
     zip_path = ""
     downloaded_repo = False  # Flag to indicate if the repo has been downloaded this session
     
-    def githiub_download_file(self, file = "", outputPath = "", silent=False):
+    def git_download_file(self, file = "", outputPath = "", silent=False):
         """
         @brief Update the the conditions/spell effects file from github
         @param file The specific file to dowload. Must include the whole path from the repo root
@@ -52,6 +52,7 @@ class GitHubDownloader:
                     local_path = outputPath #otherwise use the specified output path
                 
                 os.makedirs(local_path, exist_ok=True) #create the output folder if it does not exist
+                file_local_path = os.path.join(local_path, file_name) #full path to the local file
 
                 # Download and save the file
                 #urllib.request.urlretrieve(repo_raw_url, local_path)
@@ -65,20 +66,19 @@ class GitHubDownloader:
                 
                 #download with progress updates using a thread to keep everything alive
                 download_error = [False]  # Use list to capture error in thread
+                progress_data = {'percent': 0}  # Thread-safe progress tracking
             
                 def download_with_progress():
                     """Download function to run in thread"""
                     try:
                         def download_progress(blocknum, blocksize, totalsize):
-                            """Update progress dialog during download"""
+                            """Collect progress data (called from worker thread)"""
                             if totalsize > 0:
                                 downloaded = blocknum * blocksize
                                 percent = min(int((downloaded / totalsize) * 100), 100)
-                                if not silent:
-                                    messageBox.setValue(percent)
-                                    messageBox.setLabelText(f"Downloading: {percent}%")
+                                progress_data['percent'] = percent  # Store for main thread to read
                         
-                        urllib.request.urlretrieve(repo_raw_url, local_path, reporthook=download_progress)
+                        urllib.request.urlretrieve(repo_raw_url, file_local_path, reporthook=download_progress)
                     except Exception as e:
                         download_error[0] = str(e)
                 
@@ -88,6 +88,10 @@ class GitHubDownloader:
                 
                 # Keep UI responsive while download is happening
                 while download_thread.is_alive():
+                    # Update UI from main thread only
+                    if not silent:
+                        messageBox.setValue(progress_data['percent'])
+                        messageBox.setLabelText(f"Downloading: {progress_data['percent']}%")
                     QApplication.processEvents()
                     download_thread.join(timeout=0.1)
                 
@@ -167,18 +171,17 @@ class GitHubDownloader:
             self.zip_path = os.path.join(temp_dir, "repo.zip")
             
             download_error = [False]  # Use list to capture error in thread
+            progress_data = {'percent': 0}  # Thread-safe progress tracking
             
             def download_with_progress():
                 """Download function to run in thread"""
                 try:
                     def download_progress(blocknum, blocksize, totalsize):
-                        """Update progress dialog during download"""
+                        """Collect progress data (called from worker thread)"""
                         if totalsize > 0:
                             downloaded = blocknum * blocksize
                             percent = min(int((downloaded / totalsize) * 100), 100)
-                            if not silent:
-                                messageBox.setValue(percent)
-                                messageBox.setLabelText(f"Downloading: {percent}%")
+                            progress_data['percent'] = percent  # Store for main thread to read
                     
                     urllib.request.urlretrieve(zip_url, self.zip_path, reporthook=download_progress)
                 except Exception as e:
@@ -190,6 +193,10 @@ class GitHubDownloader:
             
             # Keep UI responsive while download is happening
             while download_thread.is_alive():
+                # Update UI from main thread only
+                if not silent:
+                    messageBox.setValue(progress_data['percent'])
+                    messageBox.setLabelText(f"Downloading: {progress_data['percent']}%")
                 QApplication.processEvents()
                 download_thread.join(timeout=0.1)
             
@@ -231,9 +238,14 @@ class GitHubDownloader:
             return False
         
         try:
+            if zip_folder_path.__contains__("\\"):
+                zip_folder_path = zip_folder_path.replace("\\", "/")  #convert to unix style paths for zipfile compatibility
+            
+            file_path, separator, file_name = zip_folder_path.rpartition('/')   #find just the file name from the string
+            
             # Create output directories
             #dir = os.path.join(os.path.dirname(__file__), "temp", f"{folder_path}")
-            dir = os.path.join(zip_folder_path, f"{desired_folder_path}")
+            dir = os.path.join(file_path, f"{desired_folder_path}")
             os.makedirs(dir, exist_ok=True)
             
             messageBox = QProgressDialog("Downloading files...", None, 0, 100)
@@ -246,16 +258,45 @@ class GitHubDownloader:
             messageBox.setLabelText("Extracting files...")
             QApplication.processEvents()
             
-            # Extract Condition_Spell_Effects and Characters folders
+            # Extract the contents of the desired folder, preserving directories
             with zipfile.ZipFile(zip_folder_path, 'r') as zip_ref:
-                for file_info in zip_ref.filelist:
-                    # Extract Condition_Spell_Effects folder
-                    if desired_folder_path in file_info.filename:
-                        file_name = file_info.filename.split(desired_folder_path + "/")[-1]
-                        if file_name:  # Skip folder entry itself
-                            local_path = os.path.join(dir, file_name)
-                            with zip_ref.open(file_info) as source, open(local_path, 'wb') as target:
-                                shutil.copyfileobj(source, target)
+                prefix = desired_folder_path.rstrip('/') + '/'
+                for file_info in zip_ref.infolist():
+                    # Only process entries under the desired folder path
+                    if not file_info.filename.startswith(prefix):
+                        continue
+
+                    # Relative path inside the desired folder
+                    rel_path = file_info.filename[len(prefix):]
+
+                    # If the entry is the folder itself, ensure directory exists and continue
+                    if rel_path == '':
+                        os.makedirs(dir, exist_ok=True)
+                        continue
+
+                    target_path = os.path.join(dir, rel_path)
+
+                    # If entry is a directory, create it
+                    is_dir = False
+                    if hasattr(file_info, 'is_dir'):
+                        try:
+                            is_dir = file_info.is_dir()
+                        except Exception:
+                            is_dir = file_info.filename.endswith('/')
+                    else:
+                        is_dir = file_info.filename.endswith('/')
+
+                    if is_dir:
+                        os.makedirs(target_path, exist_ok=True)
+                        continue
+
+                    # Ensure parent directories exist, then extract file
+                    parent_dir = os.path.dirname(target_path)
+                    if parent_dir:
+                        os.makedirs(parent_dir, exist_ok=True)
+
+                    with zip_ref.open(file_info) as source, open(target_path, 'wb') as target:
+                        shutil.copyfileobj(source, target)
                 
             messageBox.close()
             QApplication.processEvents()  # Process the close event
