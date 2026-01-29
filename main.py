@@ -1,16 +1,14 @@
-from PyQt6.QtWidgets import QProgressDialog, QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
+from PyQt6.QtWidgets import QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QPalette, QLinearGradient, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
+from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
 import sys
 import os  # Import os for file path handling
 import xml.etree.ElementTree as ET  # Import the XML parsing module
 import html
 from bs4 import BeautifulSoup
 import shutil  # Import shutil for file operations
-import urllib.request  # Import urllib for downloading files from GitHub
 
 from PyQt6.QtWidgets import QFileDialog  # Import QFileDialog for file selection
-import csv  # Import CSV module for reading and writing CSV files
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QComboBox, QPushButton, QColorDialog, QLineEdit
 
 from characterSelection import CharacterSelectionWindow  # Import the character selection window
@@ -25,7 +23,6 @@ from settingsAndStyle import StyleInfo, Settings # Import the function to set th
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
 
 from updateVersionNum import readVersionNumber  # Import the function to read the version number
-
 
 
 class MainWindow(QMainWindow):

@@ -2,8 +2,11 @@
 This is a python program to help when running table-top games such as DnD 2024.
 
 # Installation
-Download the installer from:
+Download the installer by:
+- Naviagate to:
 `installer/installer.exe`
+- Whith the .exe selected, press the three dots in the top right corner
+- Press download
 Run the installer and follow the prompts. This has been tested on a Windows PC.
 
 # Functionality
