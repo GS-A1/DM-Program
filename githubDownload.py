@@ -22,7 +22,9 @@ class GitHubDownloader:
         """
         @brief Update the the conditions/spell effects file from github
         @param file The specific file to dowload. Must include the whole path from the repo root
-        @return True if there was an error, False otherwise.
+        @param outputPath The local path to save the downloaded file. If blank, uses the same path as in the repo.
+        @param silent If True, suppresses UI dialogs.
+        @return False if there was an error, True otherwise.
         """
         file_path, separator, file_name = file.rpartition('/')   #find just the file name from the string
         
@@ -48,6 +50,8 @@ class GitHubDownloader:
                     local_path = file
                 else:
                     local_path = outputPath #otherwise use the specified output path
+                
+                os.makedirs(local_path, exist_ok=True) #create the output folder if it does not exist
 
                 # Download and save the file
                 #urllib.request.urlretrieve(repo_raw_url, local_path)
@@ -59,33 +63,53 @@ class GitHubDownloader:
                 QApplication.processEvents()
                 QApplication.processEvents()
                 
-                #call back for download progress
-                def download_progress(blocknum, blocksize, totalsize):
-                    """Update progress dialog during download"""
-                    if totalsize > 0:
-                        downloaded = blocknum * blocksize
-                        percent = min(int((downloaded / totalsize) * 100), 100)
-                        if not silent:
-                            messageBox.setValue(percent)
-                    if not silent:
-                        QApplication.processEvents()  # Keep UI responsive
+                #download with progress updates using a thread to keep everything alive
+                download_error = [False]  # Use list to capture error in thread
+            
+                def download_with_progress():
+                    """Download function to run in thread"""
+                    try:
+                        def download_progress(blocknum, blocksize, totalsize):
+                            """Update progress dialog during download"""
+                            if totalsize > 0:
+                                downloaded = blocknum * blocksize
+                                percent = min(int((downloaded / totalsize) * 100), 100)
+                                if not silent:
+                                    messageBox.setValue(percent)
+                                    messageBox.setLabelText(f"Downloading: {percent}%")
+                        
+                        urllib.request.urlretrieve(repo_raw_url, local_path, reporthook=download_progress)
+                    except Exception as e:
+                        download_error[0] = str(e)
                 
-                urllib.request.urlretrieve(repo_raw_url, local_path, reporthook=download_progress) #download the file and calla  callback when chunks are downloaded
+                # Run download in a separate thread
+                download_thread = threading.Thread(target=download_with_progress, daemon=False)
+                download_thread.start()
                 
-                self.conditions_file_error = False  # Reset the error flag
+                # Keep UI responsive while download is happening
+                while download_thread.is_alive():
+                    QApplication.processEvents()
+                    download_thread.join(timeout=0.1)
+                
+                # Check if there was an error
+                if download_error[0]:
+                    raise Exception(download_error[0])
+                
+                #urllib.request.urlretrieve(repo_raw_url, local_path, reporthook=download_progress) #download the file and calla  callback when chunks are downloaded
+                
                 if not silent:
                     messageBox.close()
                     QApplication.processEvents()  # Process the close event
                 
-                return False
+                return True
             else:
                 QMessageBox.critical(None, "File Error", "File name cannot be blank")
-                return True
+                return False
         except Exception as e:
             if not silent:
                 messageBox.close()  #close the message box on error
             QMessageBox.critical(None, "Download Error", f"Failed to download {file_name} file: {e}")
-            return True
+            return False
     
     def git_download_repo(self, silent=False):
         """
@@ -152,8 +176,9 @@ class GitHubDownloader:
                         if totalsize > 0:
                             downloaded = blocknum * blocksize
                             percent = min(int((downloaded / totalsize) * 100), 100)
-                            messageBox.setValue(percent)
-                            messageBox.setLabelText(f"Downloading: {percent}%")
+                            if not silent:
+                                messageBox.setValue(percent)
+                                messageBox.setLabelText(f"Downloading: {percent}%")
                     
                     urllib.request.urlretrieve(zip_url, self.zip_path, reporthook=download_progress)
                 except Exception as e:
@@ -186,22 +211,29 @@ class GitHubDownloader:
                 QMessageBox.critical(None,"Download Error", f"Failed to download files from github: {e}")
             return False
 
-    def git_extract_folder(self, folder_path="", silent=False):
+    def git_extract_folder(self, zip_folder_path = "", desired_folder_path="", silent=False):
         """
-        @brief Download the latest version of the DM Program from GitHub if it has not already been download and extarct it into the temp folder
-        @param folder_path The path to the folder in the GitHub repo (from repo root)
+        @brief Extract a specific folder from a downloaded .zip file
+        @param zip_folder_path The path to the folder in the zip file (from zip root)
+        @param desired_folder_path The path to the folder in the GitHub repo (from repo root)
         @param silent If True, suppresses confirmation dialogs.
         @return True if successful, False otherwise.
         """
-        succ = self.git_download_repo(silent)  #download the repo if it has not already been downloaded
-        #if we failed to download the repo, exit early
-        if not succ:
+        # succ = self.git_download_repo(silent)  #download the repo if it has not already been downloaded
+        # #if we failed to download the repo, exit early
+        # if not succ:
+        #     return False
+        
+        #if the folder paths are blank, exit early
+        if zip_folder_path == "" or desired_folder_path == "":
+            if not silent:
+                QMessageBox.critical(None, "Extraction Error", "Folder paths cannot be blank")
             return False
         
         try:
             # Create output directories
             #dir = os.path.join(os.path.dirname(__file__), "temp", f"{folder_path}")
-            dir = os.path.join(tempfile.gettempdir(), "DM-Program", f"{folder_path}")
+            dir = os.path.join(zip_folder_path, f"{desired_folder_path}")
             os.makedirs(dir, exist_ok=True)
             
             messageBox = QProgressDialog("Downloading files...", None, 0, 100)
@@ -215,11 +247,11 @@ class GitHubDownloader:
             QApplication.processEvents()
             
             # Extract Condition_Spell_Effects and Characters folders
-            with zipfile.ZipFile(self.zip_path, 'r') as zip_ref:
+            with zipfile.ZipFile(zip_folder_path, 'r') as zip_ref:
                 for file_info in zip_ref.filelist:
                     # Extract Condition_Spell_Effects folder
-                    if folder_path in file_info.filename:
-                        file_name = file_info.filename.split(folder_path + "/")[-1]
+                    if desired_folder_path in file_info.filename:
+                        file_name = file_info.filename.split(desired_folder_path + "/")[-1]
                         if file_name:  # Skip folder entry itself
                             local_path = os.path.join(dir, file_name)
                             with zip_ref.open(file_info) as source, open(local_path, 'wb') as target:

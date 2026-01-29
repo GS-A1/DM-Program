@@ -11,6 +11,7 @@ from PyQt6.QtWidgets import QVBoxLayout, QPushButton
 import sys
 import os  # Import os for file path handling
 import shutil  # Import shutil for file operations
+import tempfile
 
 from settingsAndStyle import StyleInfo # Import the function to set the custom style sheet information
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
@@ -83,97 +84,100 @@ class MainWindow(QMainWindow):
             return
         
         
-        self.log_output("Downloading files from GitHub...")
-        succ = self.gitHubDownload.git_download_repo() #download the repo from github 
+        self.log_output("Downloading program...")
+        #succ = self.gitHubDownload.git_download_repo() #download the repo from github
+        download_path = os.path.join(tempfile.gettempdir(), "DM-Program") 
+        succ = self.gitHubDownload.githiub_download_file(file="last_build/DM_Assistant.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
         if not succ:
-            self.log_output("Failed to download files from GitHub. Installation aborted.")
+            self.log_output("Failed to download program. Installation aborted.")
             return
         self.log_output("Files downloaded successfully.")
             
-        self.log_output("Extracting executable file...")
+        #self.log_output("Extracting program file...")
         #extract the last_build folder to get the lastest version of the program
-        succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="last_build")
-        if not succ:
-            self.log_output("Failed to extract last_build folder. Installation aborted.")
-            return
+                
+        # succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="last_build")
+        # if not succ:
+        #     self.log_output("Failed to extract last_build folder. Installation aborted.")
+        #     return
         
-        self.log_output(f"Moving executable to installation directory {installPath}")
-        #move the last_build folder to the selected installation directory
-        source_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "last_build")
-        try:
-            if os.path.exists(os.path.join(installPath, "DM Assistant", "DM Assistant.exe")) or os.path.exists(os.path.join(installPath, "DM Assistant", "_internal")):
-                reply = QMessageBox.question(None, "Confirm Installation", "An installation already exists in this folder. Do you wish to overide it? Other data such as save files will be preserved", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-                if reply == QMessageBox.StandardButton.Yes:
-                    # Remove only the executable and internal folder to preserve user data
-                    self.remove_from_directory(os.path.join(installPath, "DM Assistant"), ["DM Assistant.exe", "_internal"])
-                else:
-                    self.log_output("Installation cancelled.")
-                    return
-            shutil.move(os.path.join(source_folder, "DM Assistant.zip"), installPath)
-        except Exception as e:
-            self.log_output(f"Failed to install files: {e}")
-            return
+        # self.log_output(f"Moving executable to installation directory {installPath}")
+        # #move the last_build folder to the selected installation directory
+        # source_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "last_build")
+        # try:
+        #     if os.path.exists(os.path.join(installPath, "DM Assistant", "DM Assistant.exe")) or os.path.exists(os.path.join(installPath, "DM Assistant", "_internal")):
+        #         reply = QMessageBox.question(None, "Confirm Installation", "An installation already exists in this folder. Do you wish to overide it? Other data such as save files will be preserved", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        #         if reply == QMessageBox.StandardButton.Yes:
+        #             # Remove only the executable and internal folder to preserve user data
+        #             self.remove_from_directory(os.path.join(installPath, "DM Assistant"), ["DM Assistant.exe", "_internal"])
+        #         else:
+        #             self.log_output("Installation cancelled.")
+        #             return
+        #     shutil.move(os.path.join(source_folder, "DM Assistant.zip"), installPath)
+        # except Exception as e:
+        #     self.log_output(f"Failed to install files: {e}")
+        #     return
         
-        output_zip_path = os.path.join(installPath, "DM Assistant.zip")
-        print(f"Extracting executable file: {output_zip_path}")
-        #extract the .zip file in the installation directory
-        shutil.unpack_archive(output_zip_path, installPath)
-        os.remove(output_zip_path)  # Remove the zip file after extraction
+        # output_zip_path = os.path.join(installPath, "DM Assistant.zip")
+        # print(f"Extracting executable file: {output_zip_path}")
+        # #extract the .zip file in the installation directory
+        # shutil.unpack_archive(output_zip_path, installPath)
+        # os.remove(output_zip_path)  # Remove the zip file after extraction
         
-        #if needed, extract the settings folders
-        #characters
-        if self.checkbox_characters.isChecked():
-            self.log_output("Extracting Characters...")
-            succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="Settings/Characters")
-            if not succ:
-                self.log_output("Failed to extract the characters folder. Installation aborted.")
-                return
-            #moving the characters to the correct folder
-            self.log_output(f"Moving Character Files to {installPath}/Settings/Characters ...")
-            source_char_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "Settings", "Characters")
-            dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Characters")
-            try:
-                if os.path.exists(dest_char_folder):
-                    reply = QMessageBox.question(None, "Confirm Installation", "A Characters folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-                    if reply == QMessageBox.StandardButton.Yes:
-                        # Remove only the executable and internal folder to preserve user data
-                        shutil.rmtree(dest_char_folder)  # Remove existing characters folder
-                        shutil.move(source_char_folder, dest_char_folder)
-                    else:
-                        self.log_output("Failed to install Character files: Installation cancelled.")
-                else:
-                    shutil.move(source_char_folder, dest_char_folder)
-            except Exception as e:
-                self.log_output(f"Failed to move character files: {e}")
-                return
-        if self.checkbox_conditions.isChecked():
-            self.log_output("Extracting Condition Spell Effects...")
-            succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="Settings/Condition_Spell_Effects")
-            if not succ:
-                self.log_output("Failed to extract the condition/spell effects folder. Installation aborted.")
-                return
-            #moving the spell conditions to the correct folder
-            self.log_output(f"Moving Condition Spell Effects to {installPath}/Settings/Condition_Spell_Effects ...")
-            source_char_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "Settings", "Condition_Spell_Effects")
-            dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Condition_Spell_Effects")
-            try:
-                if os.path.exists(dest_char_folder):
-                    reply = QMessageBox.question(None, "Confirm Installation", "A Conditions and Spell Effects folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-                    if reply == QMessageBox.StandardButton.Yes:
-                        # Remove only the executable and internal folder to preserve user data
-                        shutil.rmtree(dest_char_folder)  # Remove existing characters folder
-                        shutil.move(source_char_folder, dest_char_folder)
-                    else:
-                        self.log_output("Failed to install Character files: Installation cancelled.")
-                else:
-                    shutil.move(source_char_folder, dest_char_folder)
-            except Exception as e:
-                self.log_output(f"Failed to move conditions and spell effects files: {e}")
-                return
+        # #if needed, extract the settings folders
+        # #characters
+        # if self.checkbox_characters.isChecked():
+        #     self.log_output("Extracting Characters...")
+        #     succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="Settings/Characters")
+        #     if not succ:
+        #         self.log_output("Failed to extract the characters folder. Installation aborted.")
+        #         return
+        #     #moving the characters to the correct folder
+        #     self.log_output(f"Moving Character Files to {installPath}/Settings/Characters ...")
+        #     source_char_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "Settings", "Characters")
+        #     dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Characters")
+        #     try:
+        #         if os.path.exists(dest_char_folder):
+        #             reply = QMessageBox.question(None, "Confirm Installation", "A Characters folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        #             if reply == QMessageBox.StandardButton.Yes:
+        #                 # Remove only the executable and internal folder to preserve user data
+        #                 shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+        #                 shutil.move(source_char_folder, dest_char_folder)
+        #             else:
+        #                 self.log_output("Failed to install Character files: Installation cancelled.")
+        #         else:
+        #             shutil.move(source_char_folder, dest_char_folder)
+        #     except Exception as e:
+        #         self.log_output(f"Failed to move character files: {e}")
+        #         return
+        # if self.checkbox_conditions.isChecked():
+        #     self.log_output("Extracting Condition Spell Effects...")
+        #     succ = self.gitHubDownload.git_extract_folder(silent=True, folder_path="Settings/Condition_Spell_Effects")
+        #     if not succ:
+        #         self.log_output("Failed to extract the condition/spell effects folder. Installation aborted.")
+        #         return
+        #     #moving the spell conditions to the correct folder
+        #     self.log_output(f"Moving Condition Spell Effects to {installPath}/Settings/Condition_Spell_Effects ...")
+        #     source_char_folder = os.path.join(self.gitHubDownload.downloaded_repo_path, "Settings", "Condition_Spell_Effects")
+        #     dest_char_folder = os.path.join(installPath, "DM Assistant", "Settings", "Condition_Spell_Effects")
+        #     try:
+        #         if os.path.exists(dest_char_folder):
+        #             reply = QMessageBox.question(None, "Confirm Installation", "A Conditions and Spell Effects folder already exists. Do you wish to overide it? All data in the folder will be deleated", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        #             if reply == QMessageBox.StandardButton.Yes:
+        #                 # Remove only the executable and internal folder to preserve user data
+        #                 shutil.rmtree(dest_char_folder)  # Remove existing characters folder
+        #                 shutil.move(source_char_folder, dest_char_folder)
+        #             else:
+        #                 self.log_output("Failed to install Character files: Installation cancelled.")
+        #         else:
+        #             shutil.move(source_char_folder, dest_char_folder)
+        #     except Exception as e:
+        #         self.log_output(f"Failed to move conditions and spell effects files: {e}")
+        #         return
         
-        #create the save files folder
-        save_files_folder = os.path.join(installPath, "DM Assistant", "Save Files")
-        os.makedirs(save_files_folder, exist_ok=True)    
+        # #create the save files folder
+        # save_files_folder = os.path.join(installPath, "DM Assistant", "Save Files")
+        # os.makedirs(save_files_folder, exist_ok=True)    
         self.log_output("Installation complete!")
     
     def log_output(self, message):
