@@ -2646,7 +2646,7 @@ class MainWindow(QMainWindow):
         
         #delete the temp folder and all its contents if it exists that was used to download github repos
         #temp_dir = os.path.join(os.path.dirname(__file__), "temp")
-        temp_dir = self.github_downloader.downloaded_repo_path
+        temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program")
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
         

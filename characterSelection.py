@@ -8,6 +8,7 @@ from rowdata import CharacterRow  # Assuming CharacterRow is defined in rowdata.
 import rowDataFileIO as CFIO
 from githubDownload import GitHubDownloader
 import shutil
+from installer import downloadAndExtractSettingsFolder
 
 class CharacterFormWidget(QWidget):
     """
@@ -856,38 +857,58 @@ class CharacterSelectionWindow(QDialog):
     def update_character_files(self):
         reply = QMessageBox.question(None, "Update Characters", "Do you want to update all character files from GitHub? This will overide anyfiles that have the same name as those on github", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         if reply == QMessageBox.StandardButton.Yes:
-            git_hub_downloader = GitHubDownloader()
-            #error = git_hub_downloader.git_extract_folder(silent=True, folder_path=os.path.join(os.path.dirname(__file__), "Settings", "Characters"))
-            succ = git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Characters")
-            if succ == False:
-                #show an error message
+            file = os.path.dirname(__file__)    #find the folder the program is running from
+            file = os.path.join(file, "Settings")   #go to the settings folder
+            
+            src = downloadAndExtractSettingsFolder(installPath=file, folderName="Characters") #download the available character files from github and move thme into the folder
+            if src == False:
                 QMessageBox.critical(None, "Error", "Failed to download character files from GitHub.")
                 return
             else:
-                #copy the character files from the downloaded repo to the character folder
-                # source_folder = os.path.join(git_hub_downloader.downloaded_repo_path, "Settings/Characters")
-                # dest_folder = self.character_folder
-                #git_hub_downloader.git_download_files(silent=True, folder_path="Settings/Characters", dest_folder=dest_folder)
+                QMessageBox.information(None, "Success", "Character files updated successfully from GitHub.")
+            #reload the xml files
+            # Prevent currentTextChanged signals firing while we reset the combo box
+            self.file_combo.blockSignals(True)
+            self.file_combo.clear()
+            self.file_combo.addItem("Select a file")
+            self.file_combo.setCurrentText("Select a file")
+            self.file_combo.blockSignals(False)
+            # Now safely reload files
+            self.load_xml_files()
+    
+            
+            # git_hub_downloader = GitHubDownloader()
+            #error = git_hub_downloader.git_extract_folder(silent=True, folder_path=os.path.join(os.path.dirname(__file__), "Settings", "Characters"))
+            # succ = git_hub_downloader.git_extract_folder(silent=False, folder_path="Settings/Characters")
+            # if succ == False:
+            #     #show an error message
+            #     QMessageBox.critical(None, "Error", "Failed to download character files from GitHub.")
+            #     return
+            # else:
+            #     #copy the character files from the downloaded repo to the character folder
+            #     # source_folder = os.path.join(git_hub_downloader.downloaded_repo_path, "Settings/Characters")
+            #     # dest_folder = self.character_folder
+            #     #git_hub_downloader.git_download_files(silent=True, folder_path="Settings/Characters", dest_folder=dest_folder)
                 
-                try:
-                #     for file_name in os.listdir(source_folder):
-                #         if file_name.endswith(".xml"):
-                #             full_file_name = os.path.join(source_folder, file_name)
-                #             if os.path.isfile(full_file_name):
-                #                 shutil.copy(full_file_name, dest_folder)
-                
-                    QMessageBox.information(None, "Success", "Character files updated successfully from GitHub.")
-                    #reload the xml files
-                    # Prevent currentTextChanged signals firing while we reset the combo box
-                    self.file_combo.blockSignals(True)
-                    self.file_combo.clear()
-                    self.file_combo.addItem("Select a file")
-                    self.file_combo.setCurrentText("Select a file")
-                    self.file_combo.blockSignals(False)
-                    # Now safely reload files
-                    self.load_xml_files()
-                except Exception as e:
-                    QMessageBox.critical(None, "Error", f"Failed to update character files: {e}")
+            #     try:
+            #     #     for file_name in os.listdir(source_folder):
+            #     #         if file_name.endswith(".xml"):
+            #     #             full_file_name = os.path.join(source_folder, file_name)
+            #     #             if os.path.isfile(full_file_name):
+            #     #                 shutil.copy(full_file_name, dest_folder)
+                    
+            #         #QMessageBox.information(None, "Success", "Character files updated successfully from GitHub.")
+            #         #reload the xml files
+            #         # Prevent currentTextChanged signals firing while we reset the combo box
+            #         self.file_combo.blockSignals(True)
+            #         self.file_combo.clear()
+            #         self.file_combo.addItem("Select a file")
+            #         self.file_combo.setCurrentText("Select a file")
+            #         self.file_combo.blockSignals(False)
+            #         # Now safely reload files
+            #         self.load_xml_files()
+            #     except Exception as e:
+            #         QMessageBox.critical(None, "Error", f"Failed to update character files: {e}")
     
     """
     @brief Open a dialog window to add a new character to the selected XML file.
