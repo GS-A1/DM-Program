@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QScrollArea, QApplication, QMainWindow, QTableWidget
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
 import sys
+import ctypes  # For setting AppUserModelID on Windows
 import os  # Import os for file path handling
 import xml.etree.ElementTree as ET  # Import the XML parsing module
 import html
@@ -2663,12 +2664,27 @@ class MainWindow(QMainWindow):
 
 #**************************Main Function***********************************
 if __name__ == "__main__":
+    # On Windows, set an explicit AppUserModelID so taskbar uses your app identity.
+    if sys.platform == "win32":
+        try:
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("com.mycompany.dmassistant")
+        except Exception:
+            pass
+    
+    
     app = QApplication(sys.argv)
-    icon_path = os.path.join(os.path.dirname(__file__), "Settings", "dnd_dm_icons.ico")
+    
+    #two options for getting the icon path, one for when its compiled to an exe and one for when its run from source
+    if getattr(sys, "frozen", False):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(__file__)
+    icon_path = os.path.join(base, "exe_generation", "dnd_dm_icons.ico")
+    
     app.setWindowIcon(QIcon(icon_path))
     
     window = MainWindow()
-    
+    window.setWindowIcon(QIcon(icon_path))
     window.show()
 
     app.exec()

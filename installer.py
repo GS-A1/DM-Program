@@ -12,6 +12,7 @@ import sys
 import os  # Import os for file path handling
 import shutil  # Import shutil for file operations
 import tempfile
+import ctypes  # For setting AppUserModelID on Windows
 
 from settingsAndStyle import StyleInfo # Import the function to set the custom style sheet information
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
@@ -370,12 +371,27 @@ def remove_from_directory(self, directory, items_to_remove):
         
 #**************************Main Function***********************************
 if __name__ == "__main__":
+    # On Windows, set an explicit AppUserModelID so taskbar uses your app identity.
+    if sys.platform == "win32":
+        try:
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("com.mycompany.dmassistant")
+        except Exception:
+            pass
+    
+    
     app = QApplication(sys.argv)
-    icon_path = os.path.join(os.path.dirname(__file__), "Settings", "dnd_dm_icons.ico")
+    
+    #two options for getting the icon path, one for when its compiled to an exe and one for when its run from source
+    if getattr(sys, "frozen", False):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(__file__)
+    icon_path = os.path.join(base, "exe_generation", "dnd_dm_installer_icon.ico")
+    
     app.setWindowIcon(QIcon(icon_path))
     
     window = MainWindow()
-    
+    window.setWindowIcon(QIcon(icon_path))
     window.show()
 
     app.exec()

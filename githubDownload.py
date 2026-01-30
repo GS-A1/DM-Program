@@ -39,9 +39,6 @@ class GitHubDownloader:
         try:
             #Try to download the default file from the GitHub repository
             if file != "":
-                #check to see if the folder exists, if not create it
-                if file_path != "":
-                    os.makedirs(file_path, exist_ok=True)
                 
                 repo_raw_url = f"{self.repo_url}/{file}"
                 

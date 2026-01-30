@@ -15,11 +15,11 @@
   },
   {
    "optionDest": "console",
-   "value": true
+   "value": false
   },
   {
    "optionDest": "icon_file",
-   "value": "./exe_generation/dnd_dm_icons.ico"
+   "value": "./exe_generation/dnd_dm_installer_icon.ico"
   },
   {
    "optionDest": "clean_build",
@@ -52,6 +52,10 @@
   {
    "optionDest": "bootloader_ignore_signals",
    "value": false
+  },
+  {
+   "optionDest": "distpath",
+   "value": "installer"
   }
  ],
  "nonPyinstallerOptions": {
