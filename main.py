@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
+from PyQt6.QtWidgets import QProgressDialog, QScrollArea, QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QSizePolicy, QMessageBox, QComboBox, QCheckBox, QSplitter, QGridLayout, QListWidget, QTextEdit, QHeaderView  # Import QMessageBox for dialog boxes
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QFont, QColor, QBrush, QKeySequence, QShortcut, QFontDatabase  # Import QFont for text formatting, QColor for setting cell background color, and QBrush for setting cell background color
 import sys
@@ -268,25 +268,35 @@ class MainWindow(QMainWindow):
 #**************************Functions***********************************
     def checkForUpdates(self):
         """@breif Check the giuthub repository for updates."""
+        messageBox = QProgressDialog("Checking Version...", None, 0, 100)
+        messageBox.setWindowTitle("Checking Version")
+        messageBox.setAutoClose(False)
+        messageBox.show()
+        QApplication.processEvents()
+        
         #download the version file from github
         temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program") #use the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
         os.makedirs(temp_dir, exist_ok=True)        #make sure the temp folder exists
-        github_version_err = self.github_downloader.git_download_file(file="Settings/version.txt", outputPath=os.path.join(temp_dir, "version.txt"), silent=True)  # Download the version.txt file to a temporary location
+        no_err = self.github_downloader.git_download_file(file="Settings/version.txt", outputPath=temp_dir, silent=True, timeoutTime=1000)  # Download the version.txt file to a temporary location
+        messageBox.close()
         #if there was not error
-        if not github_version_err:
+        if no_err:
             # Read the version number from the downloaded file
             with open(os.path.join(temp_dir, "version.txt"), "r") as f:
                 github_version = f.read().strip()
 
             # Compare with the current version
             if github_version != self.version:
-                QMessageBox.information(
+                reply = QMessageBox.question(
                     self,
                     "Update Available",
-                    "A new version is available:\n"
+                    "A new version of DM Assistant is available:\n"
                     f"Current Version: {self.version}\n"
                     f"New version: {github_version}\n"
+                    "Would you like to download the latest version?"   
                 )
+                if reply == QMessageBox.StandardButton.Yes:
+                    pass  # Here you can add code to open a download link or start the update process
 
     def readversionnumber(self):
             """Read the version number from the version.txt file."""

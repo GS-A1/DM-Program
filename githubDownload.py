@@ -6,6 +6,7 @@ import shutil  # Import shutil for file operations
 import zipfile
 import threading
 import tempfile
+import time
 
             
 class GitHubDownloader:
@@ -18,12 +19,13 @@ class GitHubDownloader:
     zip_path = ""
     downloaded_repo = False  # Flag to indicate if the repo has been downloaded this session
     
-    def git_download_file(self, file = "", outputPath = "", silent=False):
+    def git_download_file(self, file = "", outputPath = "", silent=False, timeoutTime=10000):
         """
         @brief Update the the conditions/spell effects file from github
         @param file The specific file to dowload. Must include the whole path from the repo root
         @param outputPath The local path to save the downloaded file. If blank, uses the same path as in the repo.
         @param silent If True, suppresses UI dialogs.
+        @param timeoutTime The time in milliseconds to wait before timing out the download if no progress is made.
         @return False if there was an error, True otherwise.
         """
         file_path, separator, file_name = file.rpartition('/')   #find just the file name from the string
@@ -83,8 +85,22 @@ class GitHubDownloader:
                 download_thread = threading.Thread(target=download_with_progress, daemon=False)
                 download_thread.start()
                 
+                #store the time we started downloading or last got a percent update
+                startTIme = time.time() * 1000  #get the current time in milliseconds
+                oldPercent = 0
+                
                 # Keep UI responsive while download is happening
                 while download_thread.is_alive():
+                    #include a timeout to allow for graceful exit if needed
+                    #if there has been some progress, reset the start time
+                    if progress_data['percent'] != oldPercent:
+                        startTIme = time.time() * 1000  #get the current time in milliseconds
+                        oldPercent = progress_data['percent']
+                    currTime = time.time() * 1000  #get the current time in milliseconds
+                    # If more than too much time has passed since we last got a percent update
+                    if currTime - startTIme > timeoutTime:  
+                        download_thread.join(timeout=0.1)
+                        raise Exception("Download timed out")
                     # Update UI from main thread only
                     if not silent:
                         messageBox.setValue(progress_data['percent'])
@@ -112,7 +128,7 @@ class GitHubDownloader:
             QMessageBox.critical(None, "Download Error", f"Failed to download {file_name} file: {e}")
             return False
     
-    def git_download_repo(self, silent=False):
+    def git_download_repo(self, silent=False, timeoutTime=10000):
         """
         @brief Download the latest version of the DM Program from GitHub.
         @param silent If True, suppresses confirmation dialogs.
@@ -188,8 +204,22 @@ class GitHubDownloader:
             download_thread = threading.Thread(target=download_with_progress, daemon=False)
             download_thread.start()
             
+            #store the time we started downloading or last got a percent update
+            startTIme = time.time() * 1000  #get the current time in milliseconds
+            oldPercent = 0
+            
             # Keep UI responsive while download is happening
             while download_thread.is_alive():
+                #include a timeout to allow for graceful exit if needed
+                #if there has been some progress, reset the start time
+                if progress_data['percent'] != oldPercent:
+                    startTIme = time.time() * 1000  #get the current time in milliseconds
+                    oldPercent = progress_data['percent']
+                currTime = time.time() * 1000  #get the current time in milliseconds
+                # If more than too much time has passed since we last got a percent update
+                if currTime - startTIme > timeoutTime:  
+                    download_thread.join(timeout=0.1)
+                    raise Exception("Download timed out")
                 # Update UI from main thread only
                 if not silent:
                     messageBox.setValue(progress_data['percent'])
