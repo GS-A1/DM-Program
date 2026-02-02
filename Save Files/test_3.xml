@@ -1,255 +1,127 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Saved_file>
+  <settings>
+    <general_settings>
+      <roll_pc_init>False</roll_pc_init>
+    </general_settings>
+    <column_sizes>
+      <col_X>30</col_X>
+      <col_Character_ID>0</col_Character_ID>
+      <col_Player_Name>30</col_Player_Name>
+      <col_Character_Name>30</col_Character_Name>
+      <col_Background>0</col_Background>
+      <col_Class>0</col_Class>
+      <col_Species>0</col_Species>
+      <col_Subclass>0</col_Subclass>
+      <col_Level>0</col_Level>
+      <col_AC>30</col_AC>
+      <col_Temp__AC>61</col_Temp__AC>
+      <col_Hit_Dice>0</col_Hit_Dice>
+      <col_Death_Saves>0</col_Death_Saves>
+      <col_Proficiency_Bonus>0</col_Proficiency_Bonus>
+      <col_Initiative_Bonus>0</col_Initiative_Bonus>
+      <col_Initiative>30</col_Initiative>
+      <col_Speed>30</col_Speed>
+      <col_Size>0</col_Size>
+      <col_Passive_Perception>0</col_Passive_Perception>
+      <col_Max_HP>30</col_Max_HP>
+      <col_Temp__HP>30</col_Temp__HP>
+      <col_Current_HP>30</col_Current_HP>
+      <col_Damage>56</col_Damage>
+      <col_Conditions_Spell_Effects>30</col_Conditions_Spell_Effects>
+      <col_Select>553</col_Select>
+      <col_Intelligence>0</col_Intelligence>
+      <col_Arcana>0</col_Arcana>
+      <col_History>0</col_History>
+      <col_Investigation>0</col_Investigation>
+      <col_Nature>0</col_Nature>
+      <col_Religion>0</col_Religion>
+      <col_Strength>0</col_Strength>
+      <col_Athletics>0</col_Athletics>
+      <col_Dexterity>0</col_Dexterity>
+      <col_Acrobatics>0</col_Acrobatics>
+      <col_Sleight_of_Hand>0</col_Sleight_of_Hand>
+      <col_Stealth>0</col_Stealth>
+      <col_Wisdom>0</col_Wisdom>
+      <col_Animal_Handling>0</col_Animal_Handling>
+      <col_Insight>0</col_Insight>
+      <col_Medicine>0</col_Medicine>
+      <col_Perception>0</col_Perception>
+      <col_Survival>0</col_Survival>
+      <col_Constitution>0</col_Constitution>
+      <col_Charisma>0</col_Charisma>
+      <col_Deception>0</col_Deception>
+      <col_Intimidation>0</col_Intimidation>
+      <col_Performance>0</col_Performance>
+      <col_Persuasion>0</col_Persuasion>
+      <col_Saving_Throws>0</col_Saving_Throws>
+      <col_Damage_Resistance>0</col_Damage_Resistance>
+      <col_Languages>0</col_Languages>
+      <col_Challenge_Rating>0</col_Challenge_Rating>
+      <col_Equipment>0</col_Equipment>
+      <col_Special_Abilities>0</col_Special_Abilities>
+      <col_Spells>0</col_Spells>
+      <col_Spell_Slots>0</col_Spell_Slots>
+      <col_Feats>0</col_Feats>
+      <col_Actions>0</col_Actions>
+      <col_Bonus_Actions>0</col_Bonus_Actions>
+      <col_Reactions>0</col_Reactions>
+      <col_Legendary_Actions>0</col_Legendary_Actions>
+    </column_sizes>
+    <row_sizes>
+      <row_0>30</row_0>
+      <row_1>30</row_1>
+      <row_2>57</row_2>
+      <row_3>30</row_3>
+      <row_4>79</row_4>
+      <row_5>30</row_5>
+      <row_6>30</row_6>
+    </row_sizes>
+    <text_settings>
+      <general_text_size>9</general_text_size>
+      <general_text_style>Bookman Old Style</general_text_style>
+      <button_text_size>9</button_text_size>
+      <button_text_style>Bookman Old Style</button_text_style>
+      <table_text_size>9</table_text_size>
+      <table_text_style>Bookman Old Style</table_text_style>
+      <general_text_colour>#ff2a1a0b</general_text_colour>
+      <button_text_colour>#ffffffff</button_text_colour>
+      <table_text_colour>#ff2a1a0b</table_text_colour>
+      <button_color>#ffa02b2b</button_color>
+      <general_color>#fffaf2dc</general_color>
+      <minor_color>#fffdfbf4</minor_color>
+    </text_settings>
+    <selected_colours>
+      <currentTurn_highlightColour>#ffffff00</currentTurn_highlightColour>
+      <fullHP_highlightColour>#ff00ff00</fullHP_highlightColour>
+      <criticalHP_highlightColour>#ffffaa00</criticalHP_highlightColour>
+      <noHP_highlightColour>#ffff0000</noHP_highlightColour>
+    </selected_colours>
+    <visible_columns>
+      <column>X</column>
+      <column>Player Name</column>
+      <column>Character Name</column>
+      <column>AC</column>
+      <column>Temp. AC</column>
+      <column>Initiative</column>
+      <column>Speed</column>
+      <column>Max HP</column>
+      <column>Temp. HP</column>
+      <column>Current HP</column>
+      <column>Damage</column>
+      <column>Conditions/Spell Effects</column>
+      <column>Select</column>
+    </visible_columns>
+    <highlighted_row>0</highlighted_row>
+    <row_order>
+      <character_id>7</character_id>
+      <character_id>8</character_id>
+      <character_id>9</character_id>
+      <character_id>10</character_id>
+      <character_id>11</character_id>
+    </row_order>
+  </settings>
   <characters>
-    <character>
-      <character_url />
-      <character_name>Character 1</character_name>
-      <background />
-      <class_ />
-      <Species />
-      <Subclass />
-      <level>1</level>
-      <armor_class>10</armor_class>
-      <hit_dice>1d6</hit_dice>
-      <death_Saves>0</death_Saves>
-      <proficiency_bonus>0</proficiency_bonus>
-      <initiative_bonus>0</initiative_bonus>
-      <initiative>0</initiative>
-      <size>Medium</size>
-      <passive_perception>0</passive_perception>
-      <max_hp>10</max_hp>
-      <temporary_hit_points>0</temporary_hit_points>
-      <current_hp>10</current_hp>
-      <damage>0</damage>
-      <conditions_spell_effects />
-      <intelligence>10</intelligence>
-      <arcana>0</arcana>
-      <history>0</history>
-      <investigation>0</investigation>
-      <nature>0</nature>
-      <religion>0</religion>
-      <strength>10</strength>
-      <athletics>0</athletics>
-      <dexterity>10</dexterity>
-      <acrobatics>0</acrobatics>
-      <sleight_of_hand>0</sleight_of_hand>
-      <stealth>0</stealth>
-      <wisdom>10</wisdom>
-      <animal_handling>0</animal_handling>
-      <insight>0</insight>
-      <medicine>0</medicine>
-      <perception>0</perception>
-      <survival>0</survival>
-      <constitution>10</constitution>
-      <charisma>10</charisma>
-      <deception>0</deception>
-      <intimidation>0</intimidation>
-      <performance>0</performance>
-      <persuasion>0</persuasion>
-      <saving_throws />
-      <damage_resistance />
-      <damage_immunities />
-      <condition_immunities />
-      <languages />
-      <challenge_rating />
-      <equipment />
-      <special_abilities />
-      <senses />
-      <spell_save_dc>0</spell_save_dc>
-      <spell_attack_modifier>0</spell_attack_modifier>
-      <speed>
-        <walk>30</walk>
-        <fly>0</fly>
-        <swim>0</swim>
-        <climb>0</climb>
-        <burrow>0</burrow>
-      </speed>
-      <spell_slots>
-        <level_1>0</level_1>
-        <level_2>0</level_2>
-        <level_3>0</level_3>
-        <level_4>0</level_4>
-        <level_5>0</level_5>
-        <level_6>0</level_6>
-        <level_7>0</level_7>
-        <level_8>0</level_8>
-        <level_9>0</level_9>
-      </spell_slots>
-      <feats />
-      <actions />
-      <bonus_actions />
-      <reactions />
-      <legendary_actions />
-      <spells />
-      <character_ID>4</character_ID>
-      <player_name>frog</player_name>
-    </character>
-    <character>
-      <character_url />
-      <character_name>Character 2</character_name>
-      <background />
-      <class_ />
-      <Species />
-      <Subclass />
-      <level>1</level>
-      <armor_class>10</armor_class>
-      <hit_dice>1d6</hit_dice>
-      <death_Saves>0</death_Saves>
-      <proficiency_bonus>0</proficiency_bonus>
-      <initiative_bonus>0</initiative_bonus>
-      <initiative>0</initiative>
-      <size>Medium</size>
-      <passive_perception>0</passive_perception>
-      <max_hp>10</max_hp>
-      <temporary_hit_points>0</temporary_hit_points>
-      <current_hp>10</current_hp>
-      <damage>0</damage>
-      <conditions_spell_effects />
-      <intelligence>10</intelligence>
-      <arcana>0</arcana>
-      <history>0</history>
-      <investigation>0</investigation>
-      <nature>0</nature>
-      <religion>0</religion>
-      <strength>10</strength>
-      <athletics>0</athletics>
-      <dexterity>10</dexterity>
-      <acrobatics>0</acrobatics>
-      <sleight_of_hand>0</sleight_of_hand>
-      <stealth>0</stealth>
-      <wisdom>10</wisdom>
-      <animal_handling>0</animal_handling>
-      <insight>0</insight>
-      <medicine>0</medicine>
-      <perception>0</perception>
-      <survival>0</survival>
-      <constitution>10</constitution>
-      <charisma>10</charisma>
-      <deception>0</deception>
-      <intimidation>0</intimidation>
-      <performance>0</performance>
-      <persuasion>0</persuasion>
-      <saving_throws />
-      <damage_resistance />
-      <damage_immunities />
-      <condition_immunities />
-      <languages />
-      <challenge_rating />
-      <equipment />
-      <special_abilities />
-      <senses />
-      <spell_save_dc>0</spell_save_dc>
-      <spell_attack_modifier>0</spell_attack_modifier>
-      <speed>
-        <walk>30</walk>
-        <fly>0</fly>
-        <swim>0</swim>
-        <climb>0</climb>
-        <burrow>0</burrow>
-      </speed>
-      <spell_slots>
-        <level_1>0</level_1>
-        <level_2>0</level_2>
-        <level_3>0</level_3>
-        <level_4>0</level_4>
-        <level_5>0</level_5>
-        <level_6>0</level_6>
-        <level_7>0</level_7>
-        <level_8>0</level_8>
-        <level_9>0</level_9>
-      </spell_slots>
-      <feats />
-      <actions />
-      <bonus_actions />
-      <reactions />
-      <legendary_actions />
-      <spells />
-      <character_ID>5</character_ID>
-      <player_name>NPC</player_name>
-    </character>
-    <character>
-      <character_url />
-      <character_name>Character 3</character_name>
-      <background />
-      <class_ />
-      <Species />
-      <Subclass />
-      <level>1</level>
-      <armor_class>10</armor_class>
-      <hit_dice>1d6</hit_dice>
-      <death_Saves>0</death_Saves>
-      <proficiency_bonus>0</proficiency_bonus>
-      <initiative_bonus>0</initiative_bonus>
-      <initiative>0</initiative>
-      <size>Medium</size>
-      <passive_perception>0</passive_perception>
-      <max_hp>10</max_hp>
-      <temporary_hit_points>0</temporary_hit_points>
-      <current_hp>10</current_hp>
-      <damage>0</damage>
-      <conditions_spell_effects />
-      <intelligence>10</intelligence>
-      <arcana>0</arcana>
-      <history>0</history>
-      <investigation>0</investigation>
-      <nature>0</nature>
-      <religion>0</religion>
-      <strength>10</strength>
-      <athletics>0</athletics>
-      <dexterity>10</dexterity>
-      <acrobatics>0</acrobatics>
-      <sleight_of_hand>0</sleight_of_hand>
-      <stealth>0</stealth>
-      <wisdom>10</wisdom>
-      <animal_handling>0</animal_handling>
-      <insight>0</insight>
-      <medicine>0</medicine>
-      <perception>0</perception>
-      <survival>0</survival>
-      <constitution>10</constitution>
-      <charisma>10</charisma>
-      <deception>0</deception>
-      <intimidation>0</intimidation>
-      <performance>0</performance>
-      <persuasion>0</persuasion>
-      <saving_throws />
-      <damage_resistance />
-      <damage_immunities />
-      <condition_immunities />
-      <languages />
-      <challenge_rating />
-      <equipment />
-      <special_abilities />
-      <senses />
-      <spell_save_dc>0</spell_save_dc>
-      <spell_attack_modifier>0</spell_attack_modifier>
-      <speed>
-        <walk>30</walk>
-        <fly>0</fly>
-        <swim>0</swim>
-        <climb>0</climb>
-        <burrow>0</burrow>
-      </speed>
-      <spell_slots>
-        <level_1>0</level_1>
-        <level_2>0</level_2>
-        <level_3>0</level_3>
-        <level_4>0</level_4>
-        <level_5>0</level_5>
-        <level_6>0</level_6>
-        <level_7>0</level_7>
-        <level_8>0</level_8>
-        <level_9>0</level_9>
-      </spell_slots>
-      <feats />
-      <actions />
-      <bonus_actions />
-      <reactions />
-      <legendary_actions />
-      <spells />
-      <character_ID>6</character_ID>
-      <player_name>log</player_name>
-    </character>
     <character>
       <character_url />
       <character_name>Character 4</character_name>
@@ -416,50 +288,254 @@
       <character_ID>8</character_ID>
       <player_name>NPC</player_name>
     </character>
+    <character>
+      <character_url />
+      <character_name>Character 6</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>1</level>
+      <armor_class>10</armor_class>
+      <hit_dice>1d6</hit_dice>
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>0</initiative>
+      <size>Medium</size>
+      <passive_perception>0</passive_perception>
+      <max_hp>10</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>10</current_hp>
+      <damage>0</damage>
+      <conditions_spell_effects />
+      <intelligence>10</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>10</strength>
+      <athletics>0</athletics>
+      <dexterity>10</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>10</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>10</constitution>
+      <charisma>10</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance />
+      <damage_immunities />
+      <condition_immunities />
+      <languages />
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses />
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats />
+      <actions />
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>9</character_ID>
+      <player_name>NPC</player_name>
+    </character>
+    <character>
+      <character_url />
+      <character_name>Character 7</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>1</level>
+      <armor_class>10</armor_class>
+      <hit_dice>1d6</hit_dice>
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>0</initiative>
+      <size>Medium</size>
+      <passive_perception>0</passive_perception>
+      <max_hp>10</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>10</current_hp>
+      <damage>0</damage>
+      <conditions_spell_effects />
+      <intelligence>10</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>10</strength>
+      <athletics>0</athletics>
+      <dexterity>10</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>10</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>10</constitution>
+      <charisma>10</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance />
+      <damage_immunities />
+      <condition_immunities />
+      <languages />
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses />
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats />
+      <actions />
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>10</character_ID>
+      <player_name>NPC</player_name>
+    </character>
+    <character>
+      <character_url />
+      <character_name>Character 8</character_name>
+      <background />
+      <class_ />
+      <Species />
+      <Subclass />
+      <level>1</level>
+      <armor_class>10</armor_class>
+      <hit_dice>1d6</hit_dice>
+      <death_Saves>0</death_Saves>
+      <proficiency_bonus>0</proficiency_bonus>
+      <initiative_bonus>0</initiative_bonus>
+      <initiative>0</initiative>
+      <size>Medium</size>
+      <passive_perception>0</passive_perception>
+      <max_hp>10</max_hp>
+      <temporary_hit_points>0</temporary_hit_points>
+      <current_hp>10</current_hp>
+      <damage>0</damage>
+      <conditions_spell_effects />
+      <intelligence>10</intelligence>
+      <arcana>0</arcana>
+      <history>0</history>
+      <investigation>0</investigation>
+      <nature>0</nature>
+      <religion>0</religion>
+      <strength>10</strength>
+      <athletics>0</athletics>
+      <dexterity>10</dexterity>
+      <acrobatics>0</acrobatics>
+      <sleight_of_hand>0</sleight_of_hand>
+      <stealth>0</stealth>
+      <wisdom>10</wisdom>
+      <animal_handling>0</animal_handling>
+      <insight>0</insight>
+      <medicine>0</medicine>
+      <perception>0</perception>
+      <survival>0</survival>
+      <constitution>10</constitution>
+      <charisma>10</charisma>
+      <deception>0</deception>
+      <intimidation>0</intimidation>
+      <performance>0</performance>
+      <persuasion>0</persuasion>
+      <saving_throws />
+      <damage_resistance />
+      <damage_immunities />
+      <condition_immunities />
+      <languages />
+      <challenge_rating />
+      <equipment />
+      <special_abilities />
+      <senses />
+      <spell_save_dc>0</spell_save_dc>
+      <spell_attack_modifier>0</spell_attack_modifier>
+      <speed>
+        <walk>30</walk>
+        <fly>0</fly>
+        <swim>0</swim>
+        <climb>0</climb>
+        <burrow>0</burrow>
+      </speed>
+      <spell_slots>
+        <level_1>0</level_1>
+        <level_2>0</level_2>
+        <level_3>0</level_3>
+        <level_4>0</level_4>
+        <level_5>0</level_5>
+        <level_6>0</level_6>
+        <level_7>0</level_7>
+        <level_8>0</level_8>
+        <level_9>0</level_9>
+      </spell_slots>
+      <feats />
+      <actions />
+      <bonus_actions />
+      <reactions />
+      <legendary_actions />
+      <spells />
+      <character_ID>11</character_ID>
+      <player_name>NPC</player_name>
+    </character>
   </characters>
-  <settings>
-    <text_settings>
-      <general_text_size>9</general_text_size>
-      <general_text_style>Bookman Old Style</general_text_style>
-      <button_text_size>9</button_text_size>
-      <button_text_style>Bookman Old Style</button_text_style>
-      <table_text_size>9</table_text_size>
-      <table_text_style>Bookman Old Style</table_text_style>
-      <general_text_colour>#ff2a1a0b</general_text_colour>
-      <button_text_colour>#ffffffff</button_text_colour>
-      <table_text_colour>#ff2a1a0b</table_text_colour>
-      <button_color>#ffa02b2b</button_color>
-      <general_color>#fffaf2dc</general_color>
-      <minor_color>#fffdfbf4</minor_color>
-    </text_settings>
-    <selected_colours>
-      <currentTurn_highlightColour>#ffff5500</currentTurn_highlightColour>
-      <fullHP_highlightColour>#ffffaaff</fullHP_highlightColour>
-      <criticalHP_highlightColour>#ffaaaa00</criticalHP_highlightColour>
-      <noHP_highlightColour>#ff00007f</noHP_highlightColour>
-    </selected_colours>
-    <visible_columns>
-      <column>X</column>
-      <column>Player Name</column>
-      <column>Character Name</column>
-      <column>AC</column>
-      <column>Temp. AC</column>
-      <column>Initiative</column>
-      <column>Speed</column>
-      <column>Max HP</column>
-      <column>Temp. HP</column>
-      <column>Current HP</column>
-      <column>Damage</column>
-      <column>Conditions/Spell Effects</column>
-      <column>Select</column>
-    </visible_columns>
-    <highlighted_row>0</highlighted_row>
-    <row_order>
-      <character_id>4</character_id>
-      <character_id>5</character_id>
-      <character_id>6</character_id>
-      <character_id>7</character_id>
-      <character_id>8</character_id>
-    </row_order>
-  </settings>
 </Saved_file>

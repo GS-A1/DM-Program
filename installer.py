@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
         """
         @brief Handle the install button click event.
         """
-        
+        self.log_output("**********************************************************************************")
         self.log_output("Starting Installation...")
         self.log_output("Selecting installation directory...")
         
@@ -89,7 +89,7 @@ class MainWindow(QMainWindow):
         suc = downloadAndInstallProgram(installPath=installPath) #call function to handle downloading and installing the program
         #was the download and install successful?
         if suc:
-            self.log_output("Program installed successfully.")
+            self.log_output(f"Program installed successfully to {installPath}")
         else:
             self.log_output("Failed to install program.")
             return
@@ -101,7 +101,7 @@ class MainWindow(QMainWindow):
             suc = downloadAndExtractSettingsFolder(installPath=os.path.join(installPath, "DM Assistant", "Settings"), folderName="Characters")    #call function to handle downloading and installing the characters folder
             #was the download and install successful?
             if suc:
-                self.log_output("Character files installed successfully.")
+                self.log_output(f"Character files installed successfully to {os.path.join(installPath, 'DM Assistant', 'Settings', 'Characters')}.")
             else:
                 self.log_output("Failed to install Character files.")
                 
@@ -112,7 +112,7 @@ class MainWindow(QMainWindow):
             suc = downloadAndExtractSettingsFolder(installPath=os.path.join(installPath, "DM Assistant", "Settings"), folderName="Condition_Spell_Effects")   #call function to handle downloading and installing the conditions and spell effects folder
             #was the download and install successful?
             if suc:
-                self.log_output("Conditions and Spell Effects installed successfully.")
+                self.log_output(f"Conditions and Spell Effects installed successfully to {os.path.join(installPath, 'DM Assistant', 'Settings', 'Condition_Spell_Effects')}.")
             else:
                 self.log_output("Failed to install Conditions and Spell Effects.")
                 
@@ -335,14 +335,18 @@ def downloadAndInstallProgram(installPath = ""):
         shutil.move(os.path.join(source_folder, "DM_Assistant.zip"), installPath)
     except Exception as e:
         #self.log_output(f"Failed to install files: {e}")
-        return
+        return False
     
     output_zip_path = os.path.join(installPath, "DM_Assistant.zip")
     if output_zip_path.__contains__("\\"):
             output_zip_path = output_zip_path.replace("\\", "/")
-    print(f"Extracting files: {output_zip_path}")
+    #print(f"Extracting files: {output_zip_path}")
     #extract the .zip file in the installation directory
-    shutil.unpack_archive(output_zip_path, installPath)
+    try:
+        shutil.unpack_archive(output_zip_path, installPath)
+    except Exception as e:
+        #self.log_output(f"Failed to extract zip file: {e}")
+        return False
     os.remove(output_zip_path)  #remove the .zip file after extraction
     return True
 

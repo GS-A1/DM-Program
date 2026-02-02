@@ -43,6 +43,7 @@ class CharacterRow:
     Subclass: str = ""
     Level: int = 0
     Armor_Class: int = 0
+    Temporary_AC: int = 0
     Hit_Dice: str = ""
     Death_Saves: int = 0
     Proficiency_Bonus: int = 0
@@ -115,6 +116,7 @@ class CharacterRow:
         self.Character_Name = "Character " + str(self.Character_ID-3)
         self.Level = 1
         self.Armor_Class = 10
+        self.Temporary_AC = 0
         self.Hit_Dice = "1d6"
         self.Walk_Speed = 30
         self.Size = "Medium"
@@ -126,7 +128,6 @@ class CharacterRow:
         self.Wisdom = 10
         self.Constitution = 10
         self.Charisma = 10
-        # Reset other fields as necessary...
     
     @classmethod
     def _get_next_id(cls):
@@ -149,7 +150,8 @@ ColumnNames = [
     "Species",
     "Subclass",
     "Level",
-    "Armor Class",
+    "AC",
+    "Temp. AC",
     "Hit Dice",
     "Death Saves",
     "Proficiency Bonus",

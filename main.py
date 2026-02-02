@@ -126,15 +126,21 @@ class MainWindow(QMainWindow):
         self.table = QTableWidget()
         self.table.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.table.setMinimumHeight(200)
-        self.table.setMinimumWidth(750)
-        
-        # Wrap the table in a scroll area to enable scrolling when needed
-        table_scroll_area = QScrollArea()
-        table_scroll_area.setWidget(self.table)
-        table_scroll_area.setWidgetResizable(True)
-        table_scroll_area.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        
-        splitter.addWidget(table_scroll_area)
+        self.table.setMinimumWidth(200)
+        # Allow user to drag column headers and row headers to resize
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
+        self.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
+        # Allow columns to be reordered and headers to be clicked
+        self.table.horizontalHeader().setSectionsMovable(True)
+        self.table.horizontalHeader().setSectionsClickable(True)
+        # Keep the last section stretched to fill remaining space
+        self.table.horizontalHeader().setStretchLastSection(True)
+        # Double-click header edge to auto-fit
+        self.table.horizontalHeader().sectionDoubleClicked.connect(self.table.resizeColumnToContents)
+        self.table.verticalHeader().sectionDoubleClicked.connect(self.table.resizeRowToContents)
+
+        # Add the table directly to the splitter (QTableWidget provides its own scrolling)
+        splitter.addWidget(self.table)
 
         # Create a QWidget for the buttons
         button_widget = QWidget()
@@ -216,16 +222,16 @@ class MainWindow(QMainWindow):
                 header_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # Make columns stretch to fill available horizontal space
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        #self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         
         # Make rows stretch to fill available vertical space
-        self.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        #self.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
         # Create 7 rows as default (5 + 2 for the "Add Row" and "Add Character" button)
         self.table.setRowCount(7)
         
         self.table.verticalHeader().setMinimumSectionSize(30)  # Set minimum row height
-        self.table.horizontalHeader().setMinimumSectionSize(80)  # Set minimum row width
+        self.table.horizontalHeader().setMinimumSectionSize(30)  # Set minimum row width
 
         # Populate the first 5 rows with default data
         for row in range(5):
@@ -348,14 +354,14 @@ class MainWindow(QMainWindow):
         
         # Check if the value is a valid integer
         if not self.is_integer(item.text()):
-            # Show a dialog box for invalid input
-            
-            QMessageBox.warning(
-                self,
-                "Invalid Input",
-                f"Invalid value entered in row: {row + 1}, column: {ColumnNames[col]}. "
-                "Please only enter valid integers."
-            )
+            # Show a dialog box for invalid input unless it is blank
+            if item.text().strip() != "":
+                QMessageBox.warning(
+                    self,
+                    "Invalid Input",
+                    f"Invalid value entered in row: {row + 1}, column: {ColumnNames[col]}. "
+                    "Please only enter valid integers."
+                )
 
             # Revert to the previous value if the text is not a valid integer
             previous_value = self.previous_values.get((row, col), "")
@@ -460,46 +466,51 @@ class MainWindow(QMainWindow):
                     if column_name == "Initiative":
                         item = self.table.item(row_index, self.columns["Initiative"])
                         if item:
-                            item.setText(str(char.Initiative))
-                    #for the initiative column, update it from the object
+                            self.set_table_item_text(row_index, self.columns["Initiative"], char.Initiative)
+                    #for the damage column, update it from the object
                     if column_name == "Damage":
                         item = self.table.item(row_index, self.columns["Damage"])
                         if item:
-                            item.setText(str(char.Damage))
-                    #for the initiative column, update it from the object
+                            self.set_table_item_text(row_index, self.columns["Damage"], char.Damage)
+                    #for the current HP column, update it from the object
                     if column_name == "Current HP":
                         item = self.table.item(row_index, self.columns["Current HP"])
                         if item:
-                            item.setText(str(char.Current_HP))
-                    #for the initiative column, update it from the object
+                            self.set_table_item_text(row_index, self.columns["Current HP"], char.Current_HP)
+                    #for the Temp HP column, update it from the object
                     if column_name == "Temp. HP":
                         item = self.table.item(row_index, self.columns["Temp. HP"])
                         if item:
-                            item.setText(str(char.Temporary_Hit_Points))
-                    #for the initiative column, update it from the object
+                            self.set_table_item_text(row_index, self.columns["Temp. HP"], char.Temporary_Hit_Points)
+                    #for the Temp AC column, update it from the object
+                    if column_name == "Temp. AC":
+                        item = self.table.item(row_index, self.columns["Temp. AC"])
+                        if item:
+                            self.set_table_item_text(row_index, self.columns["Temp. AC"], char.Temporary_AC)
+                    #for the Max HP column, update it from the object
                     if column_name == "Max HP":
                         item = self.table.item(row_index, self.columns["Max HP"])
                         if item:
-                            item.setText(str(char.Max_HP))
-                    #for the initiative column, update it from the object
-                    if column_name == "Armor Class":
-                        item = self.table.item(row_index, self.columns["Armor Class"])
+                            self.set_table_item_text(row_index, self.columns["Max HP"], char.Max_HP)
+                    #for the AC column, update it from the object
+                    if column_name == "AC":
+                        item = self.table.item(row_index, self.columns["AC"])
                         if item:
-                            item.setText(str(char.Armor_Class))
-                    #for the initiative column, update it from the object
+                            self.set_table_item_text(row_index, self.columns["AC"], char.Armor_Class)
+                    #for the Character Name column, update it from the object
                     if column_name == "Character Name":
                         item = self.table.item(row_index, self.columns["Character Name"])
                         if item:
-                            item.setText(str(char.Character_Name))
-                    #for the initiative column, update it from the object
+                            self.set_table_item_text(row_index, self.columns["Character Name"], char.Character_Name)
+                    #for the Player Name column, update it from the object
                     if column_name == "Player Name":
                         item = self.table.item(row_index, self.columns["Player Name"])
                         if item:
-                            item.setText(str(char.Player_Name))
+                            self.set_table_item_text(row_index, self.columns["Player Name"], char.Player_Name)
                     if column_name == "Conditions/Spell Effects":
                         item = self.table.item(row_index, self.columns["Conditions/Spell Effects"])
                         if item:
-                            item.setText(str(char.Conditions_Spell_Effects))
+                            self.set_table_item_text(row_index, self.columns["Conditions/Spell Effects"], char.Conditions_Spell_Effects)
                     break
         
     def highlight_row(self, row_index):
@@ -658,9 +669,9 @@ class MainWindow(QMainWindow):
         current_text = condition_item.text()
         if selected_text and selected_text not in current_text:
             if current_text:
-                condition_item.setText(f"{current_text}, {selected_text}")
+                self.set_table_item_text(row_index, self.columns["Conditions/Spell Effects"], f"{current_text}, {selected_text}")
             else:
-                condition_item.setText(selected_text)
+                self.set_table_item_text(row_index, self.columns["Conditions/Spell Effects"], selected_text)
 
         # --- Update tooltip using the shared function ---
         self.update_condition_tooltip(row_index)
@@ -739,27 +750,23 @@ class MainWindow(QMainWindow):
                     if character_data.Burrow_Speed != 0:
                         speedString += f"Burrow: {character_data.Burrow_Speed}ft, "
                     speedString = speedString.rstrip(", ")  # Remove the trailing comma and space
-                    if not item:
-                        item = QTableWidgetItem(speedString)
-                        self.table.setItem(row_index, col, item)
+                    self.set_table_item_text(row_index, col, speedString)
             elif col_name == "Temp. HP":
                 value = character_data.Temporary_Hit_Points
-                if not item:
-                    item = QTableWidgetItem(str(value))
-                    self.table.setItem(row_index, col, item)
-                else:
-                    item.setText(str(value))
+                self.set_table_item_text(row_index, col, value)
+            elif col_name == "AC":
+                value = character_data.Armor_Class
+                self.set_table_item_text(row_index, col, value)
+            elif col_name == "Temp. AC":
+                value = character_data.Temporary_AC
+                self.set_table_item_text(row_index, col, value)
             else:
                 # Replace spaces and special characters with underscores to match dataclass field names
                 attr_name = col_name.replace(" ", "_").replace("/", "_").replace("-", "_")
                 value = getattr(character_data, attr_name, "")
-                if not item:
-                    item = QTableWidgetItem(str(value))
-                    self.table.setItem(row_index, col, item)
-                else:
-                    item.setText(value)
+                self.set_table_item_text(row_index, col, value)
             # Store the initial value in the previous_values dictionary
-            self.previous_values[(row_index, col)] = value
+            
         
         #ADD IN SOME SPECIFIC VALUES> FOR EXAMPLE, THE SPEED COLUMS DOES NOT MATCH
         
@@ -818,10 +825,10 @@ class MainWindow(QMainWindow):
 
             # Update the Temporary HP and Current HP cells
             if temp_hp_item:
-                temp_hp_item.setText(str(temp_hp))  #Update the cell text
+                self.set_table_item_text(row, self.columns["Temp. HP"], temp_hp)  #Update the cell text and previous_values
                 target_row_obj.Temporary_Hit_Points = temp_hp  # Update the Temporary HP in the CharacterRow object
             if current_hp_item:
-                current_hp_item.setText(str(current_hp))    #update the cell
+                self.set_table_item_text(row, self.columns["Current HP"], current_hp)    #update the cell and previous_values
                 target_row_obj.Current_HP = current_hp      # Update the Current HP in the CharacterRow object
             
             self.HP_Highlighting(row)  # Highlight the HP cell based on the updated values
@@ -894,6 +901,18 @@ class MainWindow(QMainWindow):
         #general settings
         ET.SubElement(general_elm, "roll_pc_init").text = str(self.settings.roll_pc_initiative)
         
+        #save the widths of the columns as elements named col_<column_name> (sanitized)
+        cols_elem = ET.SubElement(settings_elem, "column_sizes")
+        for col in range(self.total_columns):
+            col_name = ColumnNames[col]
+            # sanitize column name to be a valid XML tag: replace non-alphanumeric with underscores
+            sanitized = ''.join((c if c.isalnum() else '_') for c in col_name)
+            tag_name = f"col_{sanitized}"
+            ET.SubElement(cols_elem, tag_name).text = str(self.table.horizontalHeader().sectionSize(col))
+        #save the row heights
+        rows_elem = ET.SubElement(settings_elem, "row_sizes")
+        for row in range(self.table.rowCount()):
+            ET.SubElement(rows_elem, f"row_{row}").text = str(self.table.rowHeight(row))
         
         #save text size and other information
         text_elm = ET.SubElement(settings_elem, "text_settings")
@@ -1085,6 +1104,37 @@ class MainWindow(QMainWindow):
                     self.add_row(row)
 
             self.resize_columns_to_content()
+
+            # --- Restore saved column sizes if present ---
+            cols_elem = settings_elem.find("column_sizes")
+            if cols_elem is not None:
+                for col in range(self.total_columns):
+                    col_name = ColumnNames[col]
+                    sanitized = ''.join((c if c.isalnum() else '_') for c in col_name)
+                    tag_name = f"col_{sanitized}"
+                    elem = cols_elem.find(tag_name)
+                    if elem is not None and elem.text:
+                        try:
+                            size = int(elem.text)
+                            # Use QTableWidget API (setColumnWidth) which is available and stable across bindings
+                            self.table.setColumnWidth(col, size)
+                        except Exception:
+                            # ignore invalid saved values
+                            pass
+            
+            # --- Restore saved row heights if present ---
+            rows_elem = settings_elem.find("row_sizes")
+            if rows_elem is not None:
+                for row in range(self.table.rowCount()):
+                    elem = rows_elem.find(f"row_{row}")
+                    if elem is not None and elem.text:
+                        try:
+                            size = int(elem.text)
+                            self.table.setRowHeight(row, size)
+                        except Exception:
+                            # ignore invalid saved values
+                            pass
+
             # Re-highlight rows
             for row in range(self.table.rowCount() - 2):
                 self.HP_Highlighting(row)
@@ -1130,7 +1180,7 @@ class MainWindow(QMainWindow):
         """
         self.table.resizeColumnsToContents()
         # Force columns to stretch to fill available space
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        #self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
     def save_on_exit(self):
         """
@@ -1163,11 +1213,7 @@ class MainWindow(QMainWindow):
         if self.columns["Damage"] == -1:
             return  # Damage column not present
         for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button rows
-            item = self.table.item(row, self.columns["Damage"])
-            if item:
-                item.setText("0")
-            else:
-                self.table.setItem(row, self.columns["Damage"], QTableWidgetItem("0"))
+            self.set_table_item_text(row, self.columns["Damage"], 0)
     
     def set_Custom_Style_Sheet(self):
         style = f"""
@@ -1291,7 +1337,30 @@ class MainWindow(QMainWindow):
         """
         QApplication.instance().setStyleSheet(style)
         self.resize_columns_to_content()    #resize columns to fit new style
-        
+
+    def set_table_item_text(self, row, col, text):
+        """
+        @brief Helper function to set the text of a table item. Uses signal blocking to prevent unwanted signal firing.
+        Runs other commands that might need to run when setting text. For example, storing previous values.
+        @param row The row index of the cell.
+        @param col The column index of the cell.
+        @param text The text to set in the cell.
+        """
+        # Temporarily block signals on the table to avoid disconnect/connect errors
+        previous_block_state = self.table.blockSignals(True)
+        try:
+            item = self.table.item(row, col)
+            if not item:
+                item = QTableWidgetItem(str(text))
+                self.table.setItem(row, col, item)
+            else:
+                item.setText(str(text))
+            # store as string consistently
+            self.previous_values[(row, col)] = str(text)
+        finally:
+            # Restore original block state
+            self.table.blockSignals(previous_block_state)
+  
 #**************************Signal Handlers***********************************
     def item_slec_chang_sig(self):
         """
@@ -1310,9 +1379,7 @@ class MainWindow(QMainWindow):
             
             #if the selected row is the damage one, set it back to 0. This is a hack so we can get the right signal to fire if the value is unchanged
             if (col == self.columns["Damage"]):
-                self.table.cellChanged.disconnect(self.cell_content_signal)
-                self.table.item(row, col).setText("0")
-                self.table.cellChanged.connect(self.cell_content_signal)
+                self.set_table_item_text(row, col, 0)
         
         self.table.itemSelectionChanged.connect(self.item_slec_chang_sig)  # Connect to item selection changed instead of cell changed      
         
@@ -1374,6 +1441,10 @@ class MainWindow(QMainWindow):
         if not error:
             if col == self.columns["Temp. HP"]:
                 target_row_obj.Temporary_Hit_Points = int(self.table.item(row, col).text())
+            if col == self.columns["AC"]:
+                target_row_obj.Armor_Class = int(self.table.item(row, col).text())
+            if col == self.columns["Temp. AC"]:
+                target_row_obj.Temporary_AC = int(self.table.item(row, col).text())
             if col == self.columns["Damage"] and target_row_obj is not None:
                 self.process_damage(row, target_row_obj.Character_ID)
             if col == self.columns["Current HP"]:
@@ -1462,7 +1533,14 @@ class MainWindow(QMainWindow):
         
         self.clear_highlighted_row(self.style_sheet.colour_current_turn)
         
-            
+        #created a list of the row heights related to the character IDs so we can restore them after sorting
+        row_heights = {}
+        for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button rows
+            char_id_item = self.table.item(row, self.columns["Character ID"])
+            if char_id_item and char_id_item.text().isdigit():
+                char_id = int(char_id_item.text())
+                row_heights[char_id] = self.table.rowHeight(row)
+        
         # Create a sorted list of rows based on Initiative in descending order
         sorted_rows = sorted(
             [row for row in self.rows if getattr(row, "is_button", "") == ""],
@@ -1477,6 +1555,14 @@ class MainWindow(QMainWindow):
         #re-add all rows from the ordered list
         for row_obj in sorted_rows:
             self.add_row(row_obj, False)  #False so we dont add to self.rows again
+        
+        #reset the row heights to what they were before sorting
+        for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button rows
+            char_id_item = self.table.item(row, self.columns["Character ID"])
+            if char_id_item and char_id_item.text().isdigit():
+                char_id = int(char_id_item.text())
+                if char_id in row_heights:
+                    self.table.setRowHeight(row, row_heights[char_id])
         
         # Highlight the next valid row after sorting
         self.next_turn()
@@ -1496,13 +1582,13 @@ class MainWindow(QMainWindow):
             
             if max_hp_item and current_hp_item:
                 max_hp = int(max_hp_item.text()) if self.is_integer(max_hp_item.text()) else 0
-                current_hp_item.setText(str(max_hp))  # Set Current HP to Max HP
+                self.set_table_item_text(row, self.columns["Current HP"], max_hp)  # Set Current HP to Max HP
             
             if temp_hp_item:
-                temp_hp_item.setText("0")  # Reset Temporary HP to 0
+                self.set_table_item_text(row, self.columns["Temp. HP"], 0)  # Reset Temporary HP to 0
             
             if damage_item:
-                damage_item.setText("0")  # Reset Damage to 0
+                self.set_table_item_text(row, self.columns["Damage"], 0)  # Reset Damage to 0
 
             # Update the HP highlighting for the row
             self.HP_Highlighting(row)
@@ -1521,6 +1607,15 @@ class MainWindow(QMainWindow):
         """
         """reset the damage column to 0 so it does not affect the sorting."""
         self.reset_all_damage()
+        
+        
+        #created a list of the row heights related to the character IDs so we can restore them after sorting
+        row_heights = {}
+        for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button rows
+            char_id_item = self.table.item(row, self.columns["Character ID"])
+            if char_id_item and char_id_item.text().isdigit():
+                char_id = int(char_id_item.text())
+                row_heights[char_id] = self.table.rowHeight(row)
         
         #Set all initiatives to 0
         for char in self.rows:
@@ -1544,6 +1639,14 @@ class MainWindow(QMainWindow):
             self.add_row(row_obj, False)  #False so we dont add to self.rows again
         for row_obj in npc_rows:
             self.add_row(row_obj, False)  #False so we dont add to self.rows again
+        
+        #reset the row heights to what they were before sorting
+        for row in range(self.table.rowCount() - 2):  # Exclude the "Add Row" and "Add Character" button rows
+            char_id_item = self.table.item(row, self.columns["Character ID"])
+            if char_id_item and char_id_item.text().isdigit():
+                char_id = int(char_id_item.text())
+                if char_id in row_heights:
+                    self.table.setRowHeight(row, row_heights[char_id])
 
     def add_character(self):
         """
@@ -2056,7 +2159,8 @@ class MainWindow(QMainWindow):
         self.table.setColumnHidden(self.columns["Character Name"], False)
         self.table.setColumnHidden(self.columns["Speed"], False)
         self.table.setColumnHidden(self.columns["Initiative"], False)
-        self.table.setColumnHidden(self.columns["Armor Class"], False)
+        self.table.setColumnHidden(self.columns["AC"], False)
+        self.table.setColumnHidden(self.columns["Temp. AC"], False)
         self.table.setColumnHidden(self.columns["Max HP"], False)
         self.table.setColumnHidden(self.columns["Temp. HP"], False)
         self.table.setColumnHidden(self.columns["Current HP"], False)
@@ -2145,7 +2249,8 @@ class MainWindow(QMainWindow):
                     self.columns["Character Name"],
                     self.columns["Speed"],
                     self.columns["Initiative"],
-                    self.columns["Armor Class"],
+                    self.columns["AC"],
+                    self.columns["Temp. AC"],
                     self.columns["Max HP"],
                     self.columns["Temp. HP"],
                     self.columns["Current HP"],

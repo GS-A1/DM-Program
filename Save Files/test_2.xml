@@ -28,7 +28,7 @@
       <column>X</column>
       <column>Player Name</column>
       <column>Character Name</column>
-      <column>Armor Class</column>
+      <column>AC</column>
       <column>Initiative</column>
       <column>Speed</column>
       <column>Max HP</column>
