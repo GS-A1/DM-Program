@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QLabel, QComboBox
 from characterSelection import CharacterSelectionWindow  # Import the character selection window
 from diceRoller import DiceRollerWindow  # Import the dice roller window
 from characterSheet import CharacterSheetWindow  # Import the character sheet window
+from installer import downloadAndExtractSettingsFolder  # Import the installer functions
 
 from rowdata import CharacterRow, ColumnNames  # Import the CharacterRow class for handling character data
 
@@ -45,13 +46,11 @@ class MainWindow(QMainWindow):
         os.makedirs("Settings/Characters", exist_ok=True)
         os.makedirs("Save Files", exist_ok=True)
 
+        self.version = self.readversionnumber() #read the version number from the version.txt file
+        self.exitBeforeDraw = False  # Flag to indicate if an update is going to be installed
+        
         #github variables
         self.github_downloader = GitHubDownloader()  # Create an instance of the GitHubDownloader class
-        
-        #version number of the application
-        self.version = self.readversionnumber() #read the version number from the version.txt file
-        self.checkForUpdates()
-
         self.process_damage_flag = True # Flag to control if damage applied
         self.default_condit_file_name = "DnD_2024.xml"
         self.condtions_spellEffect_file_path = f"Settings/Condition_Spell_Effects/{self.default_condit_file_name}"  # Path to the XML file for conditions and spell effects
@@ -60,6 +59,12 @@ class MainWindow(QMainWindow):
         self.rows: list[CharacterRow] = []      #create a list of objects to store all row data
         self.character_sheet_row_ID = 4  # store the index we are going to use for the character sheet
         self.character_sheet_window = None
+        
+        
+        #check the version. If they want to update, the application will close
+        if self.checkForUpdates():
+            self.exitBeforeDraw = True  #set the flag to indicate an update is happening
+            return
         
         self.setWindowTitle("DM Assistant")  # Set the window title
         self.setGeometry(100, 100, 1000, 400)  # Set window size
@@ -96,6 +101,7 @@ class MainWindow(QMainWindow):
         # Add actions to the submenu
         conditions_menu.addAction("Select File", self.select_conditions_file)
         conditions_menu.addAction("Modify Conditions/Spell Effects", self.modify_conditions_spell_effects)
+        conditions_menu.addAction("Update Conditions/Spell Effects Files", self.update_conditions_and_spell_effects_files)
         
         self.columns = {name: idx for idx, name in enumerate(ColumnNames)}
         
@@ -264,10 +270,10 @@ class MainWindow(QMainWindow):
         
         #Set the layout to the default state
         self.reset_layout()
-
+        
 #**************************Functions***********************************
     def checkForUpdates(self):
-        """@breif Check the giuthub repository for updates."""
+        """@brief Check the giuthub repository for updates."""
         messageBox = QProgressDialog("Checking Version...", None, 0, 100)
         messageBox.setWindowTitle("Checking Version")
         messageBox.setAutoClose(False)
@@ -277,7 +283,7 @@ class MainWindow(QMainWindow):
         #download the version file from github
         temp_dir = os.path.join(tempfile.gettempdir(), "DM-Program") #use the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
         os.makedirs(temp_dir, exist_ok=True)        #make sure the temp folder exists
-        no_err = self.github_downloader.git_download_file(file="Settings/version.txt", outputPath=temp_dir, silent=True, timeoutTime=1000)  # Download the version.txt file to a temporary location
+        no_err = self.github_downloader.git_download_file_qt(file="Settings/version.txt", outputPath=temp_dir, silent=True, timeoutTime=1000)  # Download the version.txt file to a temporary location with a 1s timeout
         messageBox.close()
         #if there was not error
         if no_err:
@@ -296,10 +302,42 @@ class MainWindow(QMainWindow):
                     "Would you like to download the latest version?"   
                 )
                 if reply == QMessageBox.StandardButton.Yes:
-                    pass  # Here you can add code to open a download link or start the update process
+                    #create a message box with selectable text to show the user where to download the update
+                    message =  "Your web browser will open to download the latest version\n"
+                    message += "After downloading, please run the installer to update your application.\n"
+                    message += "If the download does not start, copy this link into your web browser:\n"
+                    message += "https://raw.githubusercontent.com/GS-A1/DM-Program/main/installer/installer.exe\n"
 
+                    box = QMessageBox(self)
+                    box.setWindowTitle("Update Available")
+                    box.setIcon(QMessageBox.Icon.Information)
+
+                    # Put the message in the standard text position (to the right of the icon)
+                    box.setText(message)
+
+                    # Make the standard text label selectable (highlight/copy)
+                    text_label = box.findChild(QLabel, "qt_msgbox_label")
+                    if text_label is not None:
+                        text_label.setTextInteractionFlags(
+                            Qt.TextInteractionFlag.TextSelectableByMouse |
+                            Qt.TextInteractionFlag.TextSelectableByKeyboard
+                        )
+                        text_label.setWordWrap(True)
+
+                    box.setStandardButtons(QMessageBox.StandardButton.Ok)
+                    box.exec()
+                    
+                    # Open the GitHub releases page in the default web browser
+                    import webbrowser
+                    webbrowser.open("https://raw.githubusercontent.com/GS-A1/DM-Program/main/installer/installer.exe")
+                    #exit the application
+                    return True
+        return False
+                    
     def readversionnumber(self):
-            """Read the version number from the version.txt file."""
+            """
+            @brief: Read the version number from the version.txt file.
+            """
             version_file_path = readVersionNumber() #read the version number from the version.txt file
             if version_file_path == "Unknown Version":
                 QMessageBox.warning(
@@ -450,7 +488,7 @@ class MainWindow(QMainWindow):
     
     def update_entire_table_column(self, column_name = ""):
         """
-        @breif Update a specific column in the table for all characters
+        @brief Update a specific column in the table for all characters
         @param column_name The name of the column to update.
         """
         if column_name not in self.columns:
@@ -464,7 +502,7 @@ class MainWindow(QMainWindow):
                     
     def update_single_table_column(self, column_name = "", char = CharacterRow()):
         """
-        @breif Update a specific column in the table for one characters 
+        @brief Update a specific column in the table for one characters 
         @param column_name The name of the column to update.
         @param char The character qho is being updated
         """
@@ -636,7 +674,7 @@ class MainWindow(QMainWindow):
                 reply = QMessageBox.question(None, "File Not Found", message, QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
                 if reply == QMessageBox.StandardButton.Yes:
                     file_path, separator, file_name = self.condtions_spellEffect_file_path.rpartition('/')   #find just the file name from the string
-                    NoError = self.github_downloader.git_download_file(outputPath=file_path, file = self.condtions_spellEffect_file_path) #try to download the file from github
+                    NoError = self.github_downloader.git_download_file_qt(outputPath=file_path, file = self.condtions_spellEffect_file_path, timeoutTime=1000) #try to download the file from github with a 1s timeout
                     #if there was an error downloading the file
                     if NoError == False:
                         self.conditions_file_error = True
@@ -2747,13 +2785,39 @@ class MainWindow(QMainWindow):
         )
         QMessageBox.about(self, "About DM Assistant", about_text)
         
+    def update_conditions_and_spell_effects_files(self):
+        """
+        @brief Update the conditions/spell effects files from the GitHub repository.
+        """
+        reply = QMessageBox.question(None, "Update Conditions And Spell Effects", "Do you want to update all Conditions And Spell Effects files? This will overide anyfiles that have the same name as those downloaded", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        if reply == QMessageBox.StandardButton.Yes:
+            # We need two potentional paths, one when compiled to an exe and one when running from source
+            if getattr(sys, "frozen", False):
+                # When frozen (exe), prefer an external Settings folder next to the exe
+                base_dir = os.path.dirname(sys.executable)
+            else:
+                # When running from source, use the project folder
+                base_dir = os.path.dirname(__file__)
+            file = os.path.join(base_dir, "Settings")   #add in the settings folder
+            
+            src = downloadAndExtractSettingsFolder(installPath=file, folderName="Condition_Spell_Effects") #download the available character files from github and move thme into the folder
+            if src == False:
+                QMessageBox.critical(None, "Error", "Failed to download Conditions And Spell Effects files.")
+                return
+            else:
+                QMessageBox.information(None, "Success", "Conditions And Spell Effects files updated successfully.")
+
 #**************************Events**********************************************
     def closeEvent(self, event):
         """
         @brief Ask if the user wants to save before closing.
         @param event The close event.
         """
-        reply = self.save_on_exit()
+        reply = True
+        
+        #if the user did not accept to update
+        if not self.exitBeforeDraw:
+            reply = self.save_on_exit()
         
         if reply == True:            
             event.accept()  # Allow the window to close
@@ -2800,6 +2864,10 @@ if __name__ == "__main__":
     
     window = MainWindow()
     window.setWindowIcon(QIcon(icon_path))
+    #exit the application before showing the main window if an update is going to be installed
+    if window.exitBeforeDraw:
+        sys.exit(0)
+        
     window.show()
 
     app.exec()

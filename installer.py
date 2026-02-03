@@ -3,10 +3,11 @@ Installer script for the DM Assistant application.
 This script is used to generate a simple installer.
 The installer downloads the output folder from GitHub and places it in the specified installation directory.
 """
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget, QMessageBox, QCheckBox, QTextEdit  # Import QMessageBox for dialog boxes
+from PyQt6.QtWidgets import QLabel, QApplication, QMainWindow, QVBoxLayout, QPushButton, QWidget, QMessageBox, QCheckBox, QTextEdit  # Import QMessageBox for dialog boxes
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QFileDialog  # Import QFileDialog for file selection
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton
+from PyQt6.QtCore import Qt
 
 import sys
 import os  # Import os for file path handling
@@ -17,6 +18,7 @@ import ctypes  # For setting AppUserModelID on Windows
 from settingsAndStyle import StyleInfo # Import the function to set the custom style sheet information
 from githubDownload import GitHubDownloader  # Import the GitHub downloader class
 
+from updateVersionNum import readVersionNumber  # Import the function to read the version number
 
 class MainWindow(QMainWindow):
     """
@@ -32,13 +34,22 @@ class MainWindow(QMainWindow):
         
         self.gitHubDownload = GitHubDownloader()
         
+        self.version = self.readversionnumber() #read the version number from the version.txt file
+        
         # In your __init__ method
         self.setWindowTitle("DM Assistant Installer")  # Set the window title
         self.setGeometry(100, 100, 600, 500)  # Set window size
-                
+         
         self.style_sheet = StyleInfo()      #object for storing and recalling the style sheet information
         self.style_sheet.resetLayout()  #reset the style sheet to default values
         self.set_Custom_Style_Sheet()
+        
+        # Create a menu bar
+        menu_bar = self.menuBar()
+        
+        # Create "Help" menu
+        help_menu = menu_bar.addMenu("Help")
+        help_menu.addAction("About", self.about_menue_action)
         
         # Create central widget and main layout
         central_widget = QWidget()
@@ -253,6 +264,33 @@ class MainWindow(QMainWindow):
                 
             """
             QApplication.instance().setStyleSheet(style)
+    
+    def readversionnumber(self):
+        """
+        @brief: Read the version number from the version.txt file.
+        """
+        version_file_path = readVersionNumber() #read the version number from the version.txt file
+        if version_file_path == "Unknown Version":
+            QMessageBox.warning(
+            self,
+            "Invalid Input",
+            f"Could not find version file at {version_file_path}"
+            )
+        else:
+            return version_file_path
+
+    def about_menue_action(self):
+        """
+        @brief Show an "About" dialog with program information.
+        """
+        about_text = (
+            "<h2>DM Assistant Installer</h2>"
+            f"<p>Version: {self.version}</p>"
+            "<p>Developed by: GS-A1</p>"
+            "<p>git repository: https://github.com/GS-A1/DM-Program</p>"
+            "<p>This application is designed to install DM Assistant "
+        )
+        QMessageBox.about(self, "About DM Assistant Installer", about_text)
         
 #**************************Events**********************************************
     def closeEvent(self, event):
@@ -273,7 +311,7 @@ class MainWindow(QMainWindow):
 #**************************Public Functions***************************************
 def downloadAndExtractSettingsFolder(installPath = "", folderName = ""):
     """
-    @breif Download the settigns folder to temp and extract a folder from it to the install path
+    @breif Download the Settings folder to temp and extract a folder from it to the install path
     @param installPath The path to install the extracted folder to
     """
     gitHubDownload = GitHubDownloader()
@@ -281,7 +319,7 @@ def downloadAndExtractSettingsFolder(installPath = "", folderName = ""):
     succ = True #set to true incase we dont need to download it
     #if the files dont already exist in the temp folder, download the settings zip
     if not os.path.exists(os.path.join(download_path, "Settings.zip")):
-        succ = gitHubDownload.git_download_file(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
+        succ = gitHubDownload.git_download_file_qt(file="last_build/Settings.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
     if not succ:
         #self.log_output("Failed to download Settings.zip.")
         return False
@@ -295,13 +333,45 @@ def downloadAndExtractSettingsFolder(installPath = "", folderName = ""):
     try:
         if os.path.exists(dest_char_folder):
             reply = QMessageBox.question(None, "Confirm Installation", f"A {folderName} folder already exists. Do you wish to overide it? All files with matching names in the folder will be replaced", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-            if reply == QMessageBox.StandardButton.Yes:
-                # Remove only the executable and internal folder to preserve user data
-                shutil.rmtree(dest_char_folder)  # Remove existing characters folder
-                shutil.move(source_char_folder, dest_char_folder)
-            else:
-                #self.log_output("Failed to install Character files: Installation cancelled.")
-                return False
+            if reply != QMessageBox.StandardButton.Yes:
+                return False    #they cancelled the overwrite, so return false
+
+            #remove the exisiting files with the same names
+            # Walk through every directory under source_char_folder (recursively)
+            # root  = the current folder path being visited
+            # dirs  = a list of subfolder names inside root (you can modify this list to control traversal)
+            # files = a list of file names inside root
+            for root, dirs, files in os.walk(source_char_folder):
+
+                # Compute the path of the current folder (root) *relative* to the source base folder.
+                rel_root = os.path.relpath(root, source_char_folder)
+
+                # Decide the destination folder that corresponds to this source folder:
+                # - If rel_root == ".", we are at the top of the source folder, so target_root is dest_char_folder
+                # - Otherwise, we append the relative subfolder path so the structure is preserved
+                #   Example: rel_root = "SubA" -> target_root = "<dest_char_folder>/SubA"
+                target_root = dest_char_folder if rel_root == "." else os.path.join(dest_char_folder, rel_root)
+
+                # Ensure the destination folder for this level exists.
+                # exist_ok=True prevents an error if the folder already exists.
+                os.makedirs(target_root, exist_ok=True)
+
+                # Loop over every file name found in the current source folder (root)
+                for filename in files:
+
+                    # Build the full path to the source file:
+                    # Example: src_file = "<root>/<filename>"
+                    src_file = os.path.join(root, filename)
+
+                    # Build the full path to the destination file:
+                    # Example: dst_file = "<target_root>/<filename>"
+                    dst_file = os.path.join(target_root, filename)
+
+                    # Copy the file from source to destination:
+                    # - Overwrites dst_file if it already exists (this is the default behavior)
+                    # - copy2() also attempts to preserve metadata (modified time, permissions, etc.)
+                    shutil.copy2(src_file, dst_file)
+        
         else:
             shutil.move(source_char_folder, dest_char_folder)
         #self.log_output("Character files installed successfully.")
@@ -311,10 +381,14 @@ def downloadAndExtractSettingsFolder(installPath = "", folderName = ""):
         return False
 
 def downloadAndInstallProgram(installPath = ""):
+    """
+    @brief Download the program from GitHub and install it to the specified path.
+    @param installPath The path to install the program to.
+    """
     gitHubDownload = GitHubDownloader()
     download_path = os.path.join(tempfile.gettempdir(), "DM-Program")
     
-    succ = gitHubDownload.git_download_file(file="last_build/DM_Assistant.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
+    succ = gitHubDownload.git_download_file_qt(file="last_build/DM_Assistant.zip", outputPath=download_path) #store in the system temp folder (C:\Users\YourUser\AppData\Local\Temp\DM-Program)
     if not succ:
         #self.log_output("Failed to download program. Installation aborted.")
         return False
@@ -350,7 +424,7 @@ def downloadAndInstallProgram(installPath = ""):
     os.remove(output_zip_path)  #remove the .zip file after extraction
     return True
 
-def remove_from_directory(self, directory, items_to_remove):
+def remove_from_directory(directory, items_to_remove):
     """
     @brief Remove only specific files and folders from a directory.
     @param directory The directory to clean.

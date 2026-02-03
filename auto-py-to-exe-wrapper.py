@@ -65,6 +65,7 @@ def main():
         "--windowed",
         "--icon",
         "exe_generation/dnd_dm_installer_icon.ico",
+        "--add-data", r"Settings\version.txt;Settings",
         "--distpath",
         "installer",
         "installer.py"
